@@ -1,11 +1,18 @@
 import React from 'react';
 import {
     Route,
-    Redirect
+    Redirect, 
   } from "react-router-dom";
-  
-  
-const PrivateRoute = ({ component: Component, authenticated, ...rest }) => (
+    
+interface stateType {
+    path: string; 
+    authenticated: boolean;
+    currentUser: any;
+    component: any;
+}
+
+const PrivateRoute: React.FC<stateType> = ({ component: Component, authenticated, ...rest }) => {
+  return (
     <Route
       {...rest}
       render={props =>
@@ -21,6 +28,7 @@ const PrivateRoute = ({ component: Component, authenticated, ...rest }) => (
         )
       }
     />
-);
+  )  
+};
   
 export default PrivateRoute;

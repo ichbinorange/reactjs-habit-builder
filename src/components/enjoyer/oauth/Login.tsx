@@ -1,15 +1,15 @@
 import React from 'react';
 import './Login.css';
-import { Link, Redirect, useLocation } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import SocialLogin from './SocialLogin';
 // import Alert from 'react-s-alert';
 
 interface stateType {
     authenticated: boolean;
-    from: { pathname: string };
+    location: object;
  }
 
-const Login: React.FC<{ content: string }> = (props) => {
+const Login: React.FC<stateType> = (props) => {
     // componentDidMount() {
     //     // If the OAuth2 login encounters an error, the user is redirected to the /login page with an error.
     //     // Here we display the error and then remove the error query parameter from the location.

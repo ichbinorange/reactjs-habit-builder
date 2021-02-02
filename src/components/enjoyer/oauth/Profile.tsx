@@ -1,7 +1,11 @@
 import React from 'react';
 import './Profile.css';
 
-const Profile: React.FC<{ content: string }> = (props) => {
+interface stateType {
+    currentUser: any;
+}
+
+const Profile: React.FC<stateType> = (props) => {
  
     return (
         <div className="profile-container">

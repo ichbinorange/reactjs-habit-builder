@@ -6,10 +6,10 @@ import SocialSignup from './SocialSignup';
 
 interface stateType {
     authenticated: boolean;
-    from: { pathname: string };
+    location: object;
 }
 
-const Signup: React.FC<{ content: string }> = (props) => {
+const Signup: React.FC<stateType> = (props) => {
     return (
         <div className="signup-container">
             { props.authenticated ? <Redirect
