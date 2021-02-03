@@ -32,29 +32,33 @@ const App: React.FC = (props) => {
     // Alert.success("You're safely logged out!");
   }
 
-  useEffect(() => {
+  const loadCurrentlyLoggedInUser = () => {
     setLoading(true)
     getCurrentUser()
-    .then(response => {
-      setCurrentUser(response);
-      setAuthenticated(true);
-      setLoading(false);
-    }).catch(error => {
-      setLoading(false);
-    });    
+      .then(response => {
+        setCurrentUser(response);
+        setAuthenticated(true);
+        setLoading(false);
+      }).catch(error => {
+        setLoading(false);
+      });    
+  }
+
+  useEffect(() => {
+    loadCurrentlyLoggedInUser();
   }, []);
 
   return (
     <Router>
+      {loading ? <LoadingIndicator /> : null }
       <div className="app">
-        {loading ? <LoadingIndicator /> : null }
         <div className="app-top-box">
           <AppHeader authenticated={ authenticated } 
-                    onLogout={ onLogout } />
+                     onLogout={ onLogout } />
         </div>
         <div className="app-body">
           <Switch>
-            <Route exact path="/" component = { Home }></Route>           
+            {/* <Route exact path="/" component = { Home }></Route>            */}
             <PrivateRoute path="/profile" 
                           authenticated={ authenticated } 
                           currentUser={ currentUser }
@@ -66,6 +70,8 @@ const App: React.FC = (props) => {
               render={ (props) => <Signup authenticated={ authenticated } {...props} /> }></Route>
             <Route path="/oauth2/redirect" 
                     component={ OAuth2RedirectHandler }></Route>  
+            <Route path="/habits"></Route>
+            <Route path="/habitTrackers"></Route>
             <Route component={ NotFound }></Route>
           </Switch>
         </div>

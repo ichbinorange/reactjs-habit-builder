@@ -20,7 +20,7 @@ const Home: React.FC = () => {
                         <div className="graf-circle"></div>
                     </div>
                 </div>
-                <h1 className="home-title">Spring Boot React OAuth2 Social Login TEST</h1>
+                <h1 className="home-title">Spring Boot React OAuth2 Social Login for Habit Buddy</h1>
             </div>
         </div>
     );

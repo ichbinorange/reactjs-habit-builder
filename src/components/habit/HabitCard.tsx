@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Habit: React.FC<{ content: string }> = (props) => {
+const HabitCard: React.FC<{ content: string }> = (props) => {
   console.log(props)
   return (
     <div>
@@ -9,4 +9,4 @@ const Habit: React.FC<{ content: string }> = (props) => {
   );
 }
 
-export default Habit;
+export default HabitCard;

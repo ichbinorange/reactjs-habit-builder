@@ -18,7 +18,7 @@ const Signup: React.FC<stateType> = (props) => {
                 state: { from: props.location }
             }}/> : null } 
             <div className="signup-content">
-                <h1 className="signup-title">Signup with SpringSocial</h1>
+                <h1 className="signup-title">Signup with Habit Buddy</h1>
                 <SocialSignup />
                 <div className="or-separator">
                     <span className="or-text">OR</span>
