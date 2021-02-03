@@ -45,3 +45,8 @@
 .app-nav ul li a.active {
     color: #0f96f6;
 }
+
+.thumbnail:hover {
+    background-color: red;
+    opacity: 0.5;
+    }

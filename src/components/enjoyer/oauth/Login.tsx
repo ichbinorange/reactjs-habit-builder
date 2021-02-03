@@ -37,7 +37,7 @@ const Login: React.FC<stateType> = (props) => {
     return (
         <div className="login-container">
             <div className="login-content">
-                <h1 className="login-title">Login to SpringSocial</h1>
+                <h1 className="login-title">Login to Habit Buddy</h1>
                 <SocialLogin />
                 <div className="or-separator">
                     <span className="or-text">OR</span>
