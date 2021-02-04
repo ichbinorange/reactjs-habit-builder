@@ -21,8 +21,13 @@ const NewHabitForm: React.FC<stateType> = (props) => {
     streak: ''
   });
 
-  // event handlers
+  // event handlers for input
   const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (event)=> {
+    setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
+  }
+
+  // event handlers for select
+  const onSelectChange: React.ChangeEventHandler<HTMLSelectElement> = (event)=> {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
   }
 
@@ -39,43 +44,40 @@ const NewHabitForm: React.FC<stateType> = (props) => {
   }
 
   return (
-    <form
-      className="new-card-form"
-      onSubmit={onFormSubmit}
-    >
+    <form onSubmit={onFormSubmit} className="justify-content-center">
       <h2 className="new-card-form__header">Add a New Habit</h2>
-      <div className="new-card-form__form">
-        <label className="new-card-form__form-label">Title:</label>
+      <div className="form-group">
+        <label className="exampleInputEmail1">Title:</label>
         <input id="title"
                 name="title"
                 onChange={onInputChange}
                 value={formFields.title}
-                className="new-card-form__form-textarea" 
+                className="form-control w-50" 
                 placeholder="title"
                 type="text"
                 />
-        <label className="new-card-form__form-label">Goal:</label>
+        <label className="exampleInputEmail1">Goal:</label>
         <input id="goal"
                 name="goal"
                 onChange={onInputChange}
                 value={formFields.goal}
-                className="new-card-form__form-textarea" 
+                className="form-control w-50" 
                 placeholder="goal"
                 type="text"
                 />
-        <label className="new-card-form__form-label">Description:</label>
+        <label className="exampleInputEmail1">Description:</label>
         <input id="description"
                 name="description"
                 onChange={onInputChange}
                 value={formFields.description}
-                className="new-card-form__form-textarea" 
+                className="form-control w-50" 
                 placeholder="description"
                 type="text"
                 />
-        <label className="new-card-form__form-label">Streak:</label>
-        <select className="new-card-form__form-select"
+        <label className="exampleFormControlSelect1">Streak:</label>
+        <select className="form-control w-50"
                 name="streak"
-                onChange={s => onInputChange} 
+                onChange={onSelectChange} 
                 >
           {
             STREAK_LIST.map((s, i) => (
@@ -86,11 +88,10 @@ const NewHabitForm: React.FC<stateType> = (props) => {
           }
         </select>
 
-        <input
+        <button
           type="submit"
-          value="Add Habit"
-          className="new-card-form__form-button"
-        />
+          className="btn btn-primary"
+        >Add Habit</button>
       </div>
     </form>
   )
