@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const HabitCard: React.FC<{ content: string }> = (props) => {
+const HabitCard: React.FC = (props) => {
   console.log(props)
   return (
     <div>

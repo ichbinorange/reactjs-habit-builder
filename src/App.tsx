@@ -58,7 +58,7 @@ const App: React.FC = (props) => {
         </div>
         <div className="app-body">
           <Switch>
-            {/* <Route exact path="/" component = { Home }></Route>            */}
+            <Route exact path="/" component = { Home }></Route>           
             <PrivateRoute path="/profile" 
                           authenticated={ authenticated } 
                           currentUser={ currentUser }

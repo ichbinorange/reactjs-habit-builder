@@ -51,18 +51,24 @@ export function getHabits() {
     });
 }
 
-// export function login(loginRequest) {
-//     return request({
-//         url: API_BASE_URL + "/auth/login",
-//         method: 'POST',
-//         body: JSON.stringify(loginRequest)
-//     });
-// }
+export function getHabit() {
+    if(!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject("No access token set.");
+    }
 
-// export function signup(signupRequest) {
-//     return request({
-//         url: API_BASE_URL + "/auth/signup",
-//         method: 'POST',
-//         body: JSON.stringify(signupRequest)
-//     });
-// }
+    return request({
+        url: API_BASE_URL + "/habit/",
+        method: 'GET',
+    });
+}
+
+export function postHabit() {
+    if(!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject("No access token set.");
+    }
+
+    return request({
+        url: API_BASE_URL + "/habit",
+        method: 'POST',
+    });
+}
