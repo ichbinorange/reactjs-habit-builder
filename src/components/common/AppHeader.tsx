@@ -19,7 +19,7 @@ const AppHeader: React.FC<stateType> = (props) => {
                         { props.authenticated ? (
                             <ul>
                                 <li>
-                                    <NavLink to="/Habit">Habit</NavLink>        
+                                    <NavLink to="/habit">Habit</NavLink>        
                                 </li>
                                 <li>
                                     <NavLink to="/profile">Profile</NavLink>

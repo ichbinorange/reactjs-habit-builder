@@ -51,24 +51,24 @@ export function getHabits() {
     });
 }
 
-export function getHabit() {
-    if(!localStorage.getItem(ACCESS_TOKEN)) {
-        return Promise.reject("No access token set.");
-    }
+// export function getHabit() {
+//     if(!localStorage.getItem(ACCESS_TOKEN)) {
+//         return Promise.reject("No access token set.");
+//     }
 
-    return request({
-        url: API_BASE_URL + "/habit/",
-        method: 'GET',
-    });
-}
+//     return request({
+//         url: API_BASE_URL + "/habit/",
+//         method: 'GET',
+//     });
+// }
 
-export function postHabit() {
-    if(!localStorage.getItem(ACCESS_TOKEN)) {
-        return Promise.reject("No access token set.");
-    }
+// export function postHabit() {
+//     if(!localStorage.getItem(ACCESS_TOKEN)) {
+//         return Promise.reject("No access token set.");
+//     }
 
-    return request({
-        url: API_BASE_URL + "/habit",
-        method: 'POST',
-    });
-}
+//     return request({
+//         url: API_BASE_URL + "/habit",
+//         method: 'POST',
+//     });
+// }

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Profile.css';
 
-interface stateType {
+type stateType = {
     currentUser: any;
 }
 

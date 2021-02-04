@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom'
 import SocialSignup from './SocialSignup';
 // import Alert from 'react-s-alert';
 
-interface stateType {
+type stateType = {
     authenticated: boolean;
     location: object;
 }
