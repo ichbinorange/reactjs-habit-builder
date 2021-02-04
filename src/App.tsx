@@ -37,14 +37,12 @@ const App: React.FC = (props) => {
     setLoading(true)
     getCurrentUser()
       .then(response => {
-        console.log(response) 
         setCurrentUser(response);
         setAuthenticated(true);
         setLoading(false);
       }).catch(error => {
         setLoading(false);
       });   
-      console.log(currentUser) 
   }
 
   useEffect(() => {

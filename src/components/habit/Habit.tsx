@@ -27,11 +27,9 @@ const Habit: React.FC<stateType> = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, []);
+  }, [habitList]);
   
   const addHabit = (habit: any) => {
-    console.log(props.currentUser)
-    console.log(API_BASE_URL)
     axios.post(`${API_BASE_URL}/enjoyer/${props.currentUser.id}/habit`, habit, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
         const updatedHabit = [...habitList, response.data];
