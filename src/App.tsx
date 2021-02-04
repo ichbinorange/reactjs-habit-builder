@@ -17,6 +17,7 @@ import Login from './components/enjoyer/oauth/Login';
 import Signup from './components/enjoyer/oauth/Signup';
 import Profile from './components/enjoyer/oauth/Profile';
 import OAuth2RedirectHandler from './components/enjoyer/oauth/OAuth2RedirectHandler';
+import Habit from './components/habit/Habit';
 import './App.css';
 
 const App: React.FC = (props) => {
@@ -36,12 +37,14 @@ const App: React.FC = (props) => {
     setLoading(true)
     getCurrentUser()
       .then(response => {
+        console.log(response) 
         setCurrentUser(response);
         setAuthenticated(true);
         setLoading(false);
       }).catch(error => {
         setLoading(false);
-      });    
+      });   
+      console.log(currentUser) 
   }
 
   useEffect(() => {
@@ -58,20 +61,28 @@ const App: React.FC = (props) => {
         </div>
         <div className="app-body">
           <Switch>
-            {/* <Route exact path="/" component = { Home }></Route>            */}
+            <Route exact path="/" component = { Home }></Route>           
             <PrivateRoute path="/profile" 
                           authenticated={ authenticated } 
                           currentUser={ currentUser }
                           component={ Profile }>
             </PrivateRoute>
+            <PrivateRoute path="/habit"
+                          authenticated={ authenticated } 
+                          component={ Habit }
+                          currentUser={ currentUser }>
+            </PrivateRoute>
+            {/* <PrivateRoute path="/habitTracker"
+                          authenticated={ authenticated } 
+                          component={ HabitTracker }
+                          currentUser={ currentUser }>            
+            </PrivateRoute> */}
             <Route path="/login"
               render={ (props) => <Login authenticated={ authenticated } {...props} /> }></Route>
             <Route path="/signup"
               render={ (props) => <Signup authenticated={ authenticated } {...props} /> }></Route>
             <Route path="/oauth2/redirect" 
                     component={ OAuth2RedirectHandler }></Route>  
-            <Route path="/habits"></Route>
-            <Route path="/habitTrackers"></Route>
             <Route component={ NotFound }></Route>
           </Switch>
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { ACCESS_TOKEN } from '../../util/BaseUrl';
 import { Redirect } from 'react-router-dom'
 
-interface stateType {
+type stateType = {
     authenticated: boolean;
     location: any;
 }
