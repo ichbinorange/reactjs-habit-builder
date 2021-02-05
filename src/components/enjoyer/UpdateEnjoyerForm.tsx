@@ -71,7 +71,7 @@ const UpdateEnjoyerForm: React.FC<stateType> = (props) => {
                 />
         <button
             type="submit"
-            className="btn btn-primary m-3"
+            className="btn btn-outline-success mt-3"
         >Save</button>
         </div>
     </form>
