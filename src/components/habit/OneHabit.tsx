@@ -40,7 +40,7 @@ const OneHabit: React.FC<stateType> = (props) => {
                                     habitBuilt={props.habitBuilt}
                                     updateHabitCallback={updateHabit}/> : (
         <div>
-          <span className="badge badge-pill badge-success">{props.habitBuilt ? "It's part of My Lift": " "}</span>
+          <span className="badge badge-pill badge-success">{props.habitBuilt ? "It's part of My Lift": ""}</span>
           <h5 className="card-title">Title: {props.title}</h5>
           <h6 className="card-text">Goal: {props.goal}</h6>
           <p className="card-text">Streak: {props.streak}</p>
