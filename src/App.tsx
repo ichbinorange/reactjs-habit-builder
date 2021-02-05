@@ -18,6 +18,8 @@ import Signup from './components/enjoyer/oauth/Signup';
 import Profile from './components/enjoyer/oauth/Profile';
 import OAuth2RedirectHandler from './components/enjoyer/oauth/OAuth2RedirectHandler';
 import Habit from './components/habit/Habit';
+import HabitTracker from './components/habitTracker/HabitTracker';
+import Friendship from './components/friendship/Friendship';
 import './App.css';
 
 const App: React.FC = (props) => {
@@ -70,11 +72,16 @@ const App: React.FC = (props) => {
                           component={ Habit }
                           currentUser={ currentUser }>
             </PrivateRoute>
-            {/* <PrivateRoute path="/habitTracker"
+            <PrivateRoute path="/habitTracker"
                           authenticated={ authenticated } 
                           component={ HabitTracker }
                           currentUser={ currentUser }>            
-            </PrivateRoute> */}
+            </PrivateRoute>
+            <PrivateRoute path="/friendship"
+                          authenticated={ authenticated } 
+                          component={ Friendship }
+                          currentUser={ currentUser }>            
+            </PrivateRoute>
             <Route path="/login"
               render={ (props) => <Login authenticated={ authenticated } {...props} /> }></Route>
             <Route path="/signup"
