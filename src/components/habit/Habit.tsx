@@ -65,6 +65,7 @@ const Habit: React.FC<stateType> = (props) => {
         goal={habit.goal}
         description={habit.description}
         streak={habit.streak}
+        habitBuilt={habit.habitBuilt}
         deleteHabitCallback={deleteHabit}
       />
     )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../util/BaseUrl';
 import UpdateHabitForm from './UpdateHabitForm';
@@ -10,6 +10,7 @@ type stateType = {
     goal: string;
     description: string;
     streak: string;
+    habitBuilt: boolean;
     deleteHabitCallback: {(habit_id: number): void;};
 }
 
@@ -36,8 +37,10 @@ const OneHabit: React.FC<stateType> = (props) => {
                                     goal={props.goal}
                                     description={props.description}
                                     streak={props.streak}
+                                    habitBuilt={props.habitBuilt}
                                     updateHabitCallback={updateHabit}/> : (
         <div>
+          <span className="badge badge-pill badge-success">{props.habitBuilt ? "It's part of My Lift": " "}</span>
           <h5 className="card-title">Title: {props.title}</h5>
           <h6 className="card-text">Goal: {props.goal}</h6>
           <p className="card-text">Streak: {props.streak}</p>

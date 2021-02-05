@@ -6,6 +6,7 @@ type stateType = {
   goal: string;
   description: string;
   streak: string;
+  habitBuilt: boolean;
   updateHabitCallback: {(habit: object): void;};
 }
 
@@ -14,6 +15,7 @@ type form = {
   goal: string;
   description: string;
   streak: string;
+  habitBuilt: boolean;
 }
 
 const STREAK_LIST: Array<string> = ["daily", "weekly", "monthly", "yearly"]
@@ -23,7 +25,8 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
     title: props.title,
     goal: props.goal,
     description: props.description,
-    streak: props.streak
+    streak: props.streak,
+    habitBuilt: props.habitBuilt
   });
 
   // event handlers for input
@@ -36,6 +39,11 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
   }
 
+  // event handlers for checkbox
+  const onCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {  
+    setFormFields({...formFields, habitBuilt: event.target.checked});
+  };
+
   const onFormSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     props.updateHabitCallback(formFields);
@@ -44,7 +52,8 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
       title: '',
       goal: '',
       description: '',
-      streak: ''
+      streak: '',
+      habitBuilt: false,
     })
   }
 
@@ -52,6 +61,14 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
     <form onSubmit={onFormSubmit} className="justify-content-center">
       <h2 className="new-card-form__header">Update Habit# {props.id}</h2>
       <div className="form-group">
+        <input id="toggleSwitch" 
+                name="toggleSwitch" 
+                onChange={onCheckboxChange}
+                value="false"
+                className="toggle-switch-checkbox" 
+                type="checkbox" />
+        <label className="toggle-switch-label" htmlFor="toggleSwitch">It's part of my life Now!</label>
+        <p></p>
         <label className="exampleInputEmail1">Title:</label>
         <input id="title"
                 name="title"
