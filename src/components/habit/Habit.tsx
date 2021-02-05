@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_BASE_URL, ACCESS_TOKEN } from '../util/BaseUrl';
-import { getHabits } from '../util/ApiUtils';
-// import { postHabit } from '../util/ApiUtils';
+import { API_BASE_URL } from '../util/BaseUrl';
 import NewHabitForm from './NewHabitForm';
 import OneHabit from './OneHabit';
 

@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
 
 type stateType = {
-  addHabitCallback: {(habit: object): void;};
+  id: number;
+  title: string;
+  goal: string;
+  description: string;
+  streak: string;
+  updateHabitCallback: {(habit: object): void;};
 }
 
 type form = {
-  title: string,
-  goal: string,
-  description: string,
-  streak: string,
+  title: string;
+  goal: string;
+  description: string;
+  streak: string;
 }
 
 const STREAK_LIST: Array<string> = ["daily", "weekly", "monthly", "yearly"]
 
-const NewHabitForm: React.FC<stateType> = (props) => {
+const UpdateHabitForm: React.FC<stateType> = (props) => {
   const [formFields, setFormFields] = useState<form>({
-    title: '',
-    goal: '',
-    description: '',
-    streak: ''
+    title: props.title,
+    goal: props.goal,
+    description: props.description,
+    streak: props.streak
   });
 
   // event handlers for input
@@ -33,7 +38,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
 
   const onFormSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    props.addHabitCallback(formFields);
+    props.updateHabitCallback(formFields);
 
     setFormFields({
       title: '',
@@ -45,7 +50,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
 
   return (
     <form onSubmit={onFormSubmit} className="justify-content-center">
-      <h2 className="new-card-form__header">Add a New Habit</h2>
+      <h2 className="new-card-form__header">Update Habit# {props.id}</h2>
       <div className="form-group">
         <label className="exampleInputEmail1">Title:</label>
         <input id="title"
@@ -53,7 +58,6 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 onChange={onInputChange}
                 value={formFields.title}
                 className="form-control w-50" 
-                placeholder="title"
                 type="text"
                 />
         <label className="exampleInputEmail1">Goal:</label>
@@ -62,7 +66,6 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 onChange={onInputChange}
                 value={formFields.goal}
                 className="form-control w-50" 
-                placeholder="goal"
                 type="text"
                 />
         <label className="exampleInputEmail1">Description:</label>
@@ -71,12 +74,10 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 onChange={onInputChange}
                 value={formFields.description}
                 className="form-control w-50" 
-                placeholder="description"
                 type="text"
                 />
         <label className="exampleFormControlSelect1">Streak:</label>
         <select className="form-control w-50"
-                defaultValue="yearly"
                 name="streak"
                 onChange={onSelectChange} 
                 >
@@ -92,10 +93,10 @@ const NewHabitForm: React.FC<stateType> = (props) => {
         <button
           type="submit"
           className="btn btn-outline-success mt-3"
-        >Add Habit</button>
+        >Save</button>
       </div>
     </form>
   )
 }
 
-export default NewHabitForm;
+export default UpdateHabitForm;
