@@ -15,7 +15,7 @@ const AppHeader: React.FC<stateType> = (props) => {
                     <nav className="app-nav fixed-top navbar-light bg-light">
                         <Link to="/" className="navbar-brand navbar-nav mr-auto text-center"><h1 className="display-3">Habit Buddy</h1></Link>
                         { props.authenticated ? (
-                            <ul>
+                            <ul className="nav justify-content-end">
                                 <li>
                                     <NavLink to="/habit">Habit</NavLink>        
                                 </li>
@@ -27,13 +27,13 @@ const AppHeader: React.FC<stateType> = (props) => {
                                 </li>
                                 <li>
                                     <NavLink to="/profile">Profile</NavLink>
-                                   </li>
+                                </li>
                                 <li>
                                     <a className="thumbnail" onClick={ props.onLogout }>Logout</a>
                                 </li>
                             </ul>
                         ): (
-                            <ul>
+                            <ul className="nav justify-content-end">
                                 <li>
                                     <NavLink to="/login">Login</NavLink>        
                                 </li>

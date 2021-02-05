@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom'
+
 import axios from 'axios';
 import { API_BASE_URL } from '../../util/BaseUrl';
 import UpdateEnjoyerForm from '../UpdateEnjoyerForm';
@@ -6,15 +8,16 @@ import './Profile.css';
 
 type stateType = {
     currentUser: any;
+    location: any;
 }
 
 const Profile: React.FC<stateType> = (props) => {
     const [update, setUpdate] = useState<boolean>(false);
+    const [delEnjoyer, setDelEnjoyer] = useState<boolean>(false);
     const [enjoyerInfo, setEnjoyerInfo] = useState({...props.currentUser})
     const [errorMessage, setErrorMessage] = useState<String>('');
 
     useEffect(() => {
-        console.log(update)
         axios.get(`${API_BASE_URL}/enjoyer/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
             .then((response) => {
             const apiEnjoyerInfo = response.data;
@@ -23,7 +26,7 @@ const Profile: React.FC<stateType> = (props) => {
             .catch((error) => {
             setErrorMessage(error.message);
             });
-      }, [update]);  
+      }, []); // enjoyerInfo to save server's workload
 
     const updateEnjoyer = (enjoyer: any) => {
         setUpdate(false);
@@ -40,6 +43,7 @@ const Profile: React.FC<stateType> = (props) => {
     }
     
     const deleteEnjoyer = (enjoyer_id: number) => {
+        setDelEnjoyer(!delEnjoyer)
         axios.delete(`${API_BASE_URL}/enjoyer/${enjoyer_id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
         .then((response) => {
             setErrorMessage(`Enjoyer ${ enjoyer_id } deleted`);
@@ -49,6 +53,15 @@ const Profile: React.FC<stateType> = (props) => {
         })
     }
 
+    if(delEnjoyer) {
+        return <Redirect to={{
+            pathname: "/login",
+            state: { 
+                from: props.location,
+                error: { from: props.location }
+            }
+        }}/>;            
+    }
     return (
         <div className="profile-container">
             <div className="container">
