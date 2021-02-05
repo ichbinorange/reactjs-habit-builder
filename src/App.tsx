@@ -59,7 +59,7 @@ const App: React.FC = (props) => {
           <AppHeader authenticated={ authenticated } 
                      onLogout={ onLogout } />
         </div>
-        <div className="app-body">
+        <div className="container">
           <Switch>
             <Route exact path="/" component = { Home }></Route>           
             <PrivateRoute path="/profile" 

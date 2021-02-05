@@ -41,14 +41,14 @@ const UpdateEnjoyerForm: React.FC<stateType> = (props) => {
 
     return (
     <form onSubmit={onFormSubmit} className="justify-content-center">
-        <h2 className="new-card-form__header">Update Your Informatoin</h2>
+        <h2 className="new-card-form__header mt-3">Update Your Informatoin</h2>
         <div className="form-group">
         <label className="exampleInputEmail1">Name:</label>
         <input id="name"
                 name="name"
                 onChange={onInputChange}
                 value={formFields.name}
-                className="form-control w-50" 
+                className="form-control" 
                 placeholder={props.currentUser.name ? props.currentUser.name : "Your display name..."}
                 type="text"
                 />
@@ -57,7 +57,7 @@ const UpdateEnjoyerForm: React.FC<stateType> = (props) => {
                 name="imageUrl"
                 onChange={onInputChange}
                 value={formFields.imageUrl}
-                className="form-control w-50" 
+                className="form-control" 
                 placeholder={props.currentUser.imageUrl ? props.currentUser.imageUrl : "Your display image..."}
                 type="text"
                 />
@@ -66,7 +66,7 @@ const UpdateEnjoyerForm: React.FC<stateType> = (props) => {
                 name="about"
                 onChange={onTextareaChange}
                 value={formFields.about}
-                className="form-control w-50" 
+                className="form-control" 
                 placeholder={props.currentUser.about ? props.currentUser.about : "Something about you..."}
                 />
         <button

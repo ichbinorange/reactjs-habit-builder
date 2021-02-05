@@ -34,6 +34,11 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
   }
 
+  // event handlers for textarea
+  const onTextareaChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event)=> {
+    setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
+  }
+
   // event handlers for select
   const onSelectChange: React.ChangeEventHandler<HTMLSelectElement> = (event)=> {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
@@ -53,7 +58,7 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
       goal: '',
       description: '',
       streak: '',
-      habitBuilt: false,
+      habitBuilt: props.habitBuilt,
     })
   }
 
@@ -64,17 +69,17 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
         <input id="toggleSwitch" 
                 name="toggleSwitch" 
                 onChange={onCheckboxChange}
-                value="false"
+                defaultChecked={formFields.habitBuilt}
                 className="toggle-switch-checkbox" 
                 type="checkbox" />
         <label className="toggle-switch-label" htmlFor="toggleSwitch">It's part of my life Now!</label>
-        <p></p>
+        <br/>
         <label className="exampleInputEmail1">Title:</label>
         <input id="title"
                 name="title"
                 onChange={onInputChange}
                 value={formFields.title}
-                className="form-control w-50" 
+                className="form-control w-100" 
                 type="text"
                 />
         <label className="exampleInputEmail1">Goal:</label>
@@ -82,19 +87,19 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
                 name="goal"
                 onChange={onInputChange}
                 value={formFields.goal}
-                className="form-control w-50" 
+                className="form-control w-100" 
                 type="text"
                 />
         <label className="exampleInputEmail1">Description:</label>
-        <input id="description"
+        <textarea id="description"
                 name="description"
-                onChange={onInputChange}
+                onChange={onTextareaChange}
                 value={formFields.description}
-                className="form-control w-50" 
-                type="text"
+                className="form-control w-100" 
+                placeholder="description"
                 />
         <label className="exampleFormControlSelect1">Streak:</label>
-        <select className="form-control w-50"
+        <select className="form-control w-100"
                 name="streak"
                 onChange={onSelectChange} 
                 >

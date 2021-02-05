@@ -73,7 +73,7 @@ const Habit: React.FC<stateType> = (props) => {
 
   return (
     <div>
-      <h1>habits</h1>
+      <h1>Your Habits</h1>
       <NewHabitForm addHabitCallback={addHabit}/>
       <div className="validation-errors-display">
         <h2 className="validation-errors-display__list">

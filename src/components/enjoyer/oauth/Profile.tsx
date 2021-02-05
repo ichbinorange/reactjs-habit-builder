@@ -65,8 +65,8 @@ const Profile: React.FC<stateType> = (props) => {
     return (
         <div className="profile-container">
             <div className="container">
-                <div className="profile-info">
-                    <div className="profile-avatar">
+                <div className="row profile-info">
+                    <div className="profile-avatar col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
                         <div className={props.currentUser.imageUrl ? "" : "text-avatar"}>
                             { enjoyerInfo.imageUrl ? (
                                 <img src={ enjoyerInfo.imageUrl } alt={ enjoyerInfo.name }/>

@@ -18,6 +18,9 @@ const OneHabit: React.FC<stateType> = (props) => {
   const [update, setUpdate] = useState<Boolean>(false);
   const [errorMessage, setErrorMessage] = useState<String>('');
 
+  useEffect(() => {
+  }, [update]);
+
   const updateHabit = (habitobj: any) => {
     axios.put(`${API_BASE_URL}/habit/${props.id}`, {...habitobj, id: props.id}, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {

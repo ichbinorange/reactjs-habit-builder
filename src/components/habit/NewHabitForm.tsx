@@ -31,6 +31,11 @@ const NewHabitForm: React.FC<stateType> = (props) => {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
   }
 
+  // event handlers for textarea
+  const onTextareaChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event)=> {
+    setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
+  }
+
   const onFormSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     props.addHabitCallback(formFields);
@@ -52,7 +57,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 name="title"
                 onChange={onInputChange}
                 value={formFields.title}
-                className="form-control w-50" 
+                className="form-control" 
                 placeholder="title"
                 type="text"
                 />
@@ -61,21 +66,20 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 name="goal"
                 onChange={onInputChange}
                 value={formFields.goal}
-                className="form-control w-50" 
+                className="form-control" 
                 placeholder="goal"
                 type="text"
                 />
         <label className="exampleInputEmail1">Description:</label>
-        <input id="description"
+        <textarea id="description"
                 name="description"
-                onChange={onInputChange}
+                onChange={onTextareaChange}
                 value={formFields.description}
-                className="form-control w-50" 
+                className="form-control" 
                 placeholder="description"
-                type="text"
                 />
         <label className="exampleFormControlSelect1">Streak:</label>
-        <select className="form-control w-50"
+        <select className="form-control"
                 defaultValue="yearly"
                 name="streak"
                 onChange={onSelectChange} 
