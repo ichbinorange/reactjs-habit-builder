@@ -11,15 +11,19 @@ const AppHeader: React.FC<stateType> = (props) => {
     return (
         <header className="app-header">
             <div className="container">
-                <div className="app-branding">
-                    <Link to="/" className="app-title">Habit Buddy</Link>
-                </div>
                 <div className="app-options">
-                    <nav className="app-nav">
+                    <nav className="app-nav fixed-top navbar-light bg-light">
+                        <Link to="/" className="navbar-brand navbar-nav mr-auto text-center"><h1 className="display-3">Habit Buddy</h1></Link>
                         { props.authenticated ? (
                             <ul>
                                 <li>
                                     <NavLink to="/habit">Habit</NavLink>        
+                                </li>
+                                <li>
+                                    <NavLink to="/habitTracker">Habit Tracker</NavLink>        
+                                </li>
+                                <li>
+                                    <NavLink to="/friendship">Friends</NavLink>        
                                 </li>
                                 <li>
                                     <NavLink to="/profile">Profile</NavLink>

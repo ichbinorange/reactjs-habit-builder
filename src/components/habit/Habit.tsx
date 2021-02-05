@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_BASE_URL, ACCESS_TOKEN } from '../util/BaseUrl';
-import { getHabits } from '../util/ApiUtils';
-// import { postHabit } from '../util/ApiUtils';
+import { API_BASE_URL } from '../util/BaseUrl';
 import NewHabitForm from './NewHabitForm';
 import OneHabit from './OneHabit';
 
@@ -15,7 +13,7 @@ const Habit: React.FC<stateType> = (props) => {
   const [errorMessage, setErrorMessage] = useState<String>('');
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/habits`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+    axios.get(`${API_BASE_URL}/habits/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
         const apiHabitList = response.data;
         if (apiHabitList.length !== 0) {
@@ -27,7 +25,7 @@ const Habit: React.FC<stateType> = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, [habitList]);
+  }, []); // [habitList] turn it off for mac less works to read data from server, should turn it on when final depoly
   
   const addHabit = (habit: any) => {
     axios.post(`${API_BASE_URL}/enjoyer/${props.currentUser.id}/habit`, habit, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
