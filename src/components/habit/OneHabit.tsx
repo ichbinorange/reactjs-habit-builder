@@ -13,6 +13,7 @@ type stateType = {
     streak: string;
     habitBuilt: boolean;
     deleteHabitCallback: {(habit_id: number): void;};
+    habitPage: boolean;
 }
 
 const OneHabit: React.FC<stateType> = (props) => {
@@ -51,24 +52,39 @@ const OneHabit: React.FC<stateType> = (props) => {
         <div>
           <div className={props.habitBuilt ? "d-flex justify-content-between": "d-flex justify-content-end"}>
             <span className="badge badge-pill badge-success mb-3">{props.habitBuilt ? "It's part of My Life": ""}</span>
-            <Link to={`habitTracker/habit/${props.id}`}>Read more</Link>
+            {props.habitPage ?
+              <Link to={`habitTracker/habit/${props.id}`} className="mb-2">View Record</Link> :
+              <Link to="/habit" className="mb-2">Read More</Link>
+            }
           </div>
-          <h5 className="card-title">Title: {props.title}</h5>
-          <h6 className="card-text">Goal: {props.goal}</h6>
-          <p className="card-text">Streak: {props.streak}</p>
-          <p className="card-text">{props.description}</p>
+            <div className="d-flex justify-content-between">
+              <h5 className="display-5">Title: {props.title}</h5>
+            </div>
+            <div>
+              <h6>Goal: {props.goal}</h6>
+              <p>Streak: {props.streak}
+              <br/>Start date:</p> {/* <p>{props.createdDate}</p> */}
+            </div>
+            {props.habitPage ?
+              <div>
+                <hr className="my-1"></hr>
+                <p>{props.description}</p>
+              </div> : null}
         </div>
         )}
-        <button
-          onClick={() => props.deleteHabitCallback(props.id)}
-          className="btn btn-outline-danger"
-          data-testid={props.id}>
-          Delete
-        </button>
-        {update ? null : <button
-            onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
-            className="btn btn-outline-info m-3"
-        >Edit</button>}
+        {props.habitPage ?
+          <div>
+            <button
+              onClick={() => props.deleteHabitCallback(props.id)}
+              className="btn btn-outline-danger"
+              data-testid={props.id}>
+              Delete
+            </button>
+            {update ? null : <button
+                onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
+                className="btn btn-outline-info m-3"
+            >Edit</button>}
+          </div> : null}
       </div>
     </div>
     )
