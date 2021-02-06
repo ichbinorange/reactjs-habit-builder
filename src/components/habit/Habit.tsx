@@ -72,16 +72,21 @@ const Habit: React.FC<stateType> = (props) => {
   })
 
   return (
-    <div>
-      <h1>Your Habits</h1>
-      <NewHabitForm addHabitCallback={addHabit}/>
+    <div className="container">
+      <h1 className="mb-5 text-center">Your Habits</h1>
       <div className="validation-errors-display">
-        <h2 className="validation-errors-display__list">
-          {errorMessage}
-        </h2>
+        <h2 className="validation-errors-display__list">{errorMessage}</h2>
       </div>
-      <div className="habit">
-        {habitComponents}
+      <div className="row">
+        <div className="col-3">
+          <NewHabitForm addHabitCallback={addHabit}/>
+        </div>
+        <div className="col-6">
+          {habitComponents}
+        </div>
+        <div className="col-3">
+          <h3 className="text-center">Habit Messages</h3>
+        </div>
       </div>
     </div>
   );

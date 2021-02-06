@@ -49,8 +49,8 @@ const NewHabitForm: React.FC<stateType> = (props) => {
   }
 
   return (
-    <form onSubmit={onFormSubmit} className="justify-content-center">
-      <h2 className="new-card-form__header">Add a New Habit</h2>
+    <form onSubmit={onFormSubmit} className="text-center">
+      <h3 className="text-center">New Habit</h3>
       <div className="form-group">
         <label className="exampleInputEmail1">Title:</label>
         <input id="title"
@@ -61,7 +61,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 placeholder="title"
                 type="text"
                 />
-        <label className="exampleInputEmail1">Goal:</label>
+        <label className="exampleInputEmail1 m-2">Goal:</label>
         <input id="goal"
                 name="goal"
                 onChange={onInputChange}
@@ -70,7 +70,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 placeholder="goal"
                 type="text"
                 />
-        <label className="exampleInputEmail1">Description:</label>
+        <label className="exampleInputEmail1 m-2">Description:</label>
         <textarea id="description"
                 name="description"
                 onChange={onTextareaChange}
@@ -78,7 +78,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 className="form-control" 
                 placeholder="description"
                 />
-        <label className="exampleFormControlSelect1">Streak:</label>
+        <label className="exampleFormControlSelect1 m-2">Streak:</label>
         <select className="form-control"
                 defaultValue="yearly"
                 name="streak"
@@ -92,11 +92,12 @@ const NewHabitForm: React.FC<stateType> = (props) => {
             ))
           }
         </select>
-
-        <button
-          type="submit"
-          className="btn btn-outline-success mt-3"
-        >Add Habit</button>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="btn btn-outline-success mt-3"
+          >Add Habit</button>
+        </div>
       </div>
     </form>
   )

@@ -44,7 +44,7 @@ const UpdateEnjoyerForm: React.FC<stateType> = (props) => {
     <form onSubmit={onFormSubmit} className="justify-content-center">
         <h2 className="new-card-form__header mt-3">Update Your Informatoin</h2>
         <div className="form-group">
-        <label className="exampleInputEmail1">Name:</label>
+        <label className="exampleInputEmail1 m-2">Name:</label>
         <input id="name"
                 name="name"
                 onChange={onInputChange}
@@ -53,7 +53,7 @@ const UpdateEnjoyerForm: React.FC<stateType> = (props) => {
                 placeholder={props.currentUser.name ? props.currentUser.name : "Your display name..."}
                 type="text"
                 />
-        <label className="exampleInputEmail1">Your Image:</label>
+        <label className="exampleInputEmail1 m-2">Your Image:</label>
         <input id="imageUrl"
                 name="imageUrl"
                 onChange={onInputChange}
@@ -62,7 +62,7 @@ const UpdateEnjoyerForm: React.FC<stateType> = (props) => {
                 placeholder={props.currentUser.imageUrl ? props.currentUser.imageUrl : "Your display image..."}
                 type="text"
                 />
-        <label className="exampleInputEmail1">About You:</label>
+        <label className="exampleInputEmail1 m-2">About You:</label>
         <textarea id="about"
                 name="about"
                 onChange={onTextareaChange}

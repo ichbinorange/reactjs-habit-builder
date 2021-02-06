@@ -54,12 +54,12 @@ const App: React.FC = (props) => {
   return (
     <Router>
       {loading ? <LoadingIndicator /> : null }
-      <div className="app">
+      <div>
         <div className="app-top-box">
           <AppHeader authenticated={ authenticated } 
                      onLogout={ onLogout } />
         </div>
-        <div className="container">
+        <div>
           <Switch>
             <Route exact path="/" component = { Home }></Route>           
             <PrivateRoute path="/profile" 
