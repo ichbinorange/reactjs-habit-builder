@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { API_BASE_URL } from '../util/BaseUrl';
 import UpdateHabitForm from './UpdateHabitForm';
 
@@ -48,7 +49,10 @@ const OneHabit: React.FC<stateType> = (props) => {
                                     updateHabitCallback={updateHabit}
                                     cancelUpdateHabitCallback={cancelUpdateHabit} /> : (
         <div>
-          <span className="badge badge-pill badge-success mb-3">{props.habitBuilt ? "It's part of My Life": ""}</span>
+          <div className={props.habitBuilt ? "d-flex justify-content-between": "d-flex justify-content-end"}>
+            <span className="badge badge-pill badge-success mb-3">{props.habitBuilt ? "It's part of My Life": ""}</span>
+            <Link to={`habitTracker/habit/${props.id}`}>Read more</Link>
+          </div>
           <h5 className="card-title">Title: {props.title}</h5>
           <h6 className="card-text">Goal: {props.goal}</h6>
           <p className="card-text">Streak: {props.streak}</p>
