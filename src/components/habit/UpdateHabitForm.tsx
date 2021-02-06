@@ -8,6 +8,7 @@ type stateType = {
   streak: string;
   habitBuilt: boolean;
   updateHabitCallback: {(habit: object): void;};
+  cancelUpdateHabitCallback: {(habit: object): void;};
 }
 
 type form = {
@@ -70,7 +71,7 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
                 name="toggleSwitch" 
                 onChange={onCheckboxChange}
                 defaultChecked={formFields.habitBuilt}
-                className="toggle-switch-checkbox" 
+                className="toggle-switch-checkbox mr-2" 
                 type="checkbox" />
         <label className="toggle-switch-label" htmlFor="toggleSwitch">It's part of my life Now!</label>
         <br/>
@@ -111,11 +112,16 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
             ))
           }
         </select>
-
-        <button
-          type="submit"
-          className="btn btn-outline-success mt-3"
-        >Save</button>
+        <div className="text-center">
+          <button
+              onClick={(e: React.MouseEvent<HTMLElement>) => props.cancelUpdateHabitCallback}
+              className="btn btn-outline-info mt-3 mr-3"
+          >Cancel</button>
+          <button
+            type="submit"
+            className="btn btn-outline-success mt-3"
+          >Save</button>
+        </div>
       </div>
     </form>
   )

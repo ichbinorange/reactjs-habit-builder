@@ -53,6 +53,10 @@ const Profile: React.FC<stateType> = (props) => {
         })
     }
 
+    const cancelUpdateUser = () => {
+        setUpdate(false)
+    }
+
     if(delEnjoyer) {
         return <Redirect to={{
             pathname: "/login",
@@ -63,41 +67,50 @@ const Profile: React.FC<stateType> = (props) => {
         }}/>;            
     }
     return (
-        <div className="profile-container">
-            <div className="container">
-                <div className="row profile-info">
-                    <div className="profile-avatar col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-                        <div className={props.currentUser.imageUrl ? "" : "text-avatar"}>
-                            { enjoyerInfo.imageUrl ? (
-                                <img src={ enjoyerInfo.imageUrl } alt={ enjoyerInfo.name }/>
-                            ) : (
+        <div className="container">
+            <h1 className="mb-5 text-center">Your Profile</h1>
+            <div className="row profile-info">
+                <div className={props.currentUser.imageUrl ? "col-sm" : "col-sm"}>
+                    { enjoyerInfo.imageUrl ? (
+                        <img src={ enjoyerInfo.imageUrl } alt={ enjoyerInfo.name }/>
+                    ) : (
+                        <div>
+                            <span>{ enjoyerInfo.name &&  enjoyerInfo.name[0] }</span>
+                        </div>
+                    )}
+                </div>
+                <div className="col-sm">
+                    <div className="text-center m-5">
+                        <h2>{ enjoyerInfo.name }</h2>
+                        <p className="text-center m-2">{ enjoyerInfo.email }</p>
+                        <h5 className="mt-5 text-center"> About you</h5>
+                        <div className="card d-inline-flex mt-2">
+                            <div className="card-body">
                                 <div>
-                                    <span>{ enjoyerInfo.name &&  enjoyerInfo.name[0] }</span>
+                                    <p>{enjoyerInfo.about}</p>
                                 </div>
-                            )}
+                            </div>
                         </div>
-                        <div className="profile-name">
-                            <h2>{ enjoyerInfo.name }</h2>
-                            <p className="profile-email">{ enjoyerInfo.email }</p>
-                            <p>{enjoyerInfo.about}</p>
-                        </div>
+                    </div>
+                    <div className="text-center">
                         <button
                             onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
                             className="btn btn-outline-info"
                         >Edit</button>
                         <button
                             onClick={() => deleteEnjoyer(enjoyerInfo.id)}
-                            className="btn btn-outline-danger m-3"
+                            className="btn btn-outline-danger ml-3"
                             data-testid={enjoyerInfo.id}>
                             Delete Account
                         </button>
                         { update ? <UpdateEnjoyerForm updateUserCallback={updateEnjoyer}
-                                            currentUser={ enjoyerInfo }/> : null}
-                               
+                                                    cancelUpdateUserCallback={cancelUpdateUser}
+                                                    currentUser={ enjoyerInfo }/> : null}
                     </div>
                 </div>
-            </div>    
-        </div>
+                <div className="col-1"></div>
+            </div>
+        </div>    
     );
     
 }
