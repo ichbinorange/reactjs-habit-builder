@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 type stateType = {
     currentUser: any;
     updateUserCallback: {(enjoyer: object): void;};
+    cancelUpdateUserCallback: {(enjoyer: object): void;};
 }
 
 type form = {
@@ -69,6 +70,10 @@ const UpdateEnjoyerForm: React.FC<stateType> = (props) => {
                 className="form-control" 
                 placeholder={props.currentUser.about ? props.currentUser.about : "Something about you..."}
                 />
+        <button
+            onClick={(e: React.MouseEvent<HTMLElement>) => props.cancelUpdateUserCallback}
+            className="btn btn-outline-info mt-3 mr-3"
+        >Cancel</button>
         <button
             type="submit"
             className="btn btn-outline-success mt-3"

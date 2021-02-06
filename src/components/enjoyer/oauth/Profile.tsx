@@ -53,6 +53,10 @@ const Profile: React.FC<stateType> = (props) => {
         })
     }
 
+    const cancelUpdateUser = () => {
+        setUpdate(false)
+    }
+
     if(delEnjoyer) {
         return <Redirect to={{
             pathname: "/login",
@@ -76,10 +80,10 @@ const Profile: React.FC<stateType> = (props) => {
                                 </div>
                             )}
                         </div>
-                        <div className="profile-name">
+                        <div className="profile-name m-5">
                             <h2>{ enjoyerInfo.name }</h2>
-                            <p className="profile-email">{ enjoyerInfo.email }</p>
-                            <p>{enjoyerInfo.about}</p>
+                            <p className="profile-email m-2">{ enjoyerInfo.email }</p>
+                            <p className="m-4">{enjoyerInfo.about}</p>
                         </div>
                         <button
                             onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
@@ -92,7 +96,8 @@ const Profile: React.FC<stateType> = (props) => {
                             Delete Account
                         </button>
                         { update ? <UpdateEnjoyerForm updateUserCallback={updateEnjoyer}
-                                            currentUser={ enjoyerInfo }/> : null}
+                                                    cancelUpdateUserCallback={cancelUpdateUser}
+                                                    currentUser={ enjoyerInfo }/> : null}
                                
                     </div>
                 </div>
