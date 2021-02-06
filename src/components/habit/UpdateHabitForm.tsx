@@ -8,6 +8,7 @@ type stateType = {
   streak: string;
   habitBuilt: boolean;
   updateHabitCallback: {(habit: object): void;};
+  cancelUpdateHabitCallback: {(habit: object): void;};
 }
 
 type form = {
@@ -111,7 +112,10 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
             ))
           }
         </select>
-
+        <button
+            onClick={(e: React.MouseEvent<HTMLElement>) => props.cancelUpdateHabitCallback}
+            className="btn btn-outline-info mt-3 mr-3"
+        >Cancel</button>
         <button
           type="submit"
           className="btn btn-outline-success mt-3"

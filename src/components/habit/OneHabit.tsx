@@ -32,6 +32,10 @@ const OneHabit: React.FC<stateType> = (props) => {
       })
   }
 
+  const cancelUpdateHabit = () => {
+    setUpdate(false)
+  }
+
   return (
     <div className="card w-25 d-inline-flex p-2 bd-highlight m-2">
       <div className="card-body">
@@ -41,9 +45,10 @@ const OneHabit: React.FC<stateType> = (props) => {
                                     description={props.description}
                                     streak={props.streak}
                                     habitBuilt={props.habitBuilt}
-                                    updateHabitCallback={updateHabit}/> : (
+                                    updateHabitCallback={updateHabit}
+                                    cancelUpdateHabitCallback={cancelUpdateHabit} /> : (
         <div>
-          <span className="badge badge-pill badge-success">{props.habitBuilt ? "It's part of My Lift": ""}</span>
+          <span className="badge badge-pill badge-success">{props.habitBuilt ? "It's part of My Life": ""}</span>
           <h5 className="card-title">Title: {props.title}</h5>
           <h6 className="card-text">Goal: {props.goal}</h6>
           <p className="card-text">Streak: {props.streak}</p>
