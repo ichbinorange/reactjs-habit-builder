@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import { API_BASE_URL } from '../util/BaseUrl';
 import UpdateHabitForm from './UpdateHabitForm';
+import HabitTracker from '../habitTracker/HabitTracker';
 
 type stateType = {
-    key: number;
+    key?: number;
     id: number;
     title: string;
     goal: string;
@@ -16,7 +17,7 @@ type stateType = {
     habitPage: boolean;
 }
 
-const OneHabit: React.FC<stateType> = (props) => {
+const HabitCard: React.FC<stateType> = (props) => {
   const [update, setUpdate] = useState<Boolean>(false);
   const [errorMessage, setErrorMessage] = useState<String>('');
 
@@ -52,10 +53,21 @@ const OneHabit: React.FC<stateType> = (props) => {
         <div>
           <div className={props.habitBuilt ? "d-flex justify-content-between": "d-flex justify-content-end"}>
             <span className="badge badge-pill badge-success mb-3">{props.habitBuilt ? "It's part of My Life": ""}</span>
-            {props.habitPage ?
-              <Link to={`habitTracker/habit/${props.id}`} className="mb-2">View Record</Link> :
-              <Link to="/habit" className="mb-2">Read More</Link>
-            }
+            <Switch>
+              {props.habitPage ?
+                <div>
+                  <Link to={`/habitTracker/habit/${props.id}`}>View Record</Link>
+                  <Route className="mb-2"
+                        path={`/habitTracker/habit/${props.id}`}
+                        component={ HabitTracker }
+                        currentHabit={ props.id }></Route> 
+                </div> :
+                <div>
+                  <Link to='/habit'>Read More</Link>
+                  <Route path="/habit" className="mb-2"></Route>
+                </div>
+              }
+            </Switch>
           </div>
             <div className="d-flex justify-content-between">
               <h5 className="display-5">Title: {props.title}</h5>
@@ -90,4 +102,4 @@ const OneHabit: React.FC<stateType> = (props) => {
     )
 }
 
-export default OneHabit;
+export default HabitCard;
