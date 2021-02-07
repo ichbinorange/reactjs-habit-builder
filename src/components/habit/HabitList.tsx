@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_BASE_URL } from '../util/BaseUrl';
-import OneHabit from './OneHabit';
+import HabitCard from './HabitCard';
 
 type stateType = {
   currentUser: any;
   habitPage: boolean;
+  habitId: number | boolean;
 }
 
 const HabitList: React.FC<stateType> = (props) => {
@@ -44,9 +45,25 @@ const HabitList: React.FC<stateType> = (props) => {
     }
   }
 
+  const filterHabitComponent = habitList.filter((habit: any) => habit.id === props.habitId).map((filteredHabit: any) => {
+    return (
+      <HabitCard
+        key={filteredHabit.id}
+        id={filteredHabit.id}
+        title={filteredHabit.title}
+        goal={filteredHabit.goal}
+        description={filteredHabit.description}
+        streak={filteredHabit.streak}
+        habitBuilt={filteredHabit.habitBuilt}
+        deleteHabitCallback={deleteHabit}
+        habitPage={props.habitPage}
+      />
+    )
+  })
+
   const habitComponents = habitList.map((habit: any) => {
     return (
-      <OneHabit
+      <HabitCard
         key={habit.id}
         id={habit.id}
         title={habit.title}
@@ -62,7 +79,7 @@ const HabitList: React.FC<stateType> = (props) => {
 
   return (
     <div>
-        {habitComponents}
+        {props.habitId ? filterHabitComponent : habitComponents}
     </div>
   )
 }
