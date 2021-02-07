@@ -52,7 +52,7 @@ const HabitCard: React.FC<stateType> = (props) => {
                                     cancelUpdateHabitCallback={cancelUpdateHabit} /> : (
         <div>
           <div className={props.habitBuilt ? "d-flex justify-content-between": "d-flex justify-content-end"}>
-            <span className="badge badge-pill badge-success mb-3">{props.habitBuilt ? "It's part of My Life": ""}</span>
+            <span className="badge badge-pill badge-success mb-3">{props.habitBuilt ? (props.habitPage ? "It's part of My Life" : " "): ""}</span>
             <Switch>
               {props.habitPage ?
                 <div>

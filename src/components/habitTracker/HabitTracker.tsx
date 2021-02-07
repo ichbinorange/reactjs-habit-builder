@@ -27,6 +27,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
     return false;
   };
 
+  // when link from habit page, this useEffect render info for single habit component
   useEffect(() => {
     const habitId = getHabitIdUrlParameter(props.location.pathname);
     if ( habitId != null) {
@@ -58,7 +59,8 @@ const HabitTracker: React.FC<stateType> = (props) => {
     <div className="container">
       <h1 className="mb-5 text-center">Habit Tracker</h1>
       <div className="row">
-        <div className="col-4">
+        <div className="col-3">
+          <h5 className="mb-2 text-center">Habit List</h5>
           <p>Search bar...coming soon</p>
           <HabitList currentUser={props.currentUser}
                       habitPage={false}
@@ -78,10 +80,10 @@ const HabitTracker: React.FC<stateType> = (props) => {
             </div>
           </div>
         </div>
-        <div className="col-2">
-          <HabitTrackerList currentUser={props.currentUser}
-                            habitTrackerPage={true}/>
-          habit records
+        <div className="col-3">
+          <h5 className="mb-2 text-center">Habit Records</h5>
+          <HabitTrackerList currentUser={props.currentUser}/>
+          {/* habitTrackerPage={true} */}
         </div>
     </div>
   </div>
