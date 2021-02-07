@@ -72,11 +72,11 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 />
         <label className="exampleInputEmail1 m-2">Note:</label>
         <textarea id="description"
-                name="description"
-                onChange={onTextareaChange}
-                value={formFields.description}
-                className="form-control" 
-                placeholder="Put veggies in grocery shopping list..."
+                  name="description"
+                  onChange={onTextareaChange}
+                  value={formFields.description}
+                  className="form-control" 
+                  placeholder="Put veggies in grocery shopping list..."
                 />
         <label className="exampleFormControlSelect1 m-2">Streak:</label>
         <select className="form-control"

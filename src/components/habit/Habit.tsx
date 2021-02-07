@@ -37,7 +37,7 @@ const Habit: React.FC<stateType> = (props) => {
         <div className="col-6">
           <HabitList currentUser={props.currentUser}
                       habitPage={true}
-                      habitId={false}/>
+                      habitId={-1}/>
         </div>
         <div className="col-3">
           <h3 className="text-center">Habit Messages</h3>

@@ -12,9 +12,9 @@ type stateType = {
 }
 
 const HabitTracker: React.FC<stateType> = (props) => {
-  const [selectedHabitId, setSelectedHabitId] = useState<number | boolean>(false);
+  const [selectedHabitId, setSelectedHabitId] = useState<number>(-1);
   const [selectedHabit, setSelectedHabit] = useState<any>(null);
-  // const [habitTrackerList, setHabitTrackerList] = useState<Array<object>>([]);
+  const [habitTrackerList, setHabitTrackerList] = useState<Array<object>>([]);
   const [errorMessage, setErrorMessage] = useState<String>('');
 
   const getHabitIdUrlParameter = (localdata: string) => {
@@ -42,17 +42,17 @@ const HabitTracker: React.FC<stateType> = (props) => {
     }
   }, []);
 
-  // const addHabitTracker = (habitTracker: any) => {
-  //   axios.post(`${API_BASE_URL}/habit/${selectedHabitId}/habitTracker`, habitTracker, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
-  //     .then((response) => {
-  //       const updatedHabitTracker = [...habitTrackerList, response.data];
-  //       setHabitTrackerList(updatedHabitTracker);
-  //       setErrorMessage('');
-  //     })
-  //     .catch((error) => {
-  //       setErrorMessage(`Unable to add a new habit`);
-  //     });
-  // }
+  const addHabitTracker = (habitTracker: any) => {
+    axios.post(`${API_BASE_URL}/habit/${habitTracker.habitId}/habitTracker`, habitTracker, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+      .then((response) => {
+        const updatedHabitTracker = [...habitTrackerList, response.data];
+        setHabitTrackerList(updatedHabitTracker);
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        setErrorMessage(`Unable to add a new habit record`);
+      });
+  }
 
   return (
     <div className="container">
@@ -66,11 +66,17 @@ const HabitTracker: React.FC<stateType> = (props) => {
           <hr className="style1"></hr>
           <HabitList currentUser={props.currentUser}
                       habitPage={false}
-                      habitId={false} />
+                      habitId={-1} />
         </div>
         <div className="col-6">
-          {/* <HabitTrackerForm addHabitTrackerCallback={addHabitTracker}/> */}
           habit graph on the top, and habit record form on the bottom 
+          <hr className="style1"></hr>
+          <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
+            <div className="card-body">
+              <HabitTrackerForm habitId={selectedHabitId}
+                                addHabitTrackerCallback={addHabitTracker}/>
+            </div>
+          </div>
         </div>
         <div className="col-2">
           <HabitTrackerList currentUser={props.currentUser}

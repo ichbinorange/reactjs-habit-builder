@@ -69,34 +69,33 @@ const HabitCard: React.FC<stateType> = (props) => {
               }
             </Switch>
           </div>
-            <div className="d-flex justify-content-between">
-              <h5 className="display-5">Title: {props.title}</h5>
-            </div>
-            <div>
+          <div className="d-flex justify-content-between">
+              <h5 className="display-5">Habit#{props.id} - {props.title}</h5>
+          </div>
+          <div>
               <h6>Goal: {props.goal}</h6>
               <p>Streak: {props.streak}
               <br/>Start date:</p> {/* <p>{props.createdDate}</p> */}
-            </div>
-            {props.habitPage ?
-              <div>
-                <hr className="my-1"></hr>
-                <p>{props.description}</p>
-              </div> : null}
+          </div>
+          {props.habitPage ?
+          <div>
+              <hr className="my-1"></hr>
+              <p>{props.description}</p>
+          </div> : null}
         </div>
         )}
         {props.habitPage ?
-          <div>
+        <div>
             <button
-              onClick={() => props.deleteHabitCallback(props.id)}
-              className="btn btn-outline-danger"
-              data-testid={props.id}>
-              Delete
+                onClick={() => props.deleteHabitCallback(props.id)}
+                className="btn btn-outline-danger"
+                data-testid={props.id}>Delete
             </button>
             {update ? null : <button
                 onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
-                className="btn btn-outline-info m-3"
-            >Edit</button>}
-          </div> : null}
+                className="btn btn-outline-info m-3">Edit
+            </button>}
+        </div> : null}
       </div>
     </div>
     )

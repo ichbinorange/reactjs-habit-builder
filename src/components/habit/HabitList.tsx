@@ -6,12 +6,13 @@ import HabitCard from './HabitCard';
 type stateType = {
   currentUser: any;
   habitPage: boolean;
-  habitId: number | boolean;
+  habitId: number;
 }
 
 const HabitList: React.FC<stateType> = (props) => {
   const [habitList, setHabitList] = useState<Array<object>>([]);
   const [errorMessage, setErrorMessage] = useState<String>('');
+  const [search, setSearch] = useState<boolean>(false);
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/habits/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
@@ -79,7 +80,7 @@ const HabitList: React.FC<stateType> = (props) => {
 
   return (
     <div>
-        {props.habitId ? filterHabitComponent : habitComponents}
+        {props.habitId === -1 ? habitComponents : filterHabitComponent}
     </div>
   )
 }
