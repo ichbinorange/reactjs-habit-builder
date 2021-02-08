@@ -58,7 +58,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 onChange={onInputChange}
                 value={formFields.title}
                 className="form-control" 
-                placeholder="title"
+                placeholder="Eat veggies..."
                 type="text"
                 />
         <label className="exampleInputEmail1 m-2">Goal:</label>
@@ -67,16 +67,16 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 onChange={onInputChange}
                 value={formFields.goal}
                 className="form-control" 
-                placeholder="goal"
+                placeholder="Two type of veggies per day..."
                 type="text"
                 />
-        <label className="exampleInputEmail1 m-2">Description:</label>
+        <label className="exampleInputEmail1 m-2">Note:</label>
         <textarea id="description"
-                name="description"
-                onChange={onTextareaChange}
-                value={formFields.description}
-                className="form-control" 
-                placeholder="description"
+                  name="description"
+                  onChange={onTextareaChange}
+                  value={formFields.description}
+                  className="form-control" 
+                  placeholder="Put veggies in grocery shopping list..."
                 />
         <label className="exampleFormControlSelect1 m-2">Streak:</label>
         <select className="form-control"
