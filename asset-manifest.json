@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/reactjs-habit-builder/static/css/main.9a2481f1.chunk.css",
+    "main.js": "/reactjs-habit-builder/static/js/main.cff2b34e.chunk.js",
+    "main.js.map": "/reactjs-habit-builder/static/js/main.cff2b34e.chunk.js.map",
+    "runtime-main.js": "/reactjs-habit-builder/static/js/runtime-main.b0ff9d80.js",
+    "runtime-main.js.map": "/reactjs-habit-builder/static/js/runtime-main.b0ff9d80.js.map",
+    "static/js/2.6fec07fd.chunk.js": "/reactjs-habit-builder/static/js/2.6fec07fd.chunk.js",
+    "static/js/2.6fec07fd.chunk.js.map": "/reactjs-habit-builder/static/js/2.6fec07fd.chunk.js.map",
+    "static/js/3.5c7c53f6.chunk.js": "/reactjs-habit-builder/static/js/3.5c7c53f6.chunk.js",
+    "static/js/3.5c7c53f6.chunk.js.map": "/reactjs-habit-builder/static/js/3.5c7c53f6.chunk.js.map",
+    "index.html": "/reactjs-habit-builder/index.html",
+    "static/css/main.9a2481f1.chunk.css.map": "/reactjs-habit-builder/static/css/main.9a2481f1.chunk.css.map",
+    "static/js/2.6fec07fd.chunk.js.LICENSE.txt": "/reactjs-habit-builder/static/js/2.6fec07fd.chunk.js.LICENSE.txt",
+    "static/media/google-logo.9a818e61.png": "/reactjs-habit-builder/static/media/google-logo.9a818e61.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b0ff9d80.js",
+    "static/js/2.6fec07fd.chunk.js",
+    "static/css/main.9a2481f1.chunk.css",
+    "static/js/main.cff2b34e.chunk.js"
+  ]
+}
