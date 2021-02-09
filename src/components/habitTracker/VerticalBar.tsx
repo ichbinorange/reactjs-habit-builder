@@ -11,20 +11,7 @@ import {
 } from "react-vis";
 
 const VerticalBar: React.FC = (props) => {
-    const data = [
-        { "y": 10, "x": "Jan" },
-        { "y": 11, "x": "Feb" },
-        { "y": 23, "x": "Mar" },
-        { "y": 26, "x": "Apr" },
-        { "y": 30, "x": "May" },
-        { "y": 31, "x": "Jun" },
-        { "y": 31, "x": "Jul" },
-        { "y": 34, "x": "Aug" },
-        { "y": 38, "x": "Sep" },
-        { "y": 40, "x": "Oct" },
-        { "y": 44, "x": "Nov" },
-        { "y": 44, "x": "Dec" }
-    ]
+
 
   return (
     <div>
@@ -32,12 +19,16 @@ const VerticalBar: React.FC = (props) => {
             orientation="horizontal"
             items={[
             {
-                title: 'Apples',
-                color: '#12939A'
+                title: 'Habit#1',
+                color: '#19CDD7'
             },
             {
-                title: 'Oranges',
-                color: '#79C7E3'
+                title: 'Habit#1',
+                color: '#DDB27C'
+            },
+            {
+                title: 'Habit#3',
+                color: '#88572C'
             }
             ]}
         />
@@ -51,8 +42,8 @@ const VerticalBar: React.FC = (props) => {
             <XAxis />
             <YAxis />
             <VerticalBarSeries
-                barWidth={0.3}
-                // cluster="stack 1"
+                color='#19CDD7'
+                barWidth={0.4}
                 data={[
                 {
                     x: 0,
@@ -94,8 +85,8 @@ const VerticalBar: React.FC = (props) => {
                 style={{}}
             />
             <VerticalBarSeries
-                barWidth={0.3}
-                // cluster="stack 1"
+                barWidth={0.4}
+                color='#DDB27C'
                 data={[
                 {
                     x: 0,
@@ -137,8 +128,8 @@ const VerticalBar: React.FC = (props) => {
                 style={{}}
             />
             <VerticalBarSeries
-                barWidth={0.3}
-                // cluster="stack 1"
+                barWidth={0.4}
+                color='#88572C'
                 data={[
                 {
                     x: 0,
@@ -185,15 +176,3 @@ const VerticalBar: React.FC = (props) => {
 }
 
 export default VerticalBar;
-
-// {/* <XYPlot xType="ordinal"
-//         width={500}
-//         height={300}
-//         yDomain={[0, 300]}>
-//         <VerticalGridLines />
-//         <HorizontalGridLines />
-//         <XAxis />
-//         <YAxis />
-//         <VerticalBarSeries data={data}
-//                             barWidth={0.3} />
-// </XYPlot> */}
