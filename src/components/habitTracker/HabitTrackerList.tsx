@@ -50,6 +50,7 @@ const HabitTrackerList: React.FC<stateType> = (props) => {
                         id={habitTracker.id}
                         record={habitTracker.record}
                         memo={habitTracker.memo}
+                        createdDate={habitTracker.createdDate}
                         deleteHabitTrackerCallback={deleteHabitTracker}/>
                         // habitTrackerPage={props.habitTrackerPage}
     )

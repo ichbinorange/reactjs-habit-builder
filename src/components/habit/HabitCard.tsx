@@ -13,6 +13,7 @@ type stateType = {
     description: string;
     streak: string;
     habitBuilt: boolean;
+    createdDate: string;
     deleteHabitCallback: {(habit_id: number): void;};
     habitPage: boolean;
 }
@@ -75,7 +76,7 @@ const HabitCard: React.FC<stateType> = (props) => {
           <div>
               <h6>Goal: {props.goal}</h6>
               <p>Streak: {props.streak}
-              <br/>Start date:</p> {/* <p>{props.createdDate}</p> */}
+              <br/>Start date: {props.createdDate}</p> 
           </div>
           {props.habitPage ?
           <div>
