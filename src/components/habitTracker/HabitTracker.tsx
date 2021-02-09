@@ -4,6 +4,7 @@ import { API_BASE_URL } from '../util/BaseUrl';
 import HabitList from '../habit/HabitList';
 import HabitTrackerForm from './HabitTrackerForm';
 import HabitTrackerList from './HabitTrackerList';
+import VerticalBar from './VerticalBar';
 import './HabitTracker.css';
 
 type stateType = {
@@ -61,7 +62,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
       <div className="row">
         <div className="col-3">
           <h5 className="mb-2 text-center">Habit List</h5>
-          <p>Search bar...coming soon</p>
+          <p>Select function...coming soon</p>
           <HabitList currentUser={props.currentUser}
                       habitPage={false}
                       habitId={selectedHabitId} />
@@ -71,7 +72,9 @@ const HabitTracker: React.FC<stateType> = (props) => {
                       habitId={-1} />
         </div>
         <div className="col-6">
-          habit graph on the top, and habit record form on the bottom 
+          <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
+            <VerticalBar /> 
+          </div>
           <hr className="style1"></hr>
           <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
             <div className="card-body">
