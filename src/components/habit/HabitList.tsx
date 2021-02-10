@@ -14,7 +14,6 @@ const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
 const HabitList: React.FC<stateType> = (props) => {
   const [habitList, setHabitList] = useState<Array<object>>([]);
   const [errorMessage, setErrorMessage] = useState<String>('');
-  const [search, setSearch] = useState<boolean>(false);
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/habits/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })

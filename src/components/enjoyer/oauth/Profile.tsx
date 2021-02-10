@@ -103,12 +103,13 @@ const Profile: React.FC<stateType> = (props) => {
                             data-testid={enjoyerInfo.id}>
                             Delete Account
                         </button>
-                        { update ? <UpdateEnjoyerForm updateUserCallback={updateEnjoyer}
-                                                    cancelUpdateUserCallback={cancelUpdateUser}
-                                                    currentUser={ enjoyerInfo }/> : null}
                     </div>
                 </div>
-                <div className="col-1"></div>
+                { update ? <div className="col-sm text-center m-5">
+                                <UpdateEnjoyerForm updateUserCallback={updateEnjoyer}
+                                                    cancelUpdateUserCallback={cancelUpdateUser}
+                                                    currentUser={ enjoyerInfo }/> 
+                            </div> : null}
             </div>
         </div>    
     );

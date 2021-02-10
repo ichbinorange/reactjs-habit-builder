@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { API_BASE_URL } from '../util/BaseUrl';
 
 type stateType = {
   habitId: number;
@@ -14,8 +12,6 @@ type form = {
 }
 
 const HabitTrackerForm: React.FC<stateType> = (props) => {
-  const [selectedHabit, setSelectedHabit] = useState<any>(null);
-  const [errorMessage, setErrorMessage] = useState<String>('');
   const [formFields, setFormFields] = useState<form>({
     habitId: -1,
     record: false,
@@ -45,7 +41,7 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
 
   return (
     <form onSubmit={onFormSubmit}>
-      <h3>New Record for Habit# {props.habitId != -1 ? props.habitId : null}</h3>
+      <h3>New Record {props.habitId !== -1 ? `for Habit# ${props.habitId}` : "- Pick a habit"}</h3>
       <div className="form-group">
         <div className="text-left">
           <input id="toggleSwitch" 
@@ -67,7 +63,7 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
         <div className="text-center">
           <button
             type="submit"
-            className="btn btn-outline-success mt-3"
+            className={props.habitId !== -1 ? "btn btn-outline-success mt-3" : "btn btn-outline-success mt-3 disabled"}
           >Add Record</button>
         </div>
       </div>
