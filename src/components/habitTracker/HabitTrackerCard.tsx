@@ -4,7 +4,7 @@ type stateType = {
   key?: number;
   id: number;
   habitId: number;
-  record: boolean;
+  workTime: number;
   memo: string;
   createdDate: string;
   deleteHabitTrackerCallback: {(habitTracker_id: number): void;};
@@ -19,7 +19,8 @@ const HabitTrackerCard: React.FC<stateType> = (props) => {
                 <p className="display-5">Record ID: {props.id}</p>
             </div>
             <div>
-                <p>Note: {props.memo}
+                <p>Spending Time(hr): {props.workTime}
+                <br/>Note: {props.memo}
                 <br/>Created date: {(new Date(props.createdDate)).toLocaleString()}</p> 
             </div>
       </div>
