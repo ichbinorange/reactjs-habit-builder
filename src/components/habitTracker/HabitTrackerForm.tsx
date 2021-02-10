@@ -11,6 +11,7 @@ type form = {
   memo: string,
 }
 
+const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
 const TIME_LIST: Array<number> = Array.from(Array(25).keys()).slice(1,25)
 
 const HabitTrackerForm: React.FC<stateType> = (props) => {
@@ -45,6 +46,7 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
     <form onSubmit={onFormSubmit}>
       <h3>New Record {props.habitId !== -1 ? `for Habit# ${props.habitId}` : "- Pick a habit"}</h3>
       <div className="form-group">
+        <h6>Today is {new Date().toLocaleDateString('en-US', DATE_OPTIONS)}</h6>
         <label className="text-left m-2">Time spent(hr):</label>
         <select className="form-control"
                 defaultValue={1}
@@ -59,7 +61,7 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
             ))
           }
         </select>
-        <label className="">Note:</label>
+        <label className="text-left m-2">Note:</label>
         <textarea id="memo"
                   name="memo"
                   onChange={onTextareaChange}
