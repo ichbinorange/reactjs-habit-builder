@@ -146,7 +146,7 @@ const VerticalBar: React.FC<stateType> = (props) => {
                         <YAxis attr="y"
                                 attrAxis="x"
                                 orientation="left"
-                                title="spending time (hr)"/>
+                                title="time spent (hr)"/>
                         {dataBar().map((habitObj: any) => {
                             return <VerticalBarSeries color={habitObj[1]}
                                                       barWidth={0.4}
@@ -177,7 +177,7 @@ const VerticalBar: React.FC<stateType> = (props) => {
                         <YAxis attr="y"
                                 attrAxis="x"
                                 orientation="left"
-                                title="spending time (hr)"/>
+                                title="time spent(hr)"/>
                         <VerticalBarSeries
                             color='#19CDD7'
                             barWidth={0.4}

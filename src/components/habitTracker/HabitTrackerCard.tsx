@@ -22,7 +22,7 @@ const HabitTrackerCard: React.FC<stateType> = (props) => {
         </div>
         <div>
             <p>Date: {(new Date(props.createdDate)).toLocaleString('en-US', DATE_OPTIONS)}
-            <br/>Spending Time(hr): {props.workTime}
+            <br/>Time spent(hr): {props.workTime}
             <br/>Note: {props.memo}</p> 
         </div>
         <div className="text-center">

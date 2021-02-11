@@ -11,7 +11,7 @@ type form = {
   streak: string,
 }
 
-const STREAK_LIST: Array<string> = ["daily", "weekly", "monthly", "yearly"]
+const STREAK_LIST: Array<string> = ["", "daily", "weekly", "monthly", "yearly"]
 
 const NewHabitForm: React.FC<stateType> = (props) => {
   const [formFields, setFormFields] = useState<form>({
@@ -80,7 +80,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 />
         <label className="exampleFormControlSelect1 m-2">Streak:</label>
         <select className="form-control"
-                defaultValue="yearly"
+                defaultValue=""
                 name="streak"
                 onChange={onSelectChange} 
                 >
@@ -93,10 +93,10 @@ const NewHabitForm: React.FC<stateType> = (props) => {
           }
         </select>
         <div className="text-center">
-          <button
-            type="submit"
-            className="btn btn-outline-success btn-sm mt-3"
-          >Add Habit</button>
+          <button type="submit"
+                  className="btn btn-outline-success btn-sm mt-3">
+            Add Habit
+          </button>
         </div>
       </div>
     </form>
