@@ -91,12 +91,12 @@ const HabitCard: React.FC<stateType> = (props) => {
           <div>
               <button
                   onClick={() => props.deleteHabitCallback(props.id)}
-                  className="btn btn-outline-danger mr-2"
+                  className="btn btn-outline-danger mr-2 btn-sm"
                   data-testid={props.id}>Delete
               </button>
               {update ? null : <button
                   onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
-                  className="btn btn-outline-info">Edit
+                  className="btn btn-outline-info btn-sm">Edit
               </button>}
           </div> : null}
         </div>

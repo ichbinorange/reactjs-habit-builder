@@ -72,11 +72,11 @@ const UpdateEnjoyerForm: React.FC<stateType> = (props) => {
                 />
         <button
             onClick={(e: React.MouseEvent<HTMLElement>) => props.cancelUpdateUserCallback}
-            className="btn btn-outline-info mt-3 mr-3"
+            className="btn btn-outline-info mt-3 mr-3 btn-sm"
         >Cancel</button>
         <button
             type="submit"
-            className="btn btn-outline-success mt-3"
+            className="btn btn-outline-success mt-3 btn-sm"
         >Save</button>
         </div>
     </form>

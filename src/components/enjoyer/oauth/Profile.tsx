@@ -95,11 +95,11 @@ const Profile: React.FC<stateType> = (props) => {
                     <div className="text-center">
                         <button
                             onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
-                            className="btn btn-outline-info"
+                            className="btn btn-outline-info btn-sm"
                         >Edit</button>
                         <button
                             onClick={() => deleteEnjoyer(enjoyerInfo.id)}
-                            className="btn btn-outline-danger ml-3"
+                            className="btn btn-outline-danger ml-3 btn-sm"
                             data-testid={enjoyerInfo.id}>
                             Delete Account
                         </button>

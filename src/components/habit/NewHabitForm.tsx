@@ -95,7 +95,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
         <div className="text-center">
           <button
             type="submit"
-            className="btn btn-outline-success mt-3"
+            className="btn btn-outline-success btn-sm mt-3"
           >Add Habit</button>
         </div>
       </div>

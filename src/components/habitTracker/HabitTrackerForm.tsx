@@ -72,7 +72,7 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
         <div className="text-center">
           <button
             type="submit"
-            className={props.habitId !== -1 ? "btn btn-outline-success mt-3" : "btn btn-outline-success mt-3 disabled"}
+            className={props.habitId !== -1 ? "btn btn-outline-success mt-3 btn-sm" : "btn btn-outline-success mt-3 btn-sm disabled"}
           >Add Record</button>
         </div>
       </div>

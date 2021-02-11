@@ -62,7 +62,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
             <Link to="/habitTracker">
               <button className={selectedHabitId === -1 ? "btn btn-outline-secondary btn-sm disabled": "btn btn-outline-secondary btn-sm"}
                     onClick={cancelSelectHabit}>
-                    Reset
+                    Overview
               </button>
             </Link>
           </div>
