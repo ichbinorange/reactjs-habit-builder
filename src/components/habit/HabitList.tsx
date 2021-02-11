@@ -7,12 +7,14 @@ type stateType = {
   currentUser: any;
   habitPage: boolean;
   habitId: number;
+  selectHabit: {(habitId: number): void;};
 }
+
+const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
 
 const HabitList: React.FC<stateType> = (props) => {
   const [habitList, setHabitList] = useState<Array<object>>([]);
   const [errorMessage, setErrorMessage] = useState<String>('');
-  const [search, setSearch] = useState<boolean>(false);
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/habits/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
@@ -56,7 +58,9 @@ const HabitList: React.FC<stateType> = (props) => {
         description={filteredHabit.description}
         streak={filteredHabit.streak}
         habitBuilt={filteredHabit.habitBuilt}
+        createdDate={(new Date(filteredHabit.createdDate)).toLocaleDateString('en-US', DATE_OPTIONS)}
         deleteHabitCallback={deleteHabit}
+        selectHabit={props.selectHabit}
         habitPage={props.habitPage}
       />
     )
@@ -72,7 +76,9 @@ const HabitList: React.FC<stateType> = (props) => {
         description={habit.description}
         streak={habit.streak}
         habitBuilt={habit.habitBuilt}
+        createdDate={(new Date(habit.createdDate)).toLocaleDateString('en-US', DATE_OPTIONS)}
         deleteHabitCallback={deleteHabit}
+        selectHabit={props.selectHabit}
         habitPage={props.habitPage}
       />
     )

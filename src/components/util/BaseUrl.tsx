@@ -1,4 +1,8 @@
 export const API_BASE_URL = 'http://localhost:3000';
+
+// For deployed server
+// export const API_BASE_URL = 'https://habit-builder-ada.herokuapp.com';
+
 export const ACCESS_TOKEN = 'accessToken';
 
 export const OAUTH2_REDIRECT_URI = 'http://localhost:3001/oauth2/redirect'

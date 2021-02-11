@@ -12,7 +12,7 @@ import AppHeader from './components/common/AppHeader';
 import NotFound from './components/common/NotFound';
 import LoadingIndicator from './components/common/LoadingIndicator';
 import PrivateRoute from './components/common/PrivateRoute';
-import Home from './Home';
+import Home from './components/common/Home';
 import Login from './components/enjoyer/oauth/Login';
 import Signup from './components/enjoyer/oauth/Signup';
 import Profile from './components/enjoyer/oauth/Profile';
@@ -32,7 +32,8 @@ const App: React.FC = (props) => {
     localStorage.removeItem(ACCESS_TOKEN);
     setAuthenticated(false);
     setCurrentUser(null);
-    // Alert.success("You're safely logged out!");
+    // logout cookies issue
+    window.location.href = '/';
   }
 
   const loadCurrentlyLoggedInUser = () => {

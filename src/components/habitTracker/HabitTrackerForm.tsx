@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import { API_BASE_URL } from '../util/BaseUrl';
 
 type stateType = {
   habitId: number;
@@ -9,22 +7,23 @@ type stateType = {
 
 type form = {
   habitId: number,
-  record: boolean,
+  workTime: number,
   memo: string,
 }
 
+const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
+const TIME_LIST: Array<number> = Array.from(Array(25).keys()).slice(1,25)
+
 const HabitTrackerForm: React.FC<stateType> = (props) => {
-  const [selectedHabit, setSelectedHabit] = useState<any>(null);
-  const [errorMessage, setErrorMessage] = useState<String>('');
   const [formFields, setFormFields] = useState<form>({
     habitId: -1,
-    record: false,
+    workTime: 0,
     memo: '',
   });
 
-  // event handlers for checkbox
-  const onCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {  
-    setFormFields({...formFields, record: event.target.checked});
+  // event handlers for select
+  const onSelectChange: React.ChangeEventHandler<HTMLSelectElement> = (event)=> {
+    setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
   };
 
   // event handlers for textarea
@@ -38,25 +37,31 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
 
     setFormFields({
       habitId: -1,
-      record: false,
+      workTime: 0,
       memo: '',
     })
   }
 
   return (
     <form onSubmit={onFormSubmit}>
-      <h3>New Record for Habit# {props.habitId != -1 ? props.habitId : null}</h3>
+      <h3>New Record {props.habitId !== -1 ? `for Habit# ${props.habitId}` : "- Pick a habit"}</h3>
       <div className="form-group">
-        <div className="text-left">
-          <input id="toggleSwitch" 
-                  name="toggleSwitch" 
-                  onChange={onCheckboxChange}
-                  defaultChecked={formFields.record}
-                  className="toggle-switch-checkbox mr-2" 
-                  type="checkbox" />
-          <label className="toggle-switch-label" htmlFor="toggleSwitch">Check!</label>
-        </div>
-        <label className="">Note:</label>
+        <h6>Today is {new Date().toLocaleDateString('en-US', DATE_OPTIONS)}</h6>
+        <label className="text-left m-2">Time spent(hr):</label>
+        <select className="form-control"
+                defaultValue={1}
+                name="workTime"
+                onChange={onSelectChange} 
+                >
+          {
+            TIME_LIST.map((s, i) => (
+              <option key={i}
+                      value={s} 
+                      >{s}</option>
+            ))
+          }
+        </select>
+        <label className="text-left m-2">Note:</label>
         <textarea id="memo"
                   name="memo"
                   onChange={onTextareaChange}
@@ -67,7 +72,7 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
         <div className="text-center">
           <button
             type="submit"
-            className="btn btn-outline-success mt-3"
+            className={props.habitId !== -1 ? "btn btn-outline-success mt-3" : "btn btn-outline-success mt-3 disabled"}
           >Add Record</button>
         </div>
       </div>

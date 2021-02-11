@@ -5,59 +5,72 @@ import HabitTrackerCard from './HabitTrackerCard';
 
 type stateType = {
   currentUser: any;
-  // habitTrackerPage: boolean;
+  habitId: number;
 }
 
 const HabitTrackerList: React.FC<stateType> = (props) => {
-  const [habitTrackerList, setHabitList] = useState<Array<object>>([]);
+  const [habitTrackerList, setHabitTrackerList] = useState<Array<object>>([]);
   const [errorMessage, setErrorMessage] = useState<String>('');
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/habitTrackers/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
-      .then((response) => {
-        const apiHabitList = response.data;
-        if (apiHabitList.length !== 0) {
-          setHabitList([...apiHabitList]);
-        } else {
-          setHabitList(apiHabitList)
-        }
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-      });
-  }, []); // [habitTrackerList] turn it off for mac less works to read data from server, should turn it on when final depoly
-
-  const deleteHabitTracker = (habit_id: number) => {
-    const updatedHabitList = habitTrackerList.filter((habitTracker: any) => {
-      return habitTracker.id !== habit_id;
-    });
-
-    if (updatedHabitList.length < habitTrackerList.length) {
-      axios.delete(`${API_BASE_URL}/habitTracker/${habit_id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+      axios.get(`${API_BASE_URL}/habitTrackers/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
         .then((response) => {
-          setErrorMessage(`Habit ${ habit_id } deleted`);
+          const apiHabitTrackerList = response.data;
+          if (apiHabitTrackerList.length !== 0) {
+            setHabitTrackerList([...apiHabitTrackerList]);
+          } else {
+            setHabitTrackerList(apiHabitTrackerList)
+          }
         })
         .catch((error) => {
-          setErrorMessage(`Unable to delete habit ${ habit_id }`);
+          setErrorMessage(error.message);
+      });
+  }, []); 
+
+  const deleteHabitTracker = (habitTracker_id: number) => {
+    const updatedHabitTrackerList = habitTrackerList.filter((habitTracker: any) => {
+      return habitTracker.id !== habitTracker_id;
+    });
+
+    if (updatedHabitTrackerList.length < habitTrackerList.length) {
+      axios.delete(`${API_BASE_URL}/habitTracker/${habitTracker_id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+        .then((response) => {
+          setErrorMessage(`Habit ${ habitTracker_id } deleted`);
         })
-      setHabitList(updatedHabitList);
+        .catch((error) => {
+          setErrorMessage(`Unable to delete habitTracker ${ habitTracker_id }`);
+        })
+      setHabitTrackerList(updatedHabitTrackerList);
     }
   }
+
+  const filterHabitComponents = habitTrackerList.filter((habitTracker: any) => habitTracker.habit.id === props.habitId).map((filteredHabitTracker: any) => {
+    return (
+      <HabitTrackerCard key={filteredHabitTracker.id}
+                        id={filteredHabitTracker.id}
+                        habitId={filteredHabitTracker.habit.id}
+                        workTime={filteredHabitTracker.workTime}
+                        memo={filteredHabitTracker.memo}
+                        createdDate={filteredHabitTracker.createdDate}
+                        deleteHabitTrackerCallback={deleteHabitTracker}/>
+    )
+  })
 
   const habitTrackerComponents = habitTrackerList.map((habitTracker: any) => {
     return (
       <HabitTrackerCard key={habitTracker.id}
                         id={habitTracker.id}
-                        record={habitTracker.record}
+                        habitId={habitTracker.habit.id}
+                        workTime={habitTracker.workTime}
                         memo={habitTracker.memo}
+                        createdDate={habitTracker.createdDate}
                         deleteHabitTrackerCallback={deleteHabitTracker}/>
-                        // habitTrackerPage={props.habitTrackerPage}
     )
   })
 
   return (
     <div>
-        {habitTrackerComponents}
+      {props.habitId === -1 ? habitTrackerComponents : filterHabitComponents}
     </div>
   )
 }
