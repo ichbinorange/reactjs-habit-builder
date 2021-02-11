@@ -35,7 +35,6 @@ const Profile: React.FC<stateType> = (props) => {
             const updatedEnjoyer = [...enjoyerInfo, ...enjoyer];
             setEnjoyerInfo(updatedEnjoyer);
             setErrorMessage('');
-            console.log(update)
           })
           .catch((error) => {
             setErrorMessage(`Unable to update User Info`);
@@ -46,6 +45,7 @@ const Profile: React.FC<stateType> = (props) => {
         setDelEnjoyer(!delEnjoyer)
         axios.delete(`${API_BASE_URL}/enjoyer/${enjoyer_id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
         .then((response) => {
+            localStorage.clear();
             setErrorMessage(`Enjoyer ${ enjoyer_id } deleted`);
         })
         .catch((error) => {

@@ -32,7 +32,8 @@ const App: React.FC = (props) => {
     localStorage.removeItem(ACCESS_TOKEN);
     setAuthenticated(false);
     setCurrentUser(null);
-    // Alert.success("You're safely logged out!");
+    // logout cookies issue
+    window.location.href = '/';
   }
 
   const loadCurrentlyLoggedInUser = () => {
