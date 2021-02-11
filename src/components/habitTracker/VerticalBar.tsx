@@ -5,7 +5,6 @@ import {
     XYPlot,
     XAxis,
     YAxis,
-    VerticalGridLines,
     HorizontalGridLines,
     VerticalBarSeries,
     VerticalBarSeriesPoint,
@@ -17,24 +16,29 @@ type stateType = {
     habitId: number;
 }
 
-const MONTH_LIST: Array<string> = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-// const DAY_LIST: Array<number> = Array.from(Array(32).keys()).slice(1,32)
+type legendinfo = {
+    title: string;
+    color: string;
+}
+
+const MONTH_LIST: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+const BAR_COLOR: string[] = ['#19CDD7', '#DDB27C', '#88572C', '#FF991F', '#F15C17', '#223F9A', '#DA70BF', '#125C77', '#4DC19C', '#776E57', '#12939A', '#17B8BE', '#F6D18A', '#B7885E', '#FFCB99', '#F89570', '#829AE3', '#E79FD5', '#1E96BE', '#89DAC1', '#B3AD9E']
 
 const VerticalBar: React.FC<stateType> = (props) => {
     const [habitTrackerData, setHabitTrackerData] = useState<Object[]>([]);
     const [errorMessage, setErrorMessage] = useState<String>('');
     
-    // get how many days in a month for a specific year
+    // for x-axis's month chart - to get how many days in a month for a specific year
     const daysPerMonth = (date: string) => {
       return new Date(new Date(date).getFullYear(), new Date(date).getMonth() + 1, 0).getDate()
     }
     
-    // retrieve this month's data (t/f)
+    // for filter data - retrieve this month's data (t/f)
     const getThisMonth = (date: string) => {
         return new Date(date).getMonth() === new Date().getMonth()
     }
 
-    // check the date and collect the data
+    // for organize daily data - accumulate the info based on date
     const getDate = (date: string) => {
         return new Date(date).getDate()
     }
@@ -53,70 +57,142 @@ const VerticalBar: React.FC<stateType> = (props) => {
         });
     }, []); 
 
+    // for habits' month data
     const convertMonthData = () => {
-        let habitData: VerticalBarSeriesPoint[] = new Array(daysPerMonth(`${new Date()}`));
-        for (let i = 0; i < habitData.length; i++) {
-            if (habitData[i] == undefined) {
-                habitData[i] = { x: (i + 1), y: 0 }
+        let habitData: { [key: number]: VerticalBarSeriesPoint[]; } = {};
+        let habitLegend:  { [key: number]: legendinfo; } = {};
+        if (props.habitId === -1) { // for multiple habits
+            // step 1: create habitData
+            const filterHabitComponent1 = habitTrackerData.filter((habitTracker: any) => (getThisMonth(habitTracker.createdDate))).map((filteredHabitTracker: any) => {
+                let index: number = getDate(filteredHabitTracker.createdDate) - 1;
+                if (!habitData.hasOwnProperty(filteredHabitTracker.habit.id)) {
+                    habitData[filteredHabitTracker.habit.id] = new Array(daysPerMonth(`${new Date()}`));
+                    for (let i = 0; i < habitData[filteredHabitTracker.habit.id].length; i++) {
+                        if (habitData[filteredHabitTracker.habit.id][i] == undefined) {
+                            habitData[filteredHabitTracker.habit.id][i] = { x: (i + 1), y: 0 }
+                        }
+                    }
+                    habitData[filteredHabitTracker.habit.id][index] = { x: (index + 1), y: filteredHabitTracker.workTime }
+                } else {
+                    if (habitData[filteredHabitTracker.habit.id][index] == undefined) {
+                        habitData[filteredHabitTracker.habit.id][index] = { x: (index + 1), y: filteredHabitTracker.workTime }
+                    } else {
+                        habitData[filteredHabitTracker.habit.id][index].y += filteredHabitTracker.workTime 
+                    }
+                }
+              }
+            )
+            // step 2: turn habitData into habitLegend
+            let tempIndex = 0;
+            for (const habitobj in habitData) {
+                habitLegend[habitobj] = {title: `Habit#${habitobj}`, color: BAR_COLOR[tempIndex]};
+                tempIndex += 1;
             }
+        } else { // for single habit
+            habitData[props.habitId] = new Array(daysPerMonth(`${new Date()}`));
+            for (let i = 0; i < habitData[props.habitId].length; i++) {
+                if (habitData[props.habitId][i] == undefined) {
+                    habitData[props.habitId][i] = { x: (i + 1), y: 0 }
+                }
+            }
+            const filterHabitComponents = habitTrackerData.filter((habitTracker: any) => (habitTracker.habit.id === props.habitId && getThisMonth(habitTracker.createdDate))).map((filteredHabitTracker: any) => {
+                let index: number = getDate(filteredHabitTracker.createdDate) - 1;
+                if (habitData[props.habitId][index] == undefined) {
+                    habitData[props.habitId][index] = { x: (index + 1), y: filteredHabitTracker.workTime }
+                } else {
+                    habitData[props.habitId][index].y += filteredHabitTracker.workTime 
+                }
+              }
+            )
+            habitLegend[props.habitId] = {title: `Habit#${props.habitId}`, color: BAR_COLOR[0]};
         }
-
-        const filterHabitComponents = habitTrackerData.filter((habitTracker: any) => (habitTracker.habit.id === props.habitId && getThisMonth(habitTracker.createdDate))).map((filteredHabitTracker: any) => {
-            let index: number = getDate(filteredHabitTracker.createdDate) - 1;
-            if (habitData[index] == undefined) {
-                habitData[index] = { x: (index + 1), y: filteredHabitTracker.workTime }
-            } else {
-                habitData[index].y += filteredHabitTracker.workTime 
-            }
-          }
-        )
-        return habitData
+        
+        return {habitLegend, habitData}
     }
 
-    // const habitTrackerComponents = habitTrackerData.map((habitTracker: any) => {
-    // })
+    const renderChart = () => {
+        if (props.habitId === -1) {
+            let itemArray: legendinfo[] = new Array();
+            const legendItems = () => {
+                for (const habit in convertMonthData().habitLegend) {
+                    itemArray.push(convertMonthData().habitLegend[habit]);
+                }
+                return itemArray;
+            }
+            const dataBar = () => {
+                let barCollection = [];
+                for (const habit in convertMonthData().habitData) {
+                    barCollection.push([convertMonthData().habitData[habit], convertMonthData().habitLegend[habit].color])
+                }
+                return barCollection;
+            }
 
+            return (
+                <div>
+                    <DiscreteColorLegend
+                        orientation="horizontal"
+                        items={legendItems()}
+                    />
+                    <XYPlot stackBy="y"
+                            xDomain={[0, daysPerMonth(`${new Date()}`)]}
+                            yDomain={[0, 12]} 
+                            width={500}
+                            height={300}>
+                        <HorizontalGridLines />
+                        <XAxis attr="x"
+                                attrAxis="y"
+                                orientation="bottom"
+                                title={`day (${MONTH_LIST[new Date().getMonth()]}, ${new Date().getFullYear()})`}/>
+                        <YAxis attr="y"
+                                attrAxis="x"
+                                orientation="left"
+                                title="spending time (hr)"/>
+                        {dataBar().map((habitObj: any) => {
+                            return <VerticalBarSeries color={habitObj[1]}
+                                                      barWidth={0.4}
+                                                      data={habitObj[0]}
+                                                      style={{}}
+                        />
+                        })}
+                    </XYPlot>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <DiscreteColorLegend
+                        orientation="horizontal"
+                        items={[convertMonthData().habitLegend[props.habitId]]}
+                    />
+                    <XYPlot stackBy="y"
+                            xDomain={[0, daysPerMonth(`${new Date()}`)]}
+                            yDomain={[0, 12]} 
+                            width={500}
+                            height={300}>
+                        <HorizontalGridLines />
+                        <XAxis attr="x"
+                                attrAxis="y"
+                                orientation="bottom"
+                                title={`day (${MONTH_LIST[new Date().getMonth()]}, ${new Date().getFullYear()})`}/>
+                        <YAxis attr="y"
+                                attrAxis="x"
+                                orientation="left"
+                                title="spending time (hr)"/>
+                        <VerticalBarSeries
+                            color='#19CDD7'
+                            barWidth={0.4}
+                            data={convertMonthData().habitData[props.habitId]}
+                            style={{}}
+                        />
+                    </XYPlot>
+                </div>
+            )
+        }
+    }
     
     return (
         <div>
-            <DiscreteColorLegend
-                orientation="horizontal"
-                items={[
-                {
-                    title: 'Habit#1',
-                    color: '#19CDD7'
-                },
-                // {
-                //     title: 'Habit#1',
-                //     color: '#DDB27C'
-                // },
-                // {
-                //     title: 'Habit#3',
-                //     color: '#88572C'
-                // }
-                ]}
-            />
-            <XYPlot stackBy="y"
-                    xDomain={[0, daysPerMonth(`${new Date()}`)]}
-                    yDomain={[0, 12]} 
-                    width={500}
-                    height={300}>
-                <HorizontalGridLines />
-                <XAxis attr="x"
-                        attrAxis="y"
-                        orientation="bottom"
-                        title={`day (${MONTH_LIST[new Date().getMonth()]}, ${new Date().getFullYear()})`}/>
-                <YAxis attr="y"
-                        attrAxis="x"
-                        orientation="left"
-                        title="spending time (hr)"/>
-                <VerticalBarSeries
-                    color='#19CDD7'
-                    barWidth={0.4}
-                    data={convertMonthData()}
-                    style={{}}
-                />
-            </XYPlot>
+            {renderChart()}
         </div>
     );
 }
