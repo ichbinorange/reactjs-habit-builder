@@ -7,6 +7,7 @@ type stateType = {
   currentUser: any;
   habitPage: boolean;
   habitId: number;
+  selectHabit: {(habitId: number): void;};
 }
 
 const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
@@ -59,6 +60,7 @@ const HabitList: React.FC<stateType> = (props) => {
         habitBuilt={filteredHabit.habitBuilt}
         createdDate={(new Date(filteredHabit.createdDate)).toLocaleDateString('en-US', DATE_OPTIONS)}
         deleteHabitCallback={deleteHabit}
+        selectHabit={props.selectHabit}
         habitPage={props.habitPage}
       />
     )
@@ -76,6 +78,7 @@ const HabitList: React.FC<stateType> = (props) => {
         habitBuilt={habit.habitBuilt}
         createdDate={(new Date(habit.createdDate)).toLocaleDateString('en-US', DATE_OPTIONS)}
         deleteHabitCallback={deleteHabit}
+        selectHabit={props.selectHabit}
         habitPage={props.habitPage}
       />
     )

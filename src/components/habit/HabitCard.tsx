@@ -15,6 +15,7 @@ type stateType = {
     habitBuilt: boolean;
     createdDate: string;
     deleteHabitCallback: {(habit_id: number): void;};
+    selectHabit: {(habitId: number): void;};
     habitPage: boolean;
 }
 
@@ -64,8 +65,11 @@ const HabitCard: React.FC<stateType> = (props) => {
                         currentHabit={ props.id }></Route> 
                 </div> :
                 <div>
-                  <Link to='/habit'>Read More</Link>
-                  <Route path="/habit" className="mb-2"></Route>
+                  <Link to="/habitTracker">
+                    <button className="btn btn-outline-secondary btn-sm"
+                            onClick={(e: React.MouseEvent<HTMLElement>) => props.selectHabit(props.id)}>Select
+                    </button>
+                  </Link>
                 </div>
               }
             </Switch>
@@ -83,20 +87,20 @@ const HabitCard: React.FC<stateType> = (props) => {
               <hr className="my-1"></hr>
               <p>{props.description}</p>
           </div> : null}
+          {props.habitPage ?
+          <div>
+              <button
+                  onClick={() => props.deleteHabitCallback(props.id)}
+                  className="btn btn-outline-danger mr-2"
+                  data-testid={props.id}>Delete
+              </button>
+              {update ? null : <button
+                  onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
+                  className="btn btn-outline-info">Edit
+              </button>}
+          </div> : null}
         </div>
         )}
-        {props.habitPage ?
-        <div>
-            <button
-                onClick={() => props.deleteHabitCallback(props.id)}
-                className="btn btn-outline-danger"
-                data-testid={props.id}>Delete
-            </button>
-            {update ? null : <button
-                onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
-                className="btn btn-outline-info m-3">Edit
-            </button>}
-        </div> : null}
       </div>
     </div>
     )

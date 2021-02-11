@@ -24,6 +24,11 @@ const Habit: React.FC<stateType> = (props) => {
       });
   }
 
+  // fake function to save line 44
+  const toSelectHabit = (habitId: number) => {
+    return null
+  }
+
   return (
     <div className="container">
       <h1 className="mb-5 text-center">Your Habits</h1>
@@ -36,6 +41,7 @@ const Habit: React.FC<stateType> = (props) => {
         </div>
         <div className="col-6">
           <HabitList currentUser={props.currentUser}
+                      selectHabit={toSelectHabit}
                       habitPage={true}
                       habitId={-1}/>
         </div>

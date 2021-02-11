@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from '../util/BaseUrl';
 import HabitList from '../habit/HabitList';
@@ -42,21 +43,39 @@ const HabitTracker: React.FC<stateType> = (props) => {
       });
   }
 
+  const toSelectHabit = (habitId: number) => {
+    setSelectedHabitId(habitId)
+  }
+
+  const cancelSelectHabit = () => {
+    setSelectedHabitId(-1)
+  }
+
   return (
     <div className="container">
       <h1 className="mb-5 text-center">Habit Tracker</h1>
       <div className="row">
         <div className="col-3">
           <h5 className="mb-2 text-center">Habit List</h5>
-          <p>Select function...coming soon</p>
+          <div className="d-flex justify-content-between">
+            <p>{selectedHabitId === -1 ? "Pick one Habit" : `Selected Habit#${selectedHabitId}`}</p>
+            <Link to="/habitTracker">
+              <button className={selectedHabitId === -1 ? "btn btn-outline-secondary btn-sm disabled": "btn btn-outline-secondary btn-sm"}
+                    onClick={cancelSelectHabit}>
+                    Reset
+              </button>
+            </Link>
+          </div>
           {selectedHabitId === -1 ? null :
           <div>
             <HabitList currentUser={props.currentUser}
                         habitPage={false}
+                        selectHabit={toSelectHabit}
                         habitId={selectedHabitId} />
             <hr className="style1"></hr>
           </div>}
           <HabitList currentUser={props.currentUser}
+                      selectHabit={toSelectHabit}
                       habitPage={false}
                       habitId={-1} />
         </div>
