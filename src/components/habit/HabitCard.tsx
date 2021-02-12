@@ -43,7 +43,7 @@ const HabitCard: React.FC<stateType> = (props) => {
 
   return (
     <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
-      <div className="card-body">
+      <div className="card-body p-1">
         {update ? <UpdateHabitForm id={props.id}
                                     title={props.title}
                                     goal={props.goal}

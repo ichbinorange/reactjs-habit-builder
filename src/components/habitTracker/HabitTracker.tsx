@@ -86,7 +86,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
           </div>
           <hr className="style1"></hr>
           <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
-            <div className="card-body">
+            <div className="card-body p-1">
               <HabitTrackerForm habitId={selectedHabitId}
                                 addHabitTrackerCallback={addHabitTracker}/>
             </div>

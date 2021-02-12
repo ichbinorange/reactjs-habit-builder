@@ -9,11 +9,30 @@ type stateType = {
 
 type friendship = {
     id: number;
-    requesterId: number;
-    receiverId: number;
+    requester: friend;
+    receiver: friend;
     activated: boolean;
     createdDate: string;
     lastModifiedDate: string; 
+}
+
+type friend = {
+  id: number;
+  name: string
+  about: string;
+  email: string;
+  emailVerified: boolean;
+  imageUrl: string;
+  password: string;
+  provider: string;
+  providerId: number;
+  createdDate: string;
+  lastModifiedDate: string;
+}
+
+type returnUpdateInfo ={
+  friendshipId: number;
+  receiverId: number;
 }
 
 type apiFriendship = {
@@ -40,26 +59,38 @@ const FriendList: React.FC<stateType> = (props) => {
     });
   }, []); 
 
-  const deleteFriendship = (friendship_id: number) => {
-    axios.delete(`${API_BASE_URL}/friendship/${friendship_id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+  const deleteFriendship = (friendshipId: number) => {
+    axios.delete(`${API_BASE_URL}/friendship/${friendshipId}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
-        setErrorMessage(`Friendship ${ friendship_id } deleted`);
+        setErrorMessage(`Friendship ${ friendshipId } deleted`);
       })
       .catch((error) => {
-        setErrorMessage(`Unable to delete friendship ${ friendship_id }`);
+        setErrorMessage(`Unable to delete friendship ${ friendshipId }`);
+    })
+  }
+  const confirmFriendship = (update: returnUpdateInfo) => {
+    axios.put(`${API_BASE_URL}/friendship/${update.friendshipId}/receiver/${update.receiverId}`, update, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+      .then((response) => {
+        setErrorMessage(`Friendship ${ update.friendshipId } is confirmed`);
+      })
+      .catch((error) => {
+        setErrorMessage(`Unable to confirm friendship ${ update.friendshipId }`);
     })
   }
 
   const requesterComponents = friendList.requester.map((friendship) => {
+    console.log(friendList)
+    console.log(friendship)
     return (
       <FriendCard currentUser={props.currentUser}
                   key={friendship.id}
                   id={friendship.id}
                   requesterId={-1}
-                  receiverId={friendship.receiverId}
+                  receiverId={friendship.receiver.id}
                   createdDate={friendship.createdDate}
                   activated={friendship.activated}
-                  deleteFriendshipCallback={deleteFriendship}/>
+                  deleteFriendshipCallback={deleteFriendship}
+                  confirmFriendshipCallback={confirmFriendship}/>
     )
   })
 
@@ -68,11 +99,12 @@ const FriendList: React.FC<stateType> = (props) => {
       <FriendCard currentUser={props.currentUser}
                   key={friendship.id}
                   id={friendship.id}
-                  requesterId={friendship.requesterId}
+                  requesterId={friendship.requester.id}
                   receiverId={-1}
                   activated={friendship.activated}
                   createdDate={friendship.createdDate}
-                  deleteFriendshipCallback={deleteFriendship}/>
+                  deleteFriendshipCallback={deleteFriendship}
+                  confirmFriendshipCallback={confirmFriendship}/>
     )
   })
 
