@@ -21,7 +21,6 @@ const SearchResult: React.FC<stateType> = (props) => {
     const [errorMessage, setErrorMessage] = useState<String>('');
 
     useEffect(() => {
-        console.log(props.email)
         axios.get(`${API_BASE_URL}/enjoyer/email/${props.email}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
           .then((response) => {
             const apiUser = response.data;

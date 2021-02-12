@@ -3,8 +3,9 @@ import axios from 'axios';
 import { API_BASE_URL } from '../util/BaseUrl';
 import Search from './Search';
 import SearchResult from './SearchResult';
-import NewMessageForm from './NewMessageForm';
+import NewMessageForm from '../habitMsg/NewMessageForm';
 import FriendList from './FriendList';
+import FriendHabits from './FriendHabits';
 
 type stateType = {
   currentUser: any,
@@ -17,10 +18,59 @@ type friend = {
   email: string;
 }
 
+// user data structure from server
+type apiFriend = {
+  id: number;
+  name: string
+  about: string;
+  email: string;
+  emailVerified: boolean;
+  imageUrl: string;
+  password: string;
+  provider: string;
+  providerId: number;
+  createdDate: string;
+  lastModifiedDate: string;
+}
+
+type friendship = {
+  id: number;
+  requester: apiFriend;
+  receiver: apiFriend;
+  activated: boolean;
+  createdDate: string;
+  lastModifiedDate: string; 
+}
+
+type apiFriendship = {
+  requester: Array<friendship>;
+  receiver: Array<friendship>;
+}
+
 const Friendship: React.FC<stateType> = (props) => {
+  const [friendList, setFriendList] = useState<apiFriendship>({requester: [], receiver: []});
   const [selectedHabitId, setSelectedHabitId] = useState<number>(-1)
   const [searchEmail, setSearchEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<String>('');
+
+  useEffect(() => {
+    axios.get(`${API_BASE_URL}/friendship/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+    .then((response) => {
+        const apiFriendList = response.data;
+        if (apiFriendList.length !== 0) {
+        setFriendList({...apiFriendList});
+        } else {
+        setFriendList(apiFriendList)
+        }
+    })
+    .catch((error) => {
+        setErrorMessage(error.message);
+    });
+  }, []); 
+
+  const selectHabit = (habitId: number) => {
+    setSelectedHabitId(habitId)
+  }
 
   const setEmail = (query: string) => {
     setSearchEmail(query)
@@ -58,11 +108,17 @@ const Friendship: React.FC<stateType> = (props) => {
           <div className="col-3 text-center">
             <h5 className="mb-2">Friend List</h5>
             <div>
-              <FriendList currentUser={props.currentUser}/>
+              <FriendList currentUser={props.currentUser}
+                          friendList={friendList}/>
             </div>
           </div>
           <div className="col-5 text-center">
-            <p>friends' habit cards</p>
+            <h5 className="mb-2">Friends Habits</h5>
+            <div>
+              <FriendHabits currentUser={props.currentUser}
+                            friendList={friendList}
+                            selectHabitCallback={selectHabit}/>
+            </div>
           </div>
           <div className="col-4 text-center">
             <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
@@ -73,7 +129,7 @@ const Friendship: React.FC<stateType> = (props) => {
                                                         currentUser={props.currentUser}/> : null} 
             </div>
             <hr className="style1"></hr>
-            <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
+            <div className="card w-100 d-inline-flex bd-highlight">
               <div className="card-body">
                 <NewMessageForm habitId={selectedHabitId}
                                 addMessageCallback={addMessage}/>

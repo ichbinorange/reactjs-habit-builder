@@ -76,9 +76,6 @@ const FriendCard: React.FC<stateType> = (props) => {
     }
   }, []); 
 
-  console.log(props.currentUser.id)
-  console.log(props.requesterId)
-  console.log(props.receiverId)
   return (
     <div className="card w-100 d-inline-flex bd-highlight m-1">
       <div className="card-body p-2">
@@ -92,7 +89,7 @@ const FriendCard: React.FC<stateType> = (props) => {
               <path fill-rule="evenodd" d="M12.146 5.146a.5.5 0 0 1 .708 0L14 6.293l1.146-1.147a.5.5 0 0 1 .708.708L14.707 7l1.147 1.146a.5.5 0 0 1-.708.708L14 7.707l-1.146 1.147a.5.5 0 0 1-.708-.708L13.293 7l-1.147-1.146a.5.5 0 0 1 0-.708z"/>
             </svg>
         </button>
-        <p className="mt-1">{props.activated ? `Friend since: ${(new Date(props.createdDate)).toLocaleString('en-US', DATE_OPTIONS)}` : 
+        <div className="mt-1">{props.activated ? `Friend since: ${(new Date(props.createdDate)).toLocaleString('en-US', DATE_OPTIONS)}` : 
           (
             <div>
               {props.receiverId !== -1 ? "Request pending" : 
@@ -102,7 +99,7 @@ const FriendCard: React.FC<stateType> = (props) => {
               </button> }
             </div>
           )}
-        </p>
+        </div>
       </div>
     </div>
   )
