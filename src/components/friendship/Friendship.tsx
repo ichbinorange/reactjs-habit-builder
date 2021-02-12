@@ -4,9 +4,17 @@ import { API_BASE_URL } from '../util/BaseUrl';
 import Search from './Search';
 import SearchResult from './SearchResult';
 import NewMessageForm from './NewMessageForm';
+import FriendList from './FriendList';
 
 type stateType = {
   currentUser: any,
+}
+
+type friend = {
+  id: number;
+  imageUrl: string;
+  name: string;
+  email: string;
 }
 
 const Friendship: React.FC<stateType> = (props) => {
@@ -22,8 +30,14 @@ const Friendship: React.FC<stateType> = (props) => {
     setSearchEmail('')
   }
 
-  const addFriend = () => {
-
+  const addFriend = (receiver: friend) => {
+    axios.post(`${API_BASE_URL}/friendship/requester/${props.currentUser.id}/receiver/${receiver.id}`, receiver, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+      .then((response) => { 
+        setErrorMessage('');
+      })
+      .catch((error) => {
+        setErrorMessage(`Unable to add this friend`);
+    });
   }
   
   const addMessage = (msg: any) => {
@@ -34,7 +48,7 @@ const Friendship: React.FC<stateType> = (props) => {
       })
       .catch((error) => {
         setErrorMessage(`Unable to add a new habit`);
-      });
+    });
   }
 
   return (
@@ -43,6 +57,9 @@ const Friendship: React.FC<stateType> = (props) => {
         <div className="row">
           <div className="col-3 text-center">
             <h5 className="mb-2">Friend List</h5>
+            <div>
+              <FriendList currentUser={props.currentUser}/>
+            </div>
           </div>
           <div className="col-5 text-center">
             <p>friends' habit cards</p>
