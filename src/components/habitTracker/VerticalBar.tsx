@@ -148,7 +148,8 @@ const VerticalBar: React.FC<stateType> = (props) => {
                                 orientation="left"
                                 title="time spent (hr)"/>
                         {dataBar().map((habitObj: any) => {
-                            return <VerticalBarSeries color={habitObj[1]}
+                            return <VerticalBarSeries key={habitObj[1]}
+                                                      color={habitObj[1]}
                                                       barWidth={0.4}
                                                       data={habitObj[0]}
                                                       style={{}}
