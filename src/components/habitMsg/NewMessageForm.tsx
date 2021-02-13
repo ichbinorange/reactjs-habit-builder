@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 
 type stateType = {
-    habitId: number
+    habit: selectHabit;
     addMessageCallback: {(msg: object): void;}
 }
 
 type form = {
     text: string;
 }
+
+type selectHabit = {
+  habitId: number; 
+  friendName: string; 
+  friendImageUrl: string;
+}
+
 const NewMessageForm: React.FC<stateType> = (props) => {
   const [formFields, setFormFields] = useState<form>({text: ''});
 
@@ -25,9 +32,15 @@ const NewMessageForm: React.FC<stateType> = (props) => {
 
   return (
     <form onSubmit={onFormSubmit}>
-      <h6 className="text-center">{props.habitId !== -1 ? `Message for Habit# ${props.habitId}` : "Pick a friend's habit"}</h6>
+      <h6 className="text-center">{props.habit.habitId === -1 ? "Pick a friend's habit" :
+        <div className="text-left">
+          <h5>Message:</h5>
+          <div className="mt-2">
+            To: <img className="rounded-circle border border-secondary mr-1 ml-1" src={props.habit.friendImageUrl} alt={props.habit.friendName}/>
+            {props.habit.friendName}'s Habit#{props.habit.habitId}
+          </div>
+        </div>}</h6>
       <div className="form-group text-left">
-        <label className="mt-2">Leave Message:</label>
         <textarea id="text"
                   name="text"
                   onChange={onTextareaChange}
@@ -38,8 +51,9 @@ const NewMessageForm: React.FC<stateType> = (props) => {
         <div className="text-center">
           <button
             type="submit"
-            className={props.habitId !== -1 ? "btn btn-outline-success mt-3 btn-sm" : "btn btn-outline-success mt-3 btn-sm disabled"}
-          >Add Message</button>
+            className={props.habit.habitId !== -1 ? "btn btn-outline-success mt-3 btn-sm" : "btn btn-outline-success mt-3 btn-sm disabled"}
+            >Add Message
+          </button>
         </div>
       </div>
     </form>
