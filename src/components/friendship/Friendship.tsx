@@ -78,6 +78,10 @@ const Friendship: React.FC<stateType> = (props) => {
     setSelectedHabit(habit)
   }
 
+  const deselectFriendHabit = (habit: selectHabit) => {
+    setSelectedHabit(habit)
+  }
+
   const setEmail = (query: string) => {
     setSearchEmail(query)
   }
@@ -138,7 +142,8 @@ const Friendship: React.FC<stateType> = (props) => {
             <div className="card w-100 d-inline-flex bd-highlight">
               <div className="card-body">
                 <NewMessageForm habit={selectedHabit}
-                                addMessageCallback={addMessage}/>
+                                addMessageCallback={addMessage}
+                                deselectFriendHabitCallback={deselectFriendHabit}/>
               </div>
             </div>
           </div>
