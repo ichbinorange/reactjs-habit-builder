@@ -3,6 +3,7 @@ import axios from 'axios';
 import { API_BASE_URL } from '../util/BaseUrl';
 import NewHabitForm from './NewHabitForm';
 import HabitList from './HabitList';
+import MsgList from '../habitMsg/MsgList';
 
 type stateType = {
   currentUser: any,
@@ -47,6 +48,7 @@ const Habit: React.FC<stateType> = (props) => {
         </div>
         <div className="col-3">
           <h3 className="text-center">Habit Messages</h3>
+          <MsgList currentUser={props.currentUser} />
         </div>
       </div>
     </div>
