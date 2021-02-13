@@ -72,7 +72,7 @@ const Profile: React.FC<stateType> = (props) => {
             <div className="row profile-info">
                 <div className={props.currentUser.imageUrl ? "col-sm" : "col-sm"}>
                     { enjoyerInfo.imageUrl ? (
-                        <img src={ enjoyerInfo.imageUrl } alt={ enjoyerInfo.name }/>
+                        <img className="w-75 rounded-circle border border-secandary" src={ enjoyerInfo.imageUrl } alt={ enjoyerInfo.name }/>
                     ) : (
                         <div>
                             <span>{ enjoyerInfo.name &&  enjoyerInfo.name[0] }</span>
@@ -95,11 +95,11 @@ const Profile: React.FC<stateType> = (props) => {
                     <div className="text-center">
                         <button
                             onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
-                            className="btn btn-outline-info"
+                            className="btn btn-outline-info btn-sm"
                         >Edit</button>
                         <button
                             onClick={() => deleteEnjoyer(enjoyerInfo.id)}
-                            className="btn btn-outline-danger ml-3"
+                            className="btn btn-outline-danger ml-3 btn-sm"
                             data-testid={enjoyerInfo.id}>
                             Delete Account
                         </button>

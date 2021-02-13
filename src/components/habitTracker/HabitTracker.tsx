@@ -62,7 +62,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
             <Link to="/habitTracker">
               <button className={selectedHabitId === -1 ? "btn btn-outline-secondary btn-sm disabled": "btn btn-outline-secondary btn-sm"}
                     onClick={cancelSelectHabit}>
-                    Reset
+                    Overview
               </button>
             </Link>
           </div>
@@ -86,7 +86,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
           </div>
           <hr className="style1"></hr>
           <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
-            <div className="card-body">
+            <div className="card-body p-1">
               <HabitTrackerForm habitId={selectedHabitId}
                                 addHabitTrackerCallback={addHabitTracker}/>
             </div>
