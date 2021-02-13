@@ -47,9 +47,15 @@ type apiFriendship = {
   receiver: Array<friendship>;
 }
 
+type selectHabit = {
+  habitId: number; 
+  friendName: string; 
+  friendImageUrl: string;
+}
+
 const Friendship: React.FC<stateType> = (props) => {
   const [friendList, setFriendList] = useState<apiFriendship>({requester: [], receiver: []});
-  const [selectedHabitId, setSelectedHabitId] = useState<number>(-1)
+  const [selectedHabit, setSelectedHabit] = useState<selectHabit>({habitId: -1, friendName: '', friendImageUrl: ''})
   const [searchEmail, setSearchEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<String>('');
 
@@ -68,8 +74,8 @@ const Friendship: React.FC<stateType> = (props) => {
     });
   }, []); 
 
-  const selectHabit = (habitId: number) => {
-    setSelectedHabitId(habitId)
+  const selectFriendHabit = (habit: selectHabit) => {
+    setSelectedHabit(habit)
   }
 
   const setEmail = (query: string) => {
@@ -91,7 +97,7 @@ const Friendship: React.FC<stateType> = (props) => {
   }
   
   const addMessage = (msg: any) => {
-    axios.post(`${API_BASE_URL}/habit/${selectedHabitId}/habitMsg/${props.currentUser.id}`, msg, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+    axios.post(`${API_BASE_URL}/habit/${selectedHabit.habitId}/habitMsg/${props.currentUser.id}`, msg, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
         // msg is not for current user but for friends, no need for msg list 
         setErrorMessage('');
@@ -117,7 +123,7 @@ const Friendship: React.FC<stateType> = (props) => {
             <div>
               <FriendHabits currentUser={props.currentUser}
                             friendList={friendList}
-                            selectHabitCallback={selectHabit}/>
+                            selectFriendHabitCallback={selectFriendHabit}/>
             </div>
           </div>
           <div className="col-4 text-center">
@@ -131,7 +137,7 @@ const Friendship: React.FC<stateType> = (props) => {
             <hr className="style1"></hr>
             <div className="card w-100 d-inline-flex bd-highlight">
               <div className="card-body">
-                <NewMessageForm habitId={selectedHabitId}
+                <NewMessageForm habit={selectedHabit}
                                 addMessageCallback={addMessage}/>
               </div>
             </div>
