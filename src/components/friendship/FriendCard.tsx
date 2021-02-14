@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
+
 import { API_BASE_URL } from '../util/BaseUrl';
 
 // type from parent component
@@ -79,7 +82,13 @@ const FriendCard: React.FC<stateType> = (props) => {
   return (
     <div className="card w-100 d-inline-flex bd-highlight m-1">
       <div className="card-body p-2">
-        <img className="rounded-circle border border-secondary mr-1" src={friend.imageUrl} alt={friend.name}/>
+        <OverlayTrigger
+            placement="top"
+            overlay={<Tooltip id={`tooltip-$"top"`}>{friend.email}</Tooltip>}>
+            <Button variant="outline-light">
+              <img className="rounded-circle border border-secondary" src={friend.imageUrl} alt={friend.name}/>
+            </Button>
+        </OverlayTrigger>
         {friend.name}
         <button
             onClick={() => props.deleteFriendshipCallback(props.id)}

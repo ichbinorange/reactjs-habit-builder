@@ -36,7 +36,7 @@ const NewMessageForm: React.FC<stateType> = (props) => {
       <h6 className="text-center">{props.habit.habitId === -1 ? "Pick a friend's habit" :
         <div className="text-left">
           <div className="d-flex justify-content-between">
-            <h5>Message:</h5>
+            <h5>Message</h5>
             <button
               onClick={(e: React.MouseEvent<HTMLElement>) => props.deselectFriendHabitCallback({habitId: -1, friendName: '', friendImageUrl: ''})}
               className="btn btn-outline-secondary mr-2 btn-sm">
