@@ -102,6 +102,7 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
         <label className="exampleFormControlSelect1">Streak:</label>
         <select className="form-control w-100"
                 name="streak"
+                value={formFields.streak}
                 onChange={onSelectChange} 
                 >
           {

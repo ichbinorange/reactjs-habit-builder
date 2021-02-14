@@ -22,7 +22,7 @@ const FriendHabitsCard: React.FC<stateType> = (props) => {
                     onClick={(e: React.MouseEvent<HTMLElement>) => props.selectFriendHabitCallback({habitId: props.id, friendName: props.friendName, friendImageUrl: props.friendImageUrl})}>Send Message
             </button>
         </div>
-        <span className="badge badge-pill badge-success mb-3">
+        <span className="badge badge-pill badge-success mb-2">
             {!props.habitBuilt ? "" : 
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-award" viewBox="0 0 16 16">
@@ -33,10 +33,12 @@ const FriendHabitsCard: React.FC<stateType> = (props) => {
             </div> 
             }
         </span>
-        <h5 className="display-5"><img className="rounded-circle border border-secondary mr-1" src={props.friendImageUrl} alt={props.friendName}/>{props.friendName}'s Habit#{props.id}
-        <br/>Title: {props.title}</h5>
-        <h6>Goal: {props.goal}
-        <br/>Start date: {props.createdDate}</h6> 
+        <h5><img className="rounded-circle border border-secondary mr-1" src={props.friendImageUrl} alt={props.friendName}/>{props.friendName}'s Habit#{props.id}</h5>
+        <h6>Title: {props.title}</h6>
+        <div>Goal: {props.goal}</div> 
+      </div>
+      <div className="card-footer text-center p-0">
+        Start date: {props.createdDate}
       </div>
     </div>
     )

@@ -89,13 +89,9 @@ const HabitCard: React.FC<stateType> = (props) => {
               }
             </Switch>
           </div>
-          <div className="d-flex justify-content-between">
-              <h5 className="display-5">Habit#{props.id} - {props.title}</h5>
-          </div>
           <div>
+              <h5 className="display-5">Habit#{props.id} - {props.title}</h5>
               <h6>Goal: {props.goal}</h6>
-              <p>Streak: {props.streak}
-              <br/>Start date: {props.createdDate}</p> 
           </div>
           {props.habitPage ?
           <div>
@@ -103,7 +99,7 @@ const HabitCard: React.FC<stateType> = (props) => {
               <p>{props.description}</p>
           </div> : null}
           {props.habitPage ?
-          <div>
+          <div className="d-flex justify-content-end">
               <button
                   onClick={() => props.deleteHabitCallback(props.id)}
                   className="btn btn-outline-danger mr-2 btn-sm"
@@ -116,6 +112,9 @@ const HabitCard: React.FC<stateType> = (props) => {
           </div> : null}
         </div>
         )}
+      </div>
+      <div className="card-footer text-center p-0">
+        Start date: {props.createdDate}
       </div>
     </div>
     )

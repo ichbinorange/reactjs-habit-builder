@@ -88,7 +88,6 @@ const HabitTracker: React.FC<stateType> = (props) => {
       <h1 className="mb-5 text-center">Habit Tracker</h1>
       <div className="row">
         <div className="col-3">
-          <h5 className="mb-2 text-center">Habit List</h5>
           <div className="d-flex justify-content-between">
             <p>{selectedHabitId === -1 ? "Pick one Habit" : `Selected Habit#${selectedHabitId}`}</p>
             <Link to="/habitTracker">
@@ -106,6 +105,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
                         habitId={selectedHabitId} />
             <hr className="style1"></hr>
           </div>}
+          <h5 className="mb-2 text-center">Habit List</h5>
           <HabitList currentUser={props.currentUser}
                       selectHabit={toSelectHabit}
                       habitPage={false}
