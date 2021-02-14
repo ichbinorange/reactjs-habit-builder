@@ -74,7 +74,6 @@ const MsgList: React.FC<stateType> = (props) => {
   }
 
   const msgComponents = habitMsgList.map((habitMsg: apiMsg) => {
-      console.log(habitMsg)
     return (
       <MsgCard key={habitMsg.id}
                id={habitMsg.id}

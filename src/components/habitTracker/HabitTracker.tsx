@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 import { API_BASE_URL } from '../util/BaseUrl';
 import HabitList from '../habit/HabitList';
@@ -17,6 +19,9 @@ const HabitTracker: React.FC<stateType> = (props) => {
   const [selectedHabitId, setSelectedHabitId] = useState<number>(-1);
   const [habitTrackerList, setHabitTrackerList] = useState<Array<object>>([]);
   const [errorMessage, setErrorMessage] = useState<String>('');
+
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [datePickerFormat, setDatePickerFormat] = useState<string>("month")
 
   const getHabitIdUrlParameter = (localdata: string) => {
     const splitted = localdata.split("/")
@@ -51,6 +56,33 @@ const HabitTracker: React.FC<stateType> = (props) => {
     setSelectedHabitId(-1)
   }
 
+  const selectDateFormat = (format: string) => {
+    setDatePickerFormat(format)
+  }
+
+  const datePicker = (format: string) => {
+    if (format.length === 5) {
+      return (
+        <DatePicker
+          selected={startDate}
+          onChange={(date: Date) => setStartDate(date)}
+          dateFormat="MM/yyyy"
+          showMonthYearPicker
+          showFullMonthYearPicker
+        />
+      );
+    } else {
+      return (
+        <DatePicker
+          selected={startDate}
+          onChange={(date: Date) => setStartDate(date)}
+          showYearPicker
+          dateFormat="yyyy"
+        />
+      );
+    }
+  };
+
   return (
     <div className="container">
       <h1 className="mb-5 text-center">Habit Tracker</h1>
@@ -80,9 +112,22 @@ const HabitTracker: React.FC<stateType> = (props) => {
                       habitId={-1} />
         </div>
         <div className="col-6">
+          <div className="d-flex justify-content-end">
+            {datePicker(datePickerFormat)}
+            <div className="btn-group btn-group-toggle">
+              <button className="btn btn-outline-secondary btn-sm"
+                      onClick={(e: React.MouseEvent<HTMLElement>) => selectDateFormat("month")}>Month
+              </button> 
+              <button className="btn btn-outline-secondary btn-sm"
+                      onClick={(e: React.MouseEvent<HTMLElement>) => selectDateFormat("year")}>Year
+              </button>
+            </div>
+          </div>
           <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
             <VerticalBar currentUser={props.currentUser}
-                          habitId={selectedHabitId} /> 
+                          habitId={selectedHabitId} 
+                          datePickerFormat={datePickerFormat}
+                          datePicker={startDate}/> 
           </div>
           <hr className="style1"></hr>
           <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
