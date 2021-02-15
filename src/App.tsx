@@ -34,7 +34,8 @@ const App: React.FC = (props) => {
     setAuthenticated(false);
     setCurrentUser(null);
     // logout cookies issue
-    window.location.href = '/reactjs-habit-builder';
+    // window.location.href = '/reactjs-habit-builder';
+    window.location.href = '/';
   }
 
   const loadCurrentlyLoggedInUser = () => {
@@ -54,7 +55,8 @@ const App: React.FC = (props) => {
   }, []);
 
   return (
-    <Router basename="/reactjs-habit-builder">
+    // <Router basename="/reactjs-habit-builder">
+    <Router>
       {loading ? <LoadingIndicator /> : null }
       <div className="content">
         <div className="app-top-box">
