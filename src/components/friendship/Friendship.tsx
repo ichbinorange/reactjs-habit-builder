@@ -112,7 +112,7 @@ const Friendship: React.FC<stateType> = (props) => {
   }
 
   return (
-      <div className="container">
+      <div className="container component-bkgd pt-5 p-4">
         <h1 className="mb-5 text-center">Support your Friends</h1>
         <div className="row">
           <div className="col-3 text-center">
@@ -131,7 +131,7 @@ const Friendship: React.FC<stateType> = (props) => {
             </div>
           </div>
           <div className="col-4 text-center">
-            <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
+            <div className="card w-100 d-inline-flex p-2 bd-highlight">
               <Search searchEmailCallback={setEmail}
                       resetCallback={resetSearch} /> 
               {searchEmail.length !== 0 ? <SearchResult email={searchEmail} 

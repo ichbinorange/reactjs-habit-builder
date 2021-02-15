@@ -41,9 +41,9 @@ const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric', hour: '2
 
 const MsgCard: React.FC<stateType> = (props) => {
   return (
-    <div className="card w-100 p-2 bd-highlight m-2 text-left">
+    <div className="card w-100 p-2 bd-highlight mb-2 text-left">
       <div className="card-body p-0">
-        <h6 className="display-5 p-0">From: 
+        <div className="p-0 font-weight-bold">From: 
           <OverlayTrigger
               placement="top"
               overlay={<Tooltip id={`tooltip-$"top"`}>{props.friend.email}</Tooltip>}>
@@ -51,9 +51,9 @@ const MsgCard: React.FC<stateType> = (props) => {
               <img className="rounded-circle border border-secondary" src={props.friend.imageUrl} alt={props.friend.name}/>
               </Button>
           </OverlayTrigger>
-        {props.friend.name}</h6>
-        <p>For habit#{props.habit.id} - {props.habit.title}
-        <br/>Message: {props.text}</p> 
+        {props.friend.name}</div>
+        <div>For #{props.habit.id} - {props.habit.title}</div>
+        <div>Message: {props.text}</div> 
         <div className="text-center pb-1">
           <button
               onClick={() => props.deleteMsgCallback(props.id)}

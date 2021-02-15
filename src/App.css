@@ -1,3 +1,20 @@
+body {
+  background-image: url("./img/bkgdImg.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.content {
+  min-height: 100%;
+}
+
 .App {
   text-align: center;
 }
@@ -84,3 +101,4 @@
 .app-nav ul li a.active {
   color: #0f96f6;
 }
+

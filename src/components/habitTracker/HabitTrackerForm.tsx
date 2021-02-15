@@ -12,7 +12,7 @@ type form = {
 }
 
 const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
-const TIME_LIST: Array<number> = Array.from(Array(25).keys()).slice(1,25)
+const TIME_LIST: Array<number> = Array.from(Array(25).keys())
 
 const HabitTrackerForm: React.FC<stateType> = (props) => {
   const [formFields, setFormFields] = useState<form>({
@@ -49,7 +49,7 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
         <h6>Today is {new Date().toLocaleDateString('en-US', DATE_OPTIONS)}</h6>
         <label className="text-left m-2">Time spent(hr):</label>
         <select className="form-control"
-                defaultValue={1}
+                defaultValue={0}
                 name="workTime"
                 onChange={onSelectChange} 
                 >

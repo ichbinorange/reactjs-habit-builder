@@ -17,14 +17,14 @@ const HabitTrackerCard: React.FC<stateType> = (props) => {
     <div className="card w-100 d-inline-flex bd-highlight p-2 m-1">
       <div className="card-body p-0">
         <div className="d-flex justify-content-between">
-            <h5 className="display-5">Habit#{props.habitId}</h5>
+            <h5 className="display-5">#{props.habitId}</h5>
             <div className="display-5">Record ID: {props.id}</div>
         </div>
         <div>
             Time spent(hr): {props.workTime}
             <br/>Note: {props.memo}
         </div>
-        <div className="text-center p-2">
+        <div className="text-right p-2">
           <button
               onClick={() => props.deleteHabitTrackerCallback(props.id)}
               className="btn btn-outline-danger btn-sm">

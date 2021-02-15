@@ -170,7 +170,7 @@ const VerticalBar: React.FC<stateType> = (props) => {
                         <XYPlot stackBy="y"
                                 xDomain={[1, daysPerMonth(`${props.datePicker}`)]}
                                 yDomain={[0, 6]} 
-                                width={500}
+                                width={480}
                                 height={300}>
                             <HorizontalGridLines />
                             <XAxis attr="x"
@@ -200,7 +200,7 @@ const VerticalBar: React.FC<stateType> = (props) => {
                         <XYPlot stackBy="y"
                                 xDomain={[0, 12]}
                                 yDomain={[0, 6]} 
-                                width={500}
+                                width={480}
                                 height={300}>
                             <HorizontalGridLines />
                             <XAxis attr="x"
@@ -249,7 +249,7 @@ const VerticalBar: React.FC<stateType> = (props) => {
                         <XYPlot stackBy="y"
                                 xDomain={[1, daysPerMonth(`${props.datePicker}`)]}
                                 yDomain={[0, convertMonthData().yAxisMax]} 
-                                width={500}
+                                width={480}
                                 height={300}>
                             <HorizontalGridLines />
                             <XAxis attr="x"
@@ -281,7 +281,7 @@ const VerticalBar: React.FC<stateType> = (props) => {
                         <XYPlot stackBy="y"
                                 xDomain={[1, daysPerMonth(`${props.datePicker}`)]}
                                 yDomain={[0, convertMonthData().yAxisMax]} 
-                                width={500}
+                                width={480}
                                 height={300}>
                             <HorizontalGridLines />
                             <XAxis attr="x"
@@ -328,7 +328,7 @@ const VerticalBar: React.FC<stateType> = (props) => {
                         <XYPlot stackBy="y"
                                 xDomain={[1, 12]}
                                 yDomain={[0, convertMonthData().yAxisMax]} 
-                                width={500}
+                                width={480}
                                 height={300}>
                             <HorizontalGridLines />
                             <XAxis attr="x"
@@ -360,7 +360,7 @@ const VerticalBar: React.FC<stateType> = (props) => {
                         <XYPlot stackBy="y"
                                 xDomain={[1, 12]}
                                 yDomain={[0, convertMonthData().yAxisMax]} 
-                                width={500}
+                                width={480}
                                 height={300}>
                             <HorizontalGridLines />
                             <XAxis attr="x"

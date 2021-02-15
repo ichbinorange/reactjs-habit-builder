@@ -70,7 +70,7 @@ const HabitCard: React.FC<stateType> = (props) => {
   }
 
   return (
-    <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
+    <div className="card w-100 d-inline-flex p-2 bd-highlight mb-2">
       <div className="card-body p-1">
         {update ? <UpdateHabitForm id={props.id}
                                     title={props.title}
@@ -126,11 +126,11 @@ const HabitCard: React.FC<stateType> = (props) => {
           </div>
 
           <div>
-              <h5 className="display-5">Habit#{props.id} - {props.title}</h5>
+              <h5 className="card-title">#{props.id} - {props.title}</h5>
               <h6>Goal: {props.goal}</h6>
           </div>
           {props.habitPage ?
-          <div>
+          <div className="card-text">
               <hr className="my-1"></hr>
               <p>{props.description}</p>
           </div> : null}
