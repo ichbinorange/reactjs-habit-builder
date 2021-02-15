@@ -34,7 +34,7 @@ const App: React.FC = (props) => {
     setAuthenticated(false);
     setCurrentUser(null);
     // logout cookies issue
-    window.location.href = '/';
+    window.location.href = '/reactjs-habit-builder';
   }
 
   const loadCurrentlyLoggedInUser = () => {
