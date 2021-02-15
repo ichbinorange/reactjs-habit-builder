@@ -114,12 +114,14 @@ const HabitTracker: React.FC<stateType> = (props) => {
         <div className="col-6">
           <div className="d-flex justify-content-end">
             {datePicker(datePickerFormat)}
-            <div className="btn-group btn-group-toggle">
-              <button className="btn btn-outline-secondary btn-sm"
+            <div className="btn-group btn-group-toggle" data-toggle="buttons">
+              <button className="btn btn-outline-secondary btn-sm active"
                       onClick={(e: React.MouseEvent<HTMLElement>) => selectDateFormat("month")}>Month
+                      <input type="radio" name="options" id="option1" data-autocomplete="off" checked></input>
               </button> 
               <button className="btn btn-outline-secondary btn-sm"
                       onClick={(e: React.MouseEvent<HTMLElement>) => selectDateFormat("year")}>Year
+                      <input type="radio" name="options" id="option2" data-autocomplete="off"></input>
               </button>
             </div>
           </div>
