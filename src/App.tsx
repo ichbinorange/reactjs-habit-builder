@@ -54,7 +54,7 @@ const App: React.FC = (props) => {
   }, []);
 
   return (
-    <Router>
+    <Router basename="/reactjs-habit-builder">
       {loading ? <LoadingIndicator /> : null }
       <div className="content">
         <div className="app-top-box">
