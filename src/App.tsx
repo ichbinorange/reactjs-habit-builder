@@ -54,7 +54,7 @@ const App: React.FC = (props) => {
   }, []);
 
   return (
-    <Router basename="/">
+    <Router>
       {loading ? <LoadingIndicator /> : null }
       <div className="content">
         <div className="app-top-box">
