@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 type stateType = {
     key: number;
@@ -40,19 +41,29 @@ const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric', hour: '2
 
 const MsgCard: React.FC<stateType> = (props) => {
   return (
-    <div className="card w-100 p-2 bd-highlight m-2 text-left">
-      <div className="card-body p-1">
-        <h6 className="display-5">From: <img className="rounded-circle border border-secondary mr-1" src={props.friend.imageUrl} alt={props.friend.name}/>{props.friend.name}
-        <br/>For habit#{props.habit.id} - {props.habit.title}</h6>
-        <p>Time: {(new Date(props.createdDate)).toLocaleString('en-US', DATE_OPTIONS)}
-        <br/>Message: {props.text}</p> 
+    <div className="card w-100 p-2 bd-highlight mb-2 text-left">
+      <div className="card-body p-0">
+        <div className="p-0 font-weight-bold">From: 
+          <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip id={`tooltip-$"top"`}>{props.friend.email}</Tooltip>}>
+              <Button variant="outline-light">
+              <img className="rounded-circle border border-secondary" src={props.friend.imageUrl} alt={props.friend.name}/>
+              </Button>
+          </OverlayTrigger>
+        {props.friend.name}</div>
+        <div>For #{props.habit.id} - {props.habit.title}</div>
+        <div>Message: {props.text}</div> 
+        <div className="text-center pb-1">
+          <button
+              onClick={() => props.deleteMsgCallback(props.id)}
+              className="btn btn-outline-danger btn-sm">
+              Delete
+          </button>
+        </div>
       </div>
-      <div className="text-center">
-        <button
-            onClick={() => props.deleteMsgCallback(props.id)}
-            className="btn btn-outline-danger btn-sm">
-            Delete
-        </button>
+      <div className="card-footer text-center p-0">
+        {(new Date(props.createdDate)).toLocaleString('en-US', DATE_OPTIONS)}
       </div>
     </div>
     )

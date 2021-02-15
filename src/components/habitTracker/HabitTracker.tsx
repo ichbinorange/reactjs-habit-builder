@@ -84,13 +84,12 @@ const HabitTracker: React.FC<stateType> = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className="container component-bkgd pt-5 p-4">
       <h1 className="mb-5 text-center">Habit Tracker</h1>
       <div className="row">
         <div className="col-3">
-          <h5 className="mb-2 text-center">Habit List</h5>
           <div className="d-flex justify-content-between">
-            <p>{selectedHabitId === -1 ? "Pick one Habit" : `Selected Habit#${selectedHabitId}`}</p>
+            <p className="pl-3">{selectedHabitId === -1 ? "Pick one Habit" : `Selected Habit#${selectedHabitId}`}</p>
             <Link to="/habitTracker">
               <button className={selectedHabitId === -1 ? "btn btn-outline-secondary btn-sm disabled": "btn btn-outline-secondary btn-sm"}
                     onClick={cancelSelectHabit}>
@@ -106,31 +105,34 @@ const HabitTracker: React.FC<stateType> = (props) => {
                         habitId={selectedHabitId} />
             <hr className="style1"></hr>
           </div>}
+          <h5 className="mb-2 text-center">Habit List</h5>
           <HabitList currentUser={props.currentUser}
                       selectHabit={toSelectHabit}
                       habitPage={false}
                       habitId={-1} />
         </div>
         <div className="col-6">
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-end mb-2">
             {datePicker(datePickerFormat)}
-            <div className="btn-group btn-group-toggle">
-              <button className="btn btn-outline-secondary btn-sm"
+            <div className="btn-group btn-group-toggle" data-toggle="buttons">
+              <button className="btn btn-outline-secondary btn-sm active"
                       onClick={(e: React.MouseEvent<HTMLElement>) => selectDateFormat("month")}>Month
+                      <input type="radio" name="options" id="option1" data-autocomplete="off" checked></input>
               </button> 
               <button className="btn btn-outline-secondary btn-sm"
                       onClick={(e: React.MouseEvent<HTMLElement>) => selectDateFormat("year")}>Year
+                      <input type="radio" name="options" id="option2" data-autocomplete="off"></input>
               </button>
             </div>
           </div>
-          <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
+          <div className="card w-100 d-inline-flex p-2 bd-highlight mb-2">
             <VerticalBar currentUser={props.currentUser}
                           habitId={selectedHabitId} 
                           datePickerFormat={datePickerFormat}
                           datePicker={startDate}/> 
           </div>
           <hr className="style1"></hr>
-          <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
+          <div className="card w-100 d-inline-flex p-2 bd-highlight mb-2">
             <div className="card-body p-1">
               <HabitTrackerForm habitId={selectedHabitId}
                                 addHabitTrackerCallback={addHabitTracker}/>

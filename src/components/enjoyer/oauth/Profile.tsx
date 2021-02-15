@@ -67,7 +67,7 @@ const Profile: React.FC<stateType> = (props) => {
         }}/>;            
     }
     return (
-        <div className="container">
+        <div className="container component-bkgd pt-5 p-4">
             <h1 className="mb-5 text-center">Your Profile</h1>
             <div className="row profile-info">
                 <div className={props.currentUser.imageUrl ? "col-sm" : "col-sm"}>

@@ -4,6 +4,7 @@ import { API_BASE_URL } from '../util/BaseUrl';
 import NewHabitForm from './NewHabitForm';
 import HabitList from './HabitList';
 import MsgList from '../habitMsg/MsgList';
+import './Habit.css';
 
 type stateType = {
   currentUser: any,
@@ -31,7 +32,7 @@ const Habit: React.FC<stateType> = (props) => {
   }
 
   return (
-    <div className="container">
+    <div className="container component-bkgd pt-5 p-4">
       <h1 className="mb-5 text-center">Your Habits</h1>
       <div className="validation-errors-display">
         <h2 className="validation-errors-display__list">{errorMessage}</h2>
@@ -47,7 +48,7 @@ const Habit: React.FC<stateType> = (props) => {
                       habitId={-1}/>
         </div>
         <div className="col-3">
-          <h3 className="text-center">Habit Messages</h3>
+          <h5 className="text-center mb-3">Messages from friends</h5>
           <MsgList currentUser={props.currentUser} />
         </div>
       </div>

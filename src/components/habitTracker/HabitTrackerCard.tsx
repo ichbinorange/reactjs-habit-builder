@@ -14,24 +14,26 @@ const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric', hour: '2
 
 const HabitTrackerCard: React.FC<stateType> = (props) => {
   return (
-    <div className="card w-100 d-inline-flex bd-highlight m-1">
-      <div className="card-body">
+    <div className="card w-100 d-inline-flex bd-highlight p-2 m-1">
+      <div className="card-body p-0">
         <div className="d-flex justify-content-between">
-            <h5 className="display-5">Habit#{props.habitId}</h5>
-            <p className="display-5">Record ID: {props.id}</p>
+            <h5 className="display-5">#{props.habitId}</h5>
+            <div className="display-5">Record ID: {props.id}</div>
         </div>
         <div>
-            <p>Date: {(new Date(props.createdDate)).toLocaleString('en-US', DATE_OPTIONS)}
-            <br/>Time spent(hr): {props.workTime}
-            <br/>Note: {props.memo}</p> 
+            Time spent(hr): {props.workTime}
+            <br/>Note: {props.memo}
         </div>
-        <div className="text-center">
+        <div className="text-right p-2">
           <button
               onClick={() => props.deleteHabitTrackerCallback(props.id)}
-              className="btn btn-outline-danger btn-sm"
-              data-testid={props.id}>Delete
+              className="btn btn-outline-danger btn-sm">
+              Delete
           </button>
         </div>
+      </div>
+      <div className="card-footer text-center p-0">
+        {(new Date(props.createdDate)).toLocaleString('en-US', DATE_OPTIONS)}
       </div>
     </div>
   )

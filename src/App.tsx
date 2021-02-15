@@ -13,6 +13,7 @@ import NotFound from './components/common/NotFound';
 import LoadingIndicator from './components/common/LoadingIndicator';
 import PrivateRoute from './components/common/PrivateRoute';
 import Home from './components/common/Home';
+import Footer from './components/common/Footer';
 import Login from './components/enjoyer/oauth/Login';
 import Signup from './components/enjoyer/oauth/Signup';
 import Profile from './components/enjoyer/oauth/Profile';
@@ -55,7 +56,7 @@ const App: React.FC = (props) => {
   return (
     <Router>
       {loading ? <LoadingIndicator /> : null }
-      <div>
+      <div className="content">
         <div className="app-top-box">
           <AppHeader authenticated={ authenticated } 
                      onLogout={ onLogout } />
@@ -94,7 +95,10 @@ const App: React.FC = (props) => {
         </div>
         {/* <Alert stack={{limit: 3}} 
           timeout = {3000}
-          position='top-right' effect='slide' offset={65} /> */}
+        position='top-right' effect='slide' offset={65} /> */}
+      </div>
+      <div className="text-center">
+        <Footer />
       </div>
     </Router>
   );

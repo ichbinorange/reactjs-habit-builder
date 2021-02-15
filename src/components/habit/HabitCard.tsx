@@ -37,12 +37,40 @@ const HabitCard: React.FC<stateType> = (props) => {
       })
   }
 
+  const streakBadge = (badge: string) => {
+    if (badge.startsWith("d")) {
+      return (
+        <span className="badge badge-pill badge-primary text-capitalize">
+          {badge}
+        </span>
+      )
+    } else if (badge.startsWith("w")) {
+      return (
+        <span className="badge badge-pill badge-warning text-capitalize">
+          {badge}
+        </span>
+      )
+    } else if (badge.startsWith("m")) {
+      return (
+        <span className="badge badge-pill badge-secondary text-capitalize">
+          {badge}
+        </span>
+      )
+    } else {
+      return (
+        <span className="badge badge-pill badge-dark text-capitalize">
+          {badge}
+        </span>
+      )
+    }
+  }
+
   const cancelUpdateHabit = () => {
     setUpdate(false)
   }
 
   return (
-    <div className="card w-100 d-inline-flex p-2 bd-highlight m-2">
+    <div className="card w-100 d-inline-flex p-2 bd-highlight mb-2">
       <div className="card-body p-1">
         {update ? <UpdateHabitForm id={props.id}
                                     title={props.title}
@@ -53,57 +81,61 @@ const HabitCard: React.FC<stateType> = (props) => {
                                     updateHabitCallback={updateHabit}
                                     cancelUpdateHabitCallback={cancelUpdateHabit} /> : (
         <div>
-          <div className={props.habitBuilt ? "d-flex justify-content-between": "d-flex justify-content-end"}>
-            <span className="badge badge-pill badge-success mb-3">
-              {props.habitBuilt ? (props.habitPage ? 
-                <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-award" viewBox="0 0 16 16">
-                    <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
-                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
-                  </svg>
-                  It's part of My Life
-                </div> : 
-                <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-award" viewBox="0 0 16 16">
-                    <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
-                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
-                  </svg>
-                </div>): ""}
-            </span>
-            <Switch>
-              {props.habitPage ?
-                <div>
-                  <Link to={`/habitTracker/habit/${props.id}`}>View Record</Link>
-                  <Route className="mb-2"
-                        path={`/habitTracker/habit/${props.id}`}
-                        component={ HabitTracker }
-                        currentHabit={ props.id }></Route> 
-                </div> :
-                <div>
-                  <Link to="/habitTracker">
-                    <button className="btn btn-outline-secondary btn-sm"
-                            onClick={(e: React.MouseEvent<HTMLElement>) => props.selectHabit(props.id)}>Select
-                    </button>
-                  </Link>
-                </div>
-              }
-            </Switch>
+          <div className="d-flex">
+            <div className="p-1">
+              {streakBadge(props.streak)}
+            </div>
+            <div className={props.habitBuilt ? "p-1": ""}>
+              <span className="badge badge-pill badge-success">
+                {props.habitBuilt ? (props.habitPage ? 
+                  <div>  
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-award" viewBox="0 0 16 16">
+                      <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                      <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                    </svg>
+                    It's part of My Life
+                  </div> : 
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-award" viewBox="0 0 16 16">
+                      <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
+                      <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                    </svg>
+                  </div>): ""}
+              </span>
+            </div>
+            <div className="ml-auto p-1">
+              <Switch>
+                {props.habitPage ?
+                  <div>
+                    <Link to={`/habitTracker/habit/${props.id}`}>View Record</Link>
+                    <Route className="mb-2"
+                          path={`/habitTracker/habit/${props.id}`}
+                          component={ HabitTracker }
+                          currentHabit={ props.id }></Route> 
+                  </div> :
+                  <div>
+                    <Link to="/habitTracker">
+                      <button className="btn btn-outline-secondary btn-sm"
+                              onClick={(e: React.MouseEvent<HTMLElement>) => props.selectHabit(props.id)}>Select
+                      </button>
+                    </Link>
+                  </div>
+                }
+              </Switch>
+            </div>
           </div>
-          <div className="d-flex justify-content-between">
-              <h5 className="display-5">Habit#{props.id} - {props.title}</h5>
-          </div>
+
           <div>
+              <h5 className="card-title">#{props.id} - {props.title}</h5>
               <h6>Goal: {props.goal}</h6>
-              <p>Streak: {props.streak}
-              <br/>Start date: {props.createdDate}</p> 
           </div>
           {props.habitPage ?
-          <div>
+          <div className="card-text">
               <hr className="my-1"></hr>
               <p>{props.description}</p>
           </div> : null}
           {props.habitPage ?
-          <div>
+          <div className="d-flex justify-content-end">
               <button
                   onClick={() => props.deleteHabitCallback(props.id)}
                   className="btn btn-outline-danger mr-2 btn-sm"
@@ -116,6 +148,9 @@ const HabitCard: React.FC<stateType> = (props) => {
           </div> : null}
         </div>
         )}
+      </div>
+      <div className="card-footer text-center p-0">
+        Start date: {props.createdDate}
       </div>
     </div>
     )

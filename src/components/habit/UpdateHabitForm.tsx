@@ -65,15 +65,17 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
 
   return (
     <form onSubmit={onFormSubmit} className="justify-content-center">
-      <h2 className="new-card-form__header">Update Habit# {props.id}</h2>
+      <h2 className="new-card-form__header">Update Habit# {props.id}</h2>    
       <div className="form-group">
-        <input id="toggleSwitch" 
-                name="toggleSwitch" 
-                onChange={onCheckboxChange}
-                defaultChecked={formFields.habitBuilt}
-                className="toggle-switch-checkbox mr-2" 
-                type="checkbox" />
-        <label className="toggle-switch-label" htmlFor="toggleSwitch">It's part of my life Now!</label>
+        <div className='custom-control custom-switch'>
+          <input id="customSwitches" 
+                  name="customSwitches" 
+                  onChange={onCheckboxChange}
+                  defaultChecked={formFields.habitBuilt}
+                  className="custom-control-input mr-2" 
+                  type="checkbox" />
+          <label className="custom-control-label" htmlFor="customSwitches">It's part of my life Now!</label>
+        </div>
         <br/>
         <label className="exampleInputEmail1">Title:</label>
         <input id="title"
@@ -102,6 +104,7 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
         <label className="exampleFormControlSelect1">Streak:</label>
         <select className="form-control w-100"
                 name="streak"
+                value={formFields.streak}
                 onChange={onSelectChange} 
                 >
           {
