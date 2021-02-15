@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Switch
 } from 'react-router-dom';
@@ -54,7 +54,7 @@ const App: React.FC = (props) => {
   }, []);
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       {loading ? <LoadingIndicator /> : null }
       <div className="content">
         <div className="app-top-box">
