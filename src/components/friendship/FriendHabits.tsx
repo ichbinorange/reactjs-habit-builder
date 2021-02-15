@@ -40,7 +40,7 @@ const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
 
 const FriendHabits: React.FC<stateType> = (props) => {
 
-  const requesterComponents = props.friendList.requester.map((friendship) => {
+  const requesterComponents = props.friendList.requester.filter((friendship) => friendship.activated === true).map((friendship) => {
     return (
         <FriendHabitsList key={friendship.receiver.id}
                           friendId={friendship.receiver.id}
@@ -50,7 +50,7 @@ const FriendHabits: React.FC<stateType> = (props) => {
     )
   })
 
-  const receiverComponents = props.friendList.receiver.map((friendship) => {
+  const receiverComponents = props.friendList.receiver.filter((friendship) => friendship.activated === true).map((friendship) => {
     return (
         <FriendHabitsList key={friendship.requester.id}
                           friendId={friendship.requester.id}
