@@ -64,6 +64,7 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
         <label className="text-left m-2">Note:</label>
         <textarea id="memo"
                   name="memo"
+                  rows={6}
                   onChange={onTextareaChange}
                   value={formFields.memo}
                   className="form-control" 

@@ -72,7 +72,7 @@ const Profile: React.FC<stateType> = (props) => {
             <div className="row profile-info">
                 <div className={props.currentUser.imageUrl ? "col-sm" : "col-sm"}>
                     { enjoyerInfo.imageUrl ? (
-                        <img className="w-75 rounded-circle border border-secandary" src={ enjoyerInfo.imageUrl } alt={ enjoyerInfo.name }/>
+                        <img className="pro-img rounded-circle" src={ enjoyerInfo.imageUrl } alt={ enjoyerInfo.name }/>
                     ) : (
                         <div>
                             <span>{ enjoyerInfo.name &&  enjoyerInfo.name[0] }</span>
@@ -86,7 +86,7 @@ const Profile: React.FC<stateType> = (props) => {
                         <h5 className="mt-5 text-center"> About you</h5>
                         <div className="card d-inline-flex mt-2">
                             <div className="card-body">
-                                <div>
+                                <div className="text-left">
                                     <p>{enjoyerInfo.about}</p>
                                 </div>
                             </div>

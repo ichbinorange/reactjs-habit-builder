@@ -23,6 +23,14 @@
 .profile-info .profile-email {
     font-weight: 400;
 }
+  
+.pro-img {
+    object-fit: cover;
+    height: 38vh;
+    width: auto;
+    max-width: 20vw;
+    border: 3px solid #555;
+}
 
 .text-avatar {
     width: 200px;

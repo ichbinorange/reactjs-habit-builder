@@ -96,6 +96,7 @@ const UpdateHabitForm: React.FC<stateType> = (props) => {
         <label className="exampleInputEmail1">Description:</label>
         <textarea id="description"
                 name="description"
+                rows={8}
                 onChange={onTextareaChange}
                 value={formFields.description}
                 className="form-control w-100" 

@@ -1,4 +1,5 @@
 import React from 'react';
+import './FriendCard.css';
 
 type stateType = {
     key: number;
@@ -33,7 +34,7 @@ const FriendHabitsCard: React.FC<stateType> = (props) => {
                     onClick={(e: React.MouseEvent<HTMLElement>) => props.selectFriendHabitCallback({habitId: props.id, friendName: props.friendName, friendImageUrl: props.friendImageUrl})}>Send Message
             </button>
         </div>
-        <h6 className="font-weight-boldcard-title"><img className="rounded-circle border border-secondary mr-1" src={props.friendImageUrl} alt={props.friendName}/>{props.friendName}'s Habit#{props.id}</h6>
+        <h6 className="font-weight-boldcard-title"><img className="pro-img rounded-circle border border-secondary mr-1" src={props.friendImageUrl} alt={props.friendName}/>{props.friendName}'s Habit#{props.id}</h6>
         <div className="card-text">
           <div>Title: {props.title}</div>
           <div>Goal: {props.goal}</div> 

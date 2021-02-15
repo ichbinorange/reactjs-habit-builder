@@ -11,7 +11,7 @@ type form = {
   streak: string,
 }
 
-const STREAK_LIST: Array<string> = ["", "daily", "weekly", "monthly", "yearly"]
+const STREAK_LIST: Array<string> = ["Choose one...", "daily", "weekly", "monthly", "yearly"]
 
 const NewHabitForm: React.FC<stateType> = (props) => {
   const [formFields, setFormFields] = useState<form>({
@@ -73,6 +73,7 @@ const NewHabitForm: React.FC<stateType> = (props) => {
         <label className="exampleInputEmail1 m-2">Note:</label>
         <textarea id="description"
                   name="description"
+                  rows={6}
                   onChange={onTextareaChange}
                   value={formFields.description}
                   className="form-control" 
