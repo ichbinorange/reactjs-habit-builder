@@ -8,6 +8,7 @@ type stateType = {
 
 type form = {
     text: string;
+    imageUrl: string;
 }
 
 type selectHabit = {
@@ -17,18 +18,24 @@ type selectHabit = {
 }
 
 const NewMessageForm: React.FC<stateType> = (props) => {
-  const [formFields, setFormFields] = useState<form>({text: ''});
+  const [formFields, setFormFields] = useState<form>({text: '', imageUrl: 'https://images.pexels.com/photos/2740955/pexels-photo-2740955.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'});
 
   // event handlers for textarea
   const onTextareaChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event)=> {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
   }
 
+  // event handlers for input
+  const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (event)=> {
+    setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
+  }
+
   const onFormSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    console.log(formFields)
     props.addMessageCallback(formFields);
 
-    setFormFields({text: ''})
+    setFormFields({text: '', imageUrl: ''})
   }
 
   return (
@@ -51,11 +58,23 @@ const NewMessageForm: React.FC<stateType> = (props) => {
       <div className="form-group text-left">
         <textarea id="text"
                   name="text"
+                  rows={4}
                   onChange={onTextareaChange}
                   value={formFields.text}
                   className="form-control" 
                   placeholder="You got this!"
                 />
+        <label className="exampleInputEmail1 mt-3">Add an image:</label>
+        <input id="imageUrl"
+                name="imageUrl"
+                onChange={onInputChange}
+                className="form-control" 
+                placeholder="An image url or default image..."
+                />
+        <div className="mt-3 text-center">
+          Default image:
+          <img className="rounded w-75" src="https://images.pexels.com/photos/2740955/pexels-photo-2740955.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="default encourage image"/>
+        </div>
         <div className="text-center">
           <button
             type="submit"

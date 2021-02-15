@@ -1,11 +1,13 @@
 import React from 'react';
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import '../friendship/FriendCard.css';
 
 type stateType = {
     key: number;
     id: number;
     createdDate: string;
     text: string;
+    imageUrl: string;
     habit: apiHabit;
     friend: apiFriend; 
     deleteMsgCallback: {(habitMsgId: number): void;}
@@ -48,13 +50,19 @@ const MsgCard: React.FC<stateType> = (props) => {
               placement="top"
               overlay={<Tooltip id={`tooltip-$"top"`}>{props.friend.email}</Tooltip>}>
               <Button variant="outline-light">
-              <img className="rounded-circle border border-secondary" src={props.friend.imageUrl} alt={props.friend.name}/>
+              <img className="pro-img rounded-circle border border-secondary" src={props.friend.imageUrl} alt={props.friend.name}/>
               </Button>
           </OverlayTrigger>
         {props.friend.name}</div>
         <div>For #{props.habit.id} - {props.habit.title}</div>
-        <div>Message: {props.text}</div> 
-        <div className="text-center pb-1">
+
+        <div className="card">
+          <img className="card-img-top" src={props.imageUrl} alt="Card image cap"/>
+          <div className="card-body">
+            <p className="card-text">{props.text}</p>
+          </div>
+        </div>
+        <div className="text-center pb-1 pt-2">
           <button
               onClick={() => props.deleteMsgCallback(props.id)}
               className="btn btn-outline-danger btn-sm">
