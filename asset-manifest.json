@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/reactjs-habit-builder/static/css/main.281ba6cb.chunk.css",
-    "main.js": "/reactjs-habit-builder/static/js/main.cdd69473.chunk.js",
-    "main.js.map": "/reactjs-habit-builder/static/js/main.cdd69473.chunk.js.map",
+    "main.js": "/reactjs-habit-builder/static/js/main.b274c988.chunk.js",
+    "main.js.map": "/reactjs-habit-builder/static/js/main.b274c988.chunk.js.map",
     "runtime-main.js": "/reactjs-habit-builder/static/js/runtime-main.60e5b546.js",
     "runtime-main.js.map": "/reactjs-habit-builder/static/js/runtime-main.60e5b546.js.map",
     "static/css/2.802130fa.chunk.css": "/reactjs-habit-builder/static/css/2.802130fa.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.802130fa.chunk.css",
     "static/js/2.a0611c58.chunk.js",
     "static/css/main.281ba6cb.chunk.css",
-    "static/js/main.cdd69473.chunk.js"
+    "static/js/main.b274c988.chunk.js"
   ]
 }
