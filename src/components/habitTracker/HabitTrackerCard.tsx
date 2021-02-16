@@ -5,6 +5,7 @@ type stateType = {
   key?: number;
   id: number;
   habitId: number;
+  habitTitle: string;
   workTime: number;
   memo: string;
   createdDate: string;
@@ -42,7 +43,7 @@ const HabitTrackerCard: React.FC<stateType> = (props) => {
                 <div className="modal-content">
                   <div className="modal-body">
                     <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    Delete Habit Record#{props.id} for Habit#{props.habitId}
+                    Delete Record#{props.id} for Habit#{props.habitId} - {props.habitTitle}
                   </div>
                   <div className="modal-footer p-0">
                     <button type="button" 

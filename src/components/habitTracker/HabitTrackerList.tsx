@@ -49,6 +49,7 @@ const HabitTrackerList: React.FC<stateType> = (props) => {
       <HabitTrackerCard key={filteredHabitTracker.id}
                         id={filteredHabitTracker.id}
                         habitId={filteredHabitTracker.habit.id}
+                        habitTitle={filteredHabitTracker.habit.title}
                         workTime={filteredHabitTracker.workTime}
                         memo={filteredHabitTracker.memo}
                         createdDate={filteredHabitTracker.createdDate}
@@ -61,6 +62,7 @@ const HabitTrackerList: React.FC<stateType> = (props) => {
       <HabitTrackerCard key={habitTracker.id}
                         id={habitTracker.id}
                         habitId={habitTracker.habit.id}
+                        habitTitle={habitTracker.habit.title}
                         workTime={habitTracker.workTime}
                         memo={habitTracker.memo}
                         createdDate={habitTracker.createdDate}
