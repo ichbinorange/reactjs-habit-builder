@@ -137,6 +137,7 @@ const Friendship: React.FC<stateType> = (props) => {
               {searchEmail.length !== 0 ? <SearchResult email={searchEmail} 
                                                         addFriendCallback={addFriend}
                                                         resetCallback={resetSearch}
+                                                        friendList={friendList}
                                                         currentUser={props.currentUser}/> : null} 
             </div>
             <hr className="style1"></hr>
