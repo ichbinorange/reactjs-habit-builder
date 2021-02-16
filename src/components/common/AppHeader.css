@@ -49,4 +49,8 @@
 .thumbnail:hover {
     background-color: red;
     opacity: 0.5;
-    }
+}
+
+.header-font {
+    font-family: 'Ultra', serif;
+}

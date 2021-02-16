@@ -13,7 +13,7 @@ const AppHeader: React.FC<stateType> = (props) => {
             <div className="container">
                 <div className="app-options">
                     <nav className="app-nav fixed-top navbar-light bg-light">
-                        <Link to="/" className="navbar-brand navbar-nav mr-auto text-center"><h1 className="display-3">Habit Buddy</h1></Link>
+                        <Link to="/" className="navbar-brand navbar-nav mr-auto text-center header-font"><h1 className="display-3">Habit Buddy</h1></Link>
                         { props.authenticated ? (
                             <ul className="nav justify-content-end">
                                 <li>
