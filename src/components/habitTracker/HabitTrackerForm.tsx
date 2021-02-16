@@ -12,7 +12,6 @@ type form = {
 }
 
 const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
-const TIME_LIST: Array<number> = Array.from(Array(25).keys())
 
 const HabitTrackerForm: React.FC<stateType> = (props) => {
   const [formFields, setFormFields] = useState<form>({
@@ -54,7 +53,8 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
                 max="24" 
                 id="workTime"
                 name="workTime"
-                onChange={onInputChange}/>
+                onChange={onInputChange}
+                required/>
         <br/>
         <label className="text-left m-2">Note:</label>
         <textarea id="memo"
@@ -68,8 +68,9 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
         <div className="text-center">
           <button
             type="submit"
-            className={props.habitId !== -1 ? "btn btn-outline-success mt-3 btn-sm" : "btn btn-outline-success mt-3 btn-sm disabled"}
-          >Add Record</button>
+            className="btn btn-outline-success mt-3 btn-sm"
+            disabled={props.habitId === -1}>
+            Add Record</button>
         </div>
       </div>
     </form>

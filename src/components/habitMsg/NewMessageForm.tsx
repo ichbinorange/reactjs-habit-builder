@@ -78,7 +78,8 @@ const NewMessageForm: React.FC<stateType> = (props) => {
         <div className="text-center">
           <button
             type="submit"
-            className={props.habit.habitId !== -1 ? "btn btn-outline-success mt-3 btn-sm" : "btn btn-outline-success mt-3 btn-sm disabled"}
+            className={"btn btn-outline-success mt-3 btn-sm"}
+            disabled={props.habit.habitId === -1}
             >Send Message
           </button>
         </div>

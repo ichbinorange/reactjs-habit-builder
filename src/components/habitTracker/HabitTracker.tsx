@@ -91,9 +91,10 @@ const HabitTracker: React.FC<stateType> = (props) => {
           <div className="d-flex justify-content-between">
             <p className="pl-3">{selectedHabitId === -1 ? "Pick one Habit" : `Selected Habit#${selectedHabitId}`}</p>
             <Link to="/habitTracker">
-              <button className={selectedHabitId === -1 ? "btn btn-outline-secondary btn-sm disabled": "btn btn-outline-secondary btn-sm"}
-                    onClick={cancelSelectHabit}>
-                    Overview
+              <button className="btn btn-outline-secondary btn-sm"
+                      disabled={selectedHabitId === -1}
+                      onClick={cancelSelectHabit}>
+                      Overview
               </button>
             </Link>
           </div>
