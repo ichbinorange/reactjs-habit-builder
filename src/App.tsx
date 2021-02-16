@@ -69,7 +69,8 @@ const App: React.FC = (props) => {
             <PrivateRoute path="/profile" 
                           authenticated={ authenticated } 
                           currentUser={ currentUser }
-                          component={ Profile }>
+                          component={ Profile }
+                          onLogout={ onLogout }>
             </PrivateRoute>
             <PrivateRoute path="/habit"
                           authenticated={ authenticated } 

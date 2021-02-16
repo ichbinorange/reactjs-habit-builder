@@ -9,6 +9,7 @@ interface stateType {
     authenticated: boolean;
     currentUser: any;
     component: any;
+    onLogout?: {(): void;};
 }
 
 const PrivateRoute: React.FC<stateType> = ({ component: Component, authenticated, ...rest }) => {

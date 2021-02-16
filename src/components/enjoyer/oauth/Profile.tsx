@@ -9,6 +9,7 @@ import './Profile.css';
 type stateType = {
     currentUser: any;
     location: any;
+    onLogout: {(): void;};
 }
 
 const Profile: React.FC<stateType> = (props) => {
@@ -58,6 +59,7 @@ const Profile: React.FC<stateType> = (props) => {
     }
 
     if(delEnjoyer) {
+        props.onLogout()
         return <Redirect to={{
             pathname: "/login",
             state: { 
