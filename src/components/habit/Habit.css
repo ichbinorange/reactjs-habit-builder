@@ -1,3 +1,7 @@
 .component-bkgd {
     background-color: #eae7dc;
 }
+
+.btn-size {
+    width: 2.5em;
+}

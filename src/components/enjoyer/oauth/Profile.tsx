@@ -42,15 +42,15 @@ const Profile: React.FC<stateType> = (props) => {
         });
     }
     
-    const deleteEnjoyer = (enjoyer_id: number) => {
+    const deleteEnjoyer = (enjoyerId: number) => {
         setDelEnjoyer(!delEnjoyer)
-        axios.delete(`${API_BASE_URL}/enjoyer/${enjoyer_id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+        axios.delete(`${API_BASE_URL}/enjoyer/${enjoyerId}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
         .then((response) => {
             localStorage.clear();
-            setErrorMessage(`Enjoyer ${ enjoyer_id } deleted`);
+            setErrorMessage(`Enjoyer ${ enjoyerId } deleted`);
         })
         .catch((error) => {
-            setErrorMessage(`Unable to delete enjoyer ${ enjoyer_id }`);
+            setErrorMessage(`Unable to delete enjoyer ${ enjoyerId }`);
         })
     }
 
@@ -99,12 +99,24 @@ const Profile: React.FC<stateType> = (props) => {
                             onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
                             className="btn btn-outline-info btn-sm"
                         >Edit</button>
-                        <button
-                            onClick={() => deleteEnjoyer(enjoyerInfo.id)}
-                            className="btn btn-outline-danger ml-3 btn-sm"
-                            data-testid={enjoyerInfo.id}>
-                            Delete Account
-                        </button>
+
+                        <button type="button" className="btn btn-outline-danger ml-2 btn-sm" data-toggle="modal" data-target={`#user#${enjoyerInfo.id}`}>Delete Account</button>
+                        <div className="modal" id={`user#${enjoyerInfo.id}`}>
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-body">
+                                        <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                            Delete your account
+                                    </div>
+                                    <div className="modal-footer p-0">
+                                        <button type="button" 
+                                                className="btn btn-outline-danger ml-3 btn-sm" 
+                                                data-dismiss="modal"
+                                                onClick={() => deleteEnjoyer(enjoyerInfo.id)}>Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
                     </div>
                 </div>
                 { update ? <div className="col-sm text-center m-5">
