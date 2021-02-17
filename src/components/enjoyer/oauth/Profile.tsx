@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
-
 import axios from 'axios';
+
 import { API_BASE_URL } from '../../util/BaseUrl';
 import UpdateEnjoyerForm from '../UpdateEnjoyerForm';
 import './Profile.css';

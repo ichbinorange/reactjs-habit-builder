@@ -62,7 +62,7 @@ const MsgList: React.FC<stateType> = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, []); // [habitMsgList] turn it off for mac less works to read data from server, should turn it on when final depoly
+  }, []); // [habitMsgList] to infinity loop
 
   const deleteHabitMsg = (habitMsgId: number) => {
     axios.delete(`${API_BASE_URL}/habitMsg/${habitMsgId}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })

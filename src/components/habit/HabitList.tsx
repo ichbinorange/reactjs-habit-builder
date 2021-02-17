@@ -29,7 +29,7 @@ const HabitList: React.FC<stateType> = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, []); // [habitList]?
+  }, []); // [habitList] to infinity loop
 
   const deleteHabit = (habitId: number) => {
     const updatedHabitList = habitList.filter((habit: any) => {

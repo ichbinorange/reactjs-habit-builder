@@ -4,10 +4,9 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+
 import { getCurrentUser } from './components/util/ApiUtils';
 import { ACCESS_TOKEN } from './components/util/BaseUrl';
-// import Alert from 'react-s-alert';
-
 import AppHeader from './components/common/AppHeader';
 import NotFound from './components/common/NotFound';
 import LoadingIndicator from './components/common/LoadingIndicator';
@@ -33,7 +32,6 @@ const App: React.FC = (props) => {
     localStorage.removeItem(ACCESS_TOKEN);
     setAuthenticated(false);
     setCurrentUser(null);
-    // logout cookies issue
     // window.location.href = '/reactjs-habit-builder';
     window.location.href = '/';
   }
@@ -96,9 +94,6 @@ const App: React.FC = (props) => {
             <Route component={ NotFound }></Route>
           </Switch>
         </div>
-        {/* <Alert stack={{limit: 3}} 
-          timeout = {3000}
-        position='top-right' effect='slide' offset={65} /> */}
       </div>
       <div className="text-center">
         <Footer />

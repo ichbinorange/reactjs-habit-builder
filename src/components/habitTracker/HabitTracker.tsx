@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Alert } from "react-bootstrap";
+import axios from 'axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from 'axios';
+
 import { API_BASE_URL } from '../util/BaseUrl';
 import HabitList from '../habit/HabitList';
 import HabitTrackerForm from './HabitTrackerForm';
