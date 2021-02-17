@@ -32,8 +32,8 @@ const App: React.FC = (props) => {
     localStorage.removeItem(ACCESS_TOKEN);
     setAuthenticated(false);
     setCurrentUser(null);
-    // window.location.href = '/reactjs-habit-builder';
-    window.location.href = '/';
+    window.location.href = '/reactjs-habit-builder';
+    // window.location.href = '/';   --> for local use
   }
 
   const loadCurrentlyLoggedInUser = () => {
@@ -53,8 +53,8 @@ const App: React.FC = (props) => {
   }, []);
 
   return (
-    // <Router basename="/reactjs-habit-builder">
-    <Router>
+    <Router basename="/reactjs-habit-builder">
+    {/* <Router> for local use */}
       {loading ? <LoadingIndicator /> : null }
       <div className="content">
         <div className="app-top-box">
