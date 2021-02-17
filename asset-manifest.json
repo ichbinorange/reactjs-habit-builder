@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/reactjs-habit-builder/static/css/main.281ba6cb.chunk.css",
-    "main.js": "/reactjs-habit-builder/static/js/main.c5c2c6b7.chunk.js",
-    "main.js.map": "/reactjs-habit-builder/static/js/main.c5c2c6b7.chunk.js.map",
-    "runtime-main.js": "/reactjs-habit-builder/static/js/runtime-main.60e5b546.js",
-    "runtime-main.js.map": "/reactjs-habit-builder/static/js/runtime-main.60e5b546.js.map",
+    "main.css": "/reactjs-habit-builder/static/css/main.c09fb480.chunk.css",
+    "main.js": "/reactjs-habit-builder/static/js/main.da985448.chunk.js",
+    "main.js.map": "/reactjs-habit-builder/static/js/main.da985448.chunk.js.map",
+    "runtime-main.js": "/reactjs-habit-builder/static/js/runtime-main.b30c0c20.js",
+    "runtime-main.js.map": "/reactjs-habit-builder/static/js/runtime-main.b30c0c20.js.map",
     "static/css/2.802130fa.chunk.css": "/reactjs-habit-builder/static/css/2.802130fa.chunk.css",
-    "static/js/2.75330f32.chunk.js": "/reactjs-habit-builder/static/js/2.75330f32.chunk.js",
-    "static/js/2.75330f32.chunk.js.map": "/reactjs-habit-builder/static/js/2.75330f32.chunk.js.map",
-    "static/js/3.4407f14f.chunk.js": "/reactjs-habit-builder/static/js/3.4407f14f.chunk.js",
-    "static/js/3.4407f14f.chunk.js.map": "/reactjs-habit-builder/static/js/3.4407f14f.chunk.js.map",
+    "static/js/2.5d3dff82.chunk.js": "/reactjs-habit-builder/static/js/2.5d3dff82.chunk.js",
+    "static/js/2.5d3dff82.chunk.js.map": "/reactjs-habit-builder/static/js/2.5d3dff82.chunk.js.map",
+    "static/js/3.6ad8635c.chunk.js": "/reactjs-habit-builder/static/js/3.6ad8635c.chunk.js",
+    "static/js/3.6ad8635c.chunk.js.map": "/reactjs-habit-builder/static/js/3.6ad8635c.chunk.js.map",
     "index.html": "/reactjs-habit-builder/index.html",
     "static/css/2.802130fa.chunk.css.map": "/reactjs-habit-builder/static/css/2.802130fa.chunk.css.map",
-    "static/css/main.281ba6cb.chunk.css.map": "/reactjs-habit-builder/static/css/main.281ba6cb.chunk.css.map",
-    "static/js/2.75330f32.chunk.js.LICENSE.txt": "/reactjs-habit-builder/static/js/2.75330f32.chunk.js.LICENSE.txt",
+    "static/css/main.c09fb480.chunk.css.map": "/reactjs-habit-builder/static/css/main.c09fb480.chunk.css.map",
+    "static/js/2.5d3dff82.chunk.js.LICENSE.txt": "/reactjs-habit-builder/static/js/2.5d3dff82.chunk.js.LICENSE.txt",
     "static/media/App.css": "/reactjs-habit-builder/static/media/bkgdImg.d3d56126.jpg",
     "static/media/google-logo.9a818e61.png": "/reactjs-habit-builder/static/media/google-logo.9a818e61.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.60e5b546.js",
+    "static/js/runtime-main.b30c0c20.js",
     "static/css/2.802130fa.chunk.css",
-    "static/js/2.75330f32.chunk.js",
-    "static/css/main.281ba6cb.chunk.css",
-    "static/js/main.c5c2c6b7.chunk.js"
+    "static/js/2.5d3dff82.chunk.js",
+    "static/css/main.c09fb480.chunk.css",
+    "static/js/main.da985448.chunk.js"
   ]
 }
