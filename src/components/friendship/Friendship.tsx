@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Alert } from "react-bootstrap";
 import { API_BASE_URL } from '../util/BaseUrl';
 import Search from './Search';
 import SearchResult from './SearchResult';
@@ -58,6 +59,7 @@ const Friendship: React.FC<stateType> = (props) => {
   const [selectedHabit, setSelectedHabit] = useState<selectHabit>({habitId: -1, friendName: '', friendImageUrl: ''})
   const [searchEmail, setSearchEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<String>('');
+  const [errorVisible, setErrorVisible] = useState<boolean>(false);
 
   useEffect(() => {
     axios.get(`${API_BASE_URL}/friendship/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
@@ -73,6 +75,14 @@ const Friendship: React.FC<stateType> = (props) => {
         setErrorMessage(error.message);
     });
   }, []); 
+
+  const onShowAlert = () => {
+    setErrorVisible(true) // true
+    const timer = window.setTimeout(()=>{
+      setErrorVisible(false) // false
+    },4000);
+    return () => clearTimeout(timer);
+  }
 
   const selectFriendHabit = (habit: selectHabit) => {
     setSelectedHabit(habit)
@@ -93,7 +103,8 @@ const Friendship: React.FC<stateType> = (props) => {
   const addFriend = (receiver: friend) => {
     axios.post(`${API_BASE_URL}/friendship/requester/${props.currentUser.id}/receiver/${receiver.id}`, receiver, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => { 
-        setErrorMessage('');
+        setErrorMessage('Successufully send the friend request');
+        onShowAlert();
       })
       .catch((error) => {
         setErrorMessage(`Unable to add this friend`);
@@ -104,7 +115,8 @@ const Friendship: React.FC<stateType> = (props) => {
     axios.post(`${API_BASE_URL}/habit/${selectedHabit.habitId}/habitMsg/${props.currentUser.id}`, msg, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
         // msg is not for current user but for friends, no need for msg list 
-        setErrorMessage('');
+        setErrorMessage('Successufully send the message');
+        onShowAlert();
       })
       .catch((error) => {
         setErrorMessage(`Unable to add a new habit`);
@@ -113,6 +125,7 @@ const Friendship: React.FC<stateType> = (props) => {
 
   return (
       <div className="container component-bkgd pt-5 p-4">
+        {errorVisible && errorMessage.includes('Successuful') ? <Alert variant="success" className="text-center" >{errorMessage}</Alert> : null}
         <h1 className="mb-5 text-center">Support your Friends</h1>
         <div className="row">
           <div className="col-3 text-center">
@@ -136,6 +149,8 @@ const Friendship: React.FC<stateType> = (props) => {
                       resetCallback={resetSearch} /> 
               {searchEmail.length !== 0 ? <SearchResult email={searchEmail} 
                                                         addFriendCallback={addFriend}
+                                                        resetCallback={resetSearch}
+                                                        friendList={friendList}
                                                         currentUser={props.currentUser}/> : null} 
             </div>
             <hr className="style1"></hr>

@@ -9,24 +9,25 @@ import './Profile.css';
 type stateType = {
     currentUser: any;
     location: any;
+    onLogout: {(): void;};
 }
 
 const Profile: React.FC<stateType> = (props) => {
     const [update, setUpdate] = useState<boolean>(false);
     const [delEnjoyer, setDelEnjoyer] = useState<boolean>(false);
-    const [enjoyerInfo, setEnjoyerInfo] = useState({...props.currentUser})
+    const [enjoyerInfo, setEnjoyerInfo] = useState({...props.currentUser});
     const [errorMessage, setErrorMessage] = useState<String>('');
 
     useEffect(() => {
         axios.get(`${API_BASE_URL}/enjoyer/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
             .then((response) => {
-            const apiEnjoyerInfo = response.data;
+                const apiEnjoyerInfo = response.data;
                 setEnjoyerInfo(apiEnjoyerInfo)
             })
             .catch((error) => {
-            setErrorMessage(error.message);
+                setErrorMessage(error.message);
             });
-      }, []); // enjoyerInfo to save server's workload
+    }, [update]); // [enjoyerInfo] to infinity loop
 
     const updateEnjoyer = (enjoyer: any) => {
         setUpdate(false);
@@ -34,22 +35,22 @@ const Profile: React.FC<stateType> = (props) => {
           .then((response) => {
             const updatedEnjoyer = [...enjoyerInfo, ...enjoyer];
             setEnjoyerInfo(updatedEnjoyer);
-            setErrorMessage('');
+            setErrorMessage('Successufully update your profile');
           })
           .catch((error) => {
-            setErrorMessage(`Unable to update User Info`);
+            setErrorMessage(`Unable to update your profile`);
         });
     }
     
-    const deleteEnjoyer = (enjoyer_id: number) => {
+    const deleteEnjoyer = (enjoyerId: number) => {
         setDelEnjoyer(!delEnjoyer)
-        axios.delete(`${API_BASE_URL}/enjoyer/${enjoyer_id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+        axios.delete(`${API_BASE_URL}/enjoyer/${enjoyerId}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
         .then((response) => {
             localStorage.clear();
-            setErrorMessage(`Enjoyer ${ enjoyer_id } deleted`);
+            setErrorMessage(`Enjoyer ${ enjoyerId } deleted`);
         })
         .catch((error) => {
-            setErrorMessage(`Unable to delete enjoyer ${ enjoyer_id }`);
+            setErrorMessage(`Unable to delete enjoyer ${ enjoyerId }`);
         })
     }
 
@@ -58,6 +59,7 @@ const Profile: React.FC<stateType> = (props) => {
     }
 
     if(delEnjoyer) {
+        props.onLogout()
         return <Redirect to={{
             pathname: "/login",
             state: { 
@@ -72,7 +74,7 @@ const Profile: React.FC<stateType> = (props) => {
             <div className="row profile-info">
                 <div className={props.currentUser.imageUrl ? "col-sm" : "col-sm"}>
                     { enjoyerInfo.imageUrl ? (
-                        <img className="w-75 rounded-circle border border-secandary" src={ enjoyerInfo.imageUrl } alt={ enjoyerInfo.name }/>
+                        <img className="profile-img rounded-circle" src={ enjoyerInfo.imageUrl } alt={ enjoyerInfo.name }/>
                     ) : (
                         <div>
                             <span>{ enjoyerInfo.name &&  enjoyerInfo.name[0] }</span>
@@ -86,7 +88,7 @@ const Profile: React.FC<stateType> = (props) => {
                         <h5 className="mt-5 text-center"> About you</h5>
                         <div className="card d-inline-flex mt-2">
                             <div className="card-body">
-                                <div>
+                                <div className="text-left">
                                     <p>{enjoyerInfo.about}</p>
                                 </div>
                             </div>
@@ -97,12 +99,24 @@ const Profile: React.FC<stateType> = (props) => {
                             onClick={(e: React.MouseEvent<HTMLElement>) => setUpdate(true)}
                             className="btn btn-outline-info btn-sm"
                         >Edit</button>
-                        <button
-                            onClick={() => deleteEnjoyer(enjoyerInfo.id)}
-                            className="btn btn-outline-danger ml-3 btn-sm"
-                            data-testid={enjoyerInfo.id}>
-                            Delete Account
-                        </button>
+
+                        <button type="button" className="btn btn-outline-danger ml-2 btn-sm" data-toggle="modal" data-target={`#user#${enjoyerInfo.id}`}>Delete Account</button>
+                        <div className="modal" id={`user#${enjoyerInfo.id}`}>
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-body">
+                                        <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                            Delete your account
+                                    </div>
+                                    <div className="modal-footer p-0">
+                                        <button type="button" 
+                                                className="btn btn-outline-danger ml-3 btn-sm" 
+                                                data-dismiss="modal"
+                                                onClick={() => deleteEnjoyer(enjoyerInfo.id)}>Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
                     </div>
                 </div>
                 { update ? <div className="col-sm text-center m-5">

@@ -11,7 +11,7 @@ type form = {
   streak: string,
 }
 
-const STREAK_LIST: Array<string> = ["", "daily", "weekly", "monthly", "yearly"]
+const STREAK_LIST: Array<string> = ["Choose one...", "daily", "weekly", "monthly", "yearly"]
 
 const NewHabitForm: React.FC<stateType> = (props) => {
   const [formFields, setFormFields] = useState<form>({
@@ -52,7 +52,8 @@ const NewHabitForm: React.FC<stateType> = (props) => {
     <form onSubmit={onFormSubmit} className="text-center">
       <h3 className="text-center">New Habit</h3>
       <div className="form-group">
-        <label className="exampleInputEmail1">Title:</label>
+        <label className="exampleInputEmail1"
+               htmlFor="title">Title:</label>
         <input id="title"
                 name="title"
                 onChange={onInputChange}
@@ -60,8 +61,10 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 className="form-control" 
                 placeholder="Eat veggies..."
                 type="text"
+                required
                 />
-        <label className="exampleInputEmail1 m-2">Goal:</label>
+        <label className="exampleInputEmail1 m-2"
+                htmlFor="goal">Goal:</label>
         <input id="goal"
                 name="goal"
                 onChange={onInputChange}
@@ -69,10 +72,12 @@ const NewHabitForm: React.FC<stateType> = (props) => {
                 className="form-control" 
                 placeholder="Two type of veggies per day..."
                 type="text"
+                required
                 />
         <label className="exampleInputEmail1 m-2">Note:</label>
         <textarea id="description"
                   name="description"
+                  rows={6}
                   onChange={onTextareaChange}
                   value={formFields.description}
                   className="form-control" 

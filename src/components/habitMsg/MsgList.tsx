@@ -12,6 +12,7 @@ type apiMsg = {
   createdDate: string;
   lastModifiedDate: string;
   text: string;
+  imageUrl: string;
   habit: apiHabit;
   friend: apiFriend; 
 }
@@ -77,6 +78,7 @@ const MsgList: React.FC<stateType> = (props) => {
     return (
       <MsgCard key={habitMsg.id}
                id={habitMsg.id}
+               imageUrl={habitMsg.imageUrl}
                createdDate={habitMsg.createdDate}
                text={habitMsg.text}
                habit={habitMsg.habit}

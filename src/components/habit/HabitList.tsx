@@ -29,20 +29,20 @@ const HabitList: React.FC<stateType> = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, []); // [habitList] turn it off for mac less works to read data from server, should turn it on when final depoly
+  }, []); // [habitList]?
 
-  const deleteHabit = (habit_id: number) => {
+  const deleteHabit = (habitId: number) => {
     const updatedHabitList = habitList.filter((habit: any) => {
-      return habit.id !== habit_id;
+      return habit.id !== habitId;
     });
 
     if (updatedHabitList.length < habitList.length) {
-      axios.delete(`${API_BASE_URL}/habit/${habit_id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+      axios.delete(`${API_BASE_URL}/habit/${habitId}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
         .then((response) => {
-          setErrorMessage(`Habit ${ habit_id } deleted`);
+          setErrorMessage(`Successfully deleted habit#${ habitId }`);
         })
         .catch((error) => {
-          setErrorMessage(`Unable to delete habit ${ habit_id }`);
+          setErrorMessage(`Unable to delete habit ${ habitId }`);
         })
       setHabitList(updatedHabitList);
     }

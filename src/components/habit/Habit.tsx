@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Alert } from "react-bootstrap";
 import { API_BASE_URL } from '../util/BaseUrl';
 import NewHabitForm from './NewHabitForm';
 import HabitList from './HabitList';
@@ -11,19 +12,26 @@ type stateType = {
 }
 
 const Habit: React.FC<stateType> = (props) => {
-  const [habitList, setHabitList] = useState<Array<object>>([]);
   const [errorMessage, setErrorMessage] = useState<String>('');
+  const [errorVisible, setErrorVisible] = useState<boolean>(false);
 
   const addHabit = (habit: any) => {
     axios.post(`${API_BASE_URL}/enjoyer/${props.currentUser.id}/habit`, habit, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
-        const updatedHabit = [...habitList, response.data];
-        setHabitList(updatedHabit);
-        setErrorMessage('');
+        setErrorMessage('Successufully add a new Habit');
+        onShowAlert();
       })
       .catch((error) => {
         setErrorMessage(`Unable to add a new habit`);
       });
+  }
+
+  const onShowAlert = () => {
+    setErrorVisible(true) // true
+    const timer = window.setTimeout(()=>{
+      setErrorVisible(false) // false
+    },4000);
+    return () => clearTimeout(timer);
   }
 
   // fake function to save line 44
@@ -33,10 +41,8 @@ const Habit: React.FC<stateType> = (props) => {
 
   return (
     <div className="container component-bkgd pt-5 p-4">
+      {errorVisible && errorMessage.includes('Successuful') ? <Alert variant="success" className="text-center" >{errorMessage}</Alert> : null}
       <h1 className="mb-5 text-center">Your Habits</h1>
-      <div className="validation-errors-display">
-        <h2 className="validation-errors-display__list">{errorMessage}</h2>
-      </div>
       <div className="row">
         <div className="col-3">
           <NewHabitForm addHabitCallback={addHabit}/>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Alert } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
@@ -22,6 +23,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
 
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [datePickerFormat, setDatePickerFormat] = useState<string>("month")
+  const [errorVisible, setErrorVisible] = useState<boolean>(false);
 
   const getHabitIdUrlParameter = (localdata: string) => {
     const splitted = localdata.split("/")
@@ -30,6 +32,14 @@ const HabitTracker: React.FC<stateType> = (props) => {
       setSelectedHabitId(habitId);
     }
   };
+
+  const onShowAlert = () => {
+    setErrorVisible(true) // true
+    const timer = window.setTimeout(()=>{
+      setErrorVisible(false) // false
+    },4000);
+    return () => clearTimeout(timer);
+  }
 
   // Invoke selected habit card
   useEffect(() => {
@@ -41,7 +51,8 @@ const HabitTracker: React.FC<stateType> = (props) => {
       .then((response) => {
         const updatedHabitTracker = [...habitTrackerList, response.data];
         setHabitTrackerList(updatedHabitTracker);
-        setErrorMessage('');
+        setErrorMessage('Successufully add a new Habit Record');
+        onShowAlert();
       })
       .catch((error) => {
         setErrorMessage(`Unable to add a new habit record`);
@@ -85,15 +96,17 @@ const HabitTracker: React.FC<stateType> = (props) => {
 
   return (
     <div className="container component-bkgd pt-5 p-4">
+      {errorVisible && errorMessage.includes('Successuful') ? <Alert variant="success" className="text-center" >{errorMessage}</Alert> : null}
       <h1 className="mb-5 text-center">Habit Tracker</h1>
       <div className="row">
         <div className="col-3">
           <div className="d-flex justify-content-between">
             <p className="pl-3">{selectedHabitId === -1 ? "Pick one Habit" : `Selected Habit#${selectedHabitId}`}</p>
             <Link to="/habitTracker">
-              <button className={selectedHabitId === -1 ? "btn btn-outline-secondary btn-sm disabled": "btn btn-outline-secondary btn-sm"}
-                    onClick={cancelSelectHabit}>
-                    Overview
+              <button className="btn btn-outline-secondary btn-sm"
+                      disabled={selectedHabitId === -1}
+                      onClick={cancelSelectHabit}>
+                      Overview
               </button>
             </Link>
           </div>
@@ -107,9 +120,9 @@ const HabitTracker: React.FC<stateType> = (props) => {
           </div>}
           <h5 className="mb-2 text-center">Habit List</h5>
           <HabitList currentUser={props.currentUser}
-                      selectHabit={toSelectHabit}
                       habitPage={false}
-                      habitId={-1} />
+                      selectHabit={toSelectHabit}
+                      habitId={-1}/>
         </div>
         <div className="col-6">
           <div className="d-flex justify-content-end mb-2">
@@ -117,7 +130,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
             <div className="btn-group btn-group-toggle" data-toggle="buttons">
               <button className="btn btn-outline-secondary btn-sm active"
                       onClick={(e: React.MouseEvent<HTMLElement>) => selectDateFormat("month")}>Month
-                      <input type="radio" name="options" id="option1" data-autocomplete="off" checked></input>
+                      <input type="radio" name="options" id="option1" data-autocomplete="off" ></input>
               </button> 
               <button className="btn btn-outline-secondary btn-sm"
                       onClick={(e: React.MouseEvent<HTMLElement>) => selectDateFormat("year")}>Year

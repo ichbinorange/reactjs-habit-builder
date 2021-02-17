@@ -12,7 +12,6 @@ type form = {
 }
 
 const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };
-const TIME_LIST: Array<number> = Array.from(Array(25).keys())
 
 const HabitTrackerForm: React.FC<stateType> = (props) => {
   const [formFields, setFormFields] = useState<form>({
@@ -21,11 +20,10 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
     memo: '',
   });
 
-  // event handlers for select
-  const onSelectChange: React.ChangeEventHandler<HTMLSelectElement> = (event)=> {
+  // event handlers for input
+  const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (event)=> {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
-  };
-
+  }
   // event handlers for textarea
   const onTextareaChange: React.ChangeEventHandler<HTMLTextAreaElement> = (event)=> {
     setFormFields({...formFields, [event.target.name]: event.currentTarget.value})
@@ -48,22 +46,20 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
       <div className="form-group">
         <h6>Today is {new Date().toLocaleDateString('en-US', DATE_OPTIONS)}</h6>
         <label className="text-left m-2">Time spent(hr):</label>
-        <select className="form-control"
-                defaultValue={0}
+        <input type="number" 
+                placeholder="Choose one..." 
+                step="0.5" 
+                min="0.5" 
+                max="24" 
+                id="workTime"
                 name="workTime"
-                onChange={onSelectChange} 
-                >
-          {
-            TIME_LIST.map((s, i) => (
-              <option key={i}
-                      value={s} 
-                      >{s}</option>
-            ))
-          }
-        </select>
+                onChange={onInputChange}
+                required/>
+        <br/>
         <label className="text-left m-2">Note:</label>
         <textarea id="memo"
                   name="memo"
+                  rows={6}
                   onChange={onTextareaChange}
                   value={formFields.memo}
                   className="form-control" 
@@ -72,8 +68,9 @@ const HabitTrackerForm: React.FC<stateType> = (props) => {
         <div className="text-center">
           <button
             type="submit"
-            className={props.habitId !== -1 ? "btn btn-outline-success mt-3 btn-sm" : "btn btn-outline-success mt-3 btn-sm disabled"}
-          >Add Record</button>
+            className="btn btn-outline-success mt-3 btn-sm"
+            disabled={props.habitId === -1}>
+            Add Record</button>
         </div>
       </div>
     </form>
