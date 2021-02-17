@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Alert, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { API_BASE_URL } from '../util/BaseUrl';
 import './SearchResult.css';
 import './FriendCard.css';
@@ -101,7 +101,7 @@ const SearchResult: React.FC<stateType> = (props) => {
 
     return (
         <div>
-            {findFriend.email.length === 0 ? errorMessage : 
+            {findFriend.email.length === 0 ?<div className="alert alert-warning alert-dismissible p-1 mt-2 mb-1">{errorMessage}</div> : 
             <div className="card d-inline-flex mt-2">
                 <div className="card-body p-1">
                     <img className="pro-img rounded-circle border border-secondary mr-1" src={findFriend.imageUrl} alt={findFriend.name}/>
@@ -120,8 +120,8 @@ const SearchResult: React.FC<stateType> = (props) => {
                     </OverlayTrigger>
                 </div>
                 <div className="card-body p-1">
-                    <h6 className="card-title"> About {findFriend.name}</h6>
-                    <p className="card-text">{findFriend.about === null ? "TBD..." : findFriend.about}</p>
+                    <h6 className="card-title font-weight-bold"> About {findFriend.name}</h6>
+                    <p className="card-text font-weight-light">{findFriend.about === null ? "TBD..." : findFriend.about}</p>
                 </div>
             </div>}
         </div>

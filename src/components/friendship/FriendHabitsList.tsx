@@ -30,7 +30,7 @@ const HabitList: React.FC<stateType> = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, []); // [habitList] turn it off for mac less works to read data from server, should turn it on when final depoly
+  }, [habitList.length]); // [habitList] to infinity loop
 
   const friendHabitComponents = habitList.map((habit: any) => {
     return (

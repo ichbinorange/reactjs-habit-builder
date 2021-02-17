@@ -9,7 +9,7 @@ type stateType = {
   workTime: number;
   memo: string;
   createdDate: string;
-  deleteHabitTrackerCallback: {(habitTracker_id: number): void;};
+  deleteHabitTrackerCallback: {(habitTrackerId: number): void;};
 }
   
 const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -20,7 +20,7 @@ const HabitTrackerCard: React.FC<stateType> = (props) => {
       <div className="card-body p-0">
         <div className="d-flex justify-content-between">
             <h5 className="display-5">#{props.habitId}</h5>
-            <div className="display-5">Record ID: {props.id}</div>
+            <div className="text-sm-left">Record ID: {props.id}</div>
         </div>
         <div>
             Time spent(hr): {props.workTime}

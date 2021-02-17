@@ -27,18 +27,18 @@ const HabitTrackerList: React.FC<stateType> = (props) => {
       });
   }, []); 
 
-  const deleteHabitTracker = (habitTracker_id: number) => {
+  const deleteHabitTracker = (habitTrackerId: number) => {
     const updatedHabitTrackerList = habitTrackerList.filter((habitTracker: any) => {
-      return habitTracker.id !== habitTracker_id;
+      return habitTracker.id !== habitTrackerId;
     });
 
     if (updatedHabitTrackerList.length < habitTrackerList.length) {
-      axios.delete(`${API_BASE_URL}/habitTracker/${habitTracker_id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+      axios.delete(`${API_BASE_URL}/habitTracker/${habitTrackerId}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
         .then((response) => {
-          setErrorMessage(`Habit ${ habitTracker_id } deleted`);
+          setErrorMessage(`Habit ${ habitTrackerId } deleted`);
         })
         .catch((error) => {
-          setErrorMessage(`Unable to delete habitTracker ${ habitTracker_id }`);
+          setErrorMessage(`Unable to delete habitTracker ${ habitTrackerId }`);
         })
       setHabitTrackerList(updatedHabitTrackerList);
     }

@@ -15,7 +15,7 @@ type stateType = {
     streak: string;
     habitBuilt: boolean;
     createdDate: string;
-    deleteHabitCallback: {(habit_id: number): void;};
+    deleteHabitCallback: {(habitId: number): void;};
     selectHabit: {(habitId: number): void;};
     habitPage: boolean;
 }

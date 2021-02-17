@@ -87,7 +87,7 @@ const FriendCard: React.FC<stateType> = (props) => {
         <OverlayTrigger
             placement="top"
             overlay={<Tooltip id={`tooltip-$"top"`}>{friend.email}</Tooltip>}>
-            <Button variant="outline-light">
+            <Button variant="outline-light" className="pl-0">
               <img className="pro-img rounded-circle border border-secondary" src={friend.imageUrl} alt={friend.name}/>
             </Button>
         </OverlayTrigger>

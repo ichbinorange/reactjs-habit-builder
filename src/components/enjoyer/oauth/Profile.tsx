@@ -15,19 +15,19 @@ type stateType = {
 const Profile: React.FC<stateType> = (props) => {
     const [update, setUpdate] = useState<boolean>(false);
     const [delEnjoyer, setDelEnjoyer] = useState<boolean>(false);
-    const [enjoyerInfo, setEnjoyerInfo] = useState({...props.currentUser})
+    const [enjoyerInfo, setEnjoyerInfo] = useState({...props.currentUser});
     const [errorMessage, setErrorMessage] = useState<String>('');
 
     useEffect(() => {
         axios.get(`${API_BASE_URL}/enjoyer/${props.currentUser.id}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
             .then((response) => {
-            const apiEnjoyerInfo = response.data;
+                const apiEnjoyerInfo = response.data;
                 setEnjoyerInfo(apiEnjoyerInfo)
             })
             .catch((error) => {
-            setErrorMessage(error.message);
+                setErrorMessage(error.message);
             });
-      }, []); // enjoyerInfo to save server's workload
+    }, [update]); // [enjoyerInfo] to infinity loop
 
     const updateEnjoyer = (enjoyer: any) => {
         setUpdate(false);
@@ -35,10 +35,10 @@ const Profile: React.FC<stateType> = (props) => {
           .then((response) => {
             const updatedEnjoyer = [...enjoyerInfo, ...enjoyer];
             setEnjoyerInfo(updatedEnjoyer);
-            setErrorMessage('');
+            setErrorMessage('Successufully update your profile');
           })
           .catch((error) => {
-            setErrorMessage(`Unable to update User Info`);
+            setErrorMessage(`Unable to update your profile`);
         });
     }
     
