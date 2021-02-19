@@ -25,7 +25,7 @@ const HabitTrackerList: React.FC<stateType> = (props) => {
         .catch((error) => {
           setErrorMessage(error.message);
       });
-  }, []); 
+  }, []); // habitTrackerList will cause infinity loop
 
   const deleteHabitTracker = (habitTrackerId: number) => {
     const updatedHabitTrackerList = habitTrackerList.filter((habitTracker: any) => {

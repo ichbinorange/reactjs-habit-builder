@@ -75,7 +75,7 @@ const Friendship: React.FC<stateType> = (props) => {
     .catch((error) => {
         setErrorMessage(error.message);
     });
-  }, []); 
+  }, []); // friendList will cause infinity loop
 
   const onShowAlert = () => {
     setErrorVisible(true) // true
