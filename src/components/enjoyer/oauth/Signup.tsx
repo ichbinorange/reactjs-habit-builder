@@ -1,8 +1,7 @@
 import React from 'react';
-import './Signup.css';
 import { Link, Redirect } from 'react-router-dom'
 import SocialSignup from './SocialSignup';
-// import Alert from 'react-s-alert';
+import './Signup.css';
 
 type stateType = {
     authenticated: boolean;

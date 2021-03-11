@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Alert, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { API_BASE_URL } from '../util/BaseUrl';
 import './SearchResult.css';
 import './FriendCard.css';
@@ -32,13 +32,7 @@ type apiFriend = {
     name: string
     about: string;
     email: string;
-    emailVerified: boolean;
     imageUrl: string;
-    password: string;
-    provider: string;
-    providerId: number;
-    createdDate: string;
-    lastModifiedDate: string;
 }
 
 type friendship = {
@@ -47,7 +41,6 @@ type friendship = {
     receiver: apiFriend;
     activated: boolean;
     createdDate: string;
-    lastModifiedDate: string; 
 }
 
 const SearchResult: React.FC<stateType> = (props) => {

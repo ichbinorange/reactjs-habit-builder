@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom'
-
 import axios from 'axios';
+
 import { API_BASE_URL } from '../../util/BaseUrl';
 import UpdateEnjoyerForm from '../UpdateEnjoyerForm';
 import './Profile.css';
@@ -27,13 +27,13 @@ const Profile: React.FC<stateType> = (props) => {
             .catch((error) => {
                 setErrorMessage(error.message);
             });
-    }, [update]); // [enjoyerInfo] to infinity loop
+    }, []); 
 
     const updateEnjoyer = (enjoyer: any) => {
         setUpdate(false);
         axios.put(`${API_BASE_URL}/enjoyer/${props.currentUser.id}`, {...enjoyer, id: props.currentUser.id}, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
           .then((response) => {
-            const updatedEnjoyer = [...enjoyerInfo, ...enjoyer];
+            const updatedEnjoyer = {...enjoyerInfo, ...enjoyer};
             setEnjoyerInfo(updatedEnjoyer);
             setErrorMessage('Successufully update your profile');
           })

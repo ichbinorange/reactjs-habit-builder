@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Alert } from "react-bootstrap";
+
 import { API_BASE_URL } from '../util/BaseUrl';
 import NewHabitForm from './NewHabitForm';
 import HabitList from './HabitList';
@@ -12,12 +13,17 @@ type stateType = {
 }
 
 const Habit: React.FC<stateType> = (props) => {
+  const [addHabitList, setAddHabitList] = useState<Array<object>>([]);
   const [errorMessage, setErrorMessage] = useState<String>('');
   const [errorVisible, setErrorVisible] = useState<boolean>(false);
 
   const addHabit = (habit: any) => {
     axios.post(`${API_BASE_URL}/enjoyer/${props.currentUser.id}/habit`, habit, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
+        // add this to temp update habit list for useEffect
+        const updatedHabit = [...addHabitList, response.data];
+        setAddHabitList(updatedHabit);
+
         setErrorMessage('Successufully add a new Habit');
         onShowAlert();
       })
@@ -34,7 +40,7 @@ const Habit: React.FC<stateType> = (props) => {
     return () => clearTimeout(timer);
   }
 
-  // fake function to save line 44
+  // fake function to save line 53
   const toSelectHabit = (habitId: number) => {
     return null
   }
@@ -49,6 +55,7 @@ const Habit: React.FC<stateType> = (props) => {
         </div>
         <div className="col-6">
           <HabitList currentUser={props.currentUser}
+                      addHabitList={addHabitList}
                       selectHabit={toSelectHabit}
                       habitPage={true}
                       habitId={-1}/>

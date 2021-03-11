@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import FriendHabitsList from './FriendHabitsList';
 
 type stateType = {
@@ -18,13 +18,7 @@ type apiFriend = {
     name: string
     about: string;
     email: string;
-    emailVerified: boolean;
     imageUrl: string;
-    password: string;
-    provider: string;
-    providerId: number;
-    createdDate: string;
-    lastModifiedDate: string;
 }
 
 type friendship = {
@@ -33,7 +27,6 @@ type friendship = {
     receiver: apiFriend;
     activated: boolean;
     createdDate: string;
-    lastModifiedDate: string; 
 }
 
 const DATE_OPTIONS = { year: 'numeric', month: 'short', day: 'numeric' };

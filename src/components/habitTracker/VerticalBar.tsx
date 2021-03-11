@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { API_BASE_URL } from '../util/BaseUrl';
 import {
     XYPlot,
     XAxis,
@@ -10,6 +9,7 @@ import {
     VerticalBarSeriesPoint,
     DiscreteColorLegend,
 } from "react-vis";
+import { API_BASE_URL } from '../util/BaseUrl';
 
 type stateType = {
     currentUser: any;
@@ -65,7 +65,7 @@ const VerticalBar: React.FC<stateType> = (props) => {
         .catch((error) => {
             setErrorMessage(`Unable to add a new habit record`);
         });
-    }, []); 
+    }, []); // habitTrackerData will cause infinity loop
 
     // for habits' month data
     const convertMonthData = () => {

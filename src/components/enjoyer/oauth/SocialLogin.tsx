@@ -1,7 +1,7 @@
 import React from 'react';
-import './Login.css';
 import { GOOGLE_AUTH_URL } from '../../util/BaseUrl';
 import googleLogo from '../../../img/google-logo.png';
+import './Login.css';
 
 const SocialLogin: React.FC = () => {
     return (
