@@ -21,8 +21,25 @@ type stateType = {
     habitPage: boolean;
 }
 
+type updateform = {
+  id: number;
+  title: string;
+  goal: string;
+  description: string;
+  streak: string;
+  habitBuilt: boolean;
+}
+
 const HabitCard: React.FC<stateType> = (props) => {
   const [update, setUpdate] = useState<Boolean>(false);
+  const [habitCardInfo, setHabitCardInfo] = useState<updateform>({
+    id: -1,
+    title: '',
+    goal: '',
+    description: '',
+    streak: '',
+    habitBuilt: false,
+  });
   const [errorMessage, setErrorMessage] = useState<String>('');
 
   useEffect(() => {
@@ -31,6 +48,7 @@ const HabitCard: React.FC<stateType> = (props) => {
   const updateHabit = (habitobj: any) => {
     axios.put(`${API_BASE_URL}/habit/${props.id}`, {...habitobj, id: props.id}, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
+        setHabitCardInfo({...habitobj, id: props.id})
         setErrorMessage(`Habit ${ props.id} updated`);
         setUpdate(false)
       })
@@ -75,11 +93,11 @@ const HabitCard: React.FC<stateType> = (props) => {
     <div className="card w-100 d-inline-flex p-2 bd-highlight mb-2">
       <div className="card-body p-1">
         {update ? <UpdateHabitForm id={props.id}
-                                    title={props.title}
-                                    goal={props.goal}
-                                    description={props.description}
-                                    streak={props.streak}
-                                    habitBuilt={props.habitBuilt}
+                                    title={habitCardInfo.id === -1 ? props.title : habitCardInfo.title}
+                                    goal={habitCardInfo.id === -1 ? props.goal : habitCardInfo.goal}
+                                    description={habitCardInfo.id === -1 ? props.description : habitCardInfo.description}
+                                    streak={habitCardInfo.id === -1 ? props.streak : habitCardInfo.streak}
+                                    habitBuilt={habitCardInfo.id === -1 ? props.habitBuilt : habitCardInfo.habitBuilt}
                                     updateHabitCallback={updateHabit}
                                     cancelUpdateHabitCallback={cancelUpdateHabit} /> : (
         <div>
@@ -89,7 +107,7 @@ const HabitCard: React.FC<stateType> = (props) => {
             </div>
             <div className={props.habitBuilt ? "p-1": ""}>
               <span className="badge badge-pill badge-success">
-                {props.habitBuilt ? (props.habitPage ? 
+                {(habitCardInfo.id === -1 ? props.habitBuilt : habitCardInfo.habitBuilt) ? (props.habitPage ? 
                   <div>  
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-award" viewBox="0 0 16 16">
                       <path d="M9.669.864L8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193l.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
@@ -128,13 +146,13 @@ const HabitCard: React.FC<stateType> = (props) => {
           </div>
 
           <div>
-              <h5 className="card-title">#{props.id} - {props.title}</h5>
-              <h6>Goal: {props.goal}</h6>
+              <h5 className="card-title">#{props.id} - {habitCardInfo.id === -1 ? props.title : habitCardInfo.title}</h5>
+              <h6>Goal: {habitCardInfo.id === -1 ? props.goal : habitCardInfo.goal}</h6>
           </div>
           {props.habitPage ?
           <div className="card-text">
               <hr className="my-1"></hr>
-              <p>{props.description}</p>
+              <p>{habitCardInfo.id === -1 ? props.description : habitCardInfo.description}</p>
           </div> : null}
         </div>
         )}
@@ -155,7 +173,7 @@ const HabitCard: React.FC<stateType> = (props) => {
                 <div className="modal-content">
                   <div className="modal-body">
                     <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    Delete Habit#{props.id} - {props.title}
+                    Delete Habit#{props.id} - {habitCardInfo.id === -1 ? props.title : habitCardInfo.title}
                   </div>
                   <div className="modal-footer p-0">
                     <button type="button" 

@@ -5,6 +5,7 @@ import HabitCard from './HabitCard';
 
 type stateType = {
   currentUser: any;
+  addHabitList: Array<object> ;
   habitPage: boolean;
   habitId: number;
   selectHabit: {(habitId: number): void;};
@@ -29,7 +30,7 @@ const HabitList: React.FC<stateType> = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, []); // [habitList] to infinity loop
+  }, [props.addHabitList]); 
 
   const deleteHabit = (habitId: number) => {
     const updatedHabitList = habitList.filter((habit: any) => {
