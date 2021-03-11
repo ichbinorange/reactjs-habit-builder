@@ -62,7 +62,7 @@ const MsgList: React.FC<stateType> = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, []); // [habitMsgList] to infinity loop
+  }, []); // [habitMsgList] to infinity loop --> don't need it bcz friend can wait
 
   const deleteHabitMsg = (habitMsgId: number) => {
     axios.delete(`${API_BASE_URL}/habitMsg/${habitMsgId}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
