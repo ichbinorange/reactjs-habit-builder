@@ -6,6 +6,7 @@ import HabitTrackerCard from './HabitTrackerCard';
 type stateType = {
   currentUser: any;
   habitId: number;
+  addHabitTracker: Array<object>;
 }
 
 const HabitTrackerList: React.FC<stateType> = (props) => {
@@ -25,7 +26,7 @@ const HabitTrackerList: React.FC<stateType> = (props) => {
         .catch((error) => {
           setErrorMessage(error.message);
       });
-  }, []); // habitTrackerList will cause infinity loop
+  }, [props.addHabitTracker]); 
 
   const deleteHabitTracker = (habitTrackerId: number) => {
     const updatedHabitTrackerList = habitTrackerList.filter((habitTracker: any) => {

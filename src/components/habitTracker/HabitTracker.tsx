@@ -19,7 +19,7 @@ type stateType = {
 
 const HabitTracker: React.FC<stateType> = (props) => {
   const [selectedHabitId, setSelectedHabitId] = useState<number>(-1);
-  const [habitTrackerList, setHabitTrackerList] = useState<Array<object>>([]);
+  const [addHabitTrackerList, setAddHabitTrackerList] = useState<Array<object>>([]);
   const [errorMessage, setErrorMessage] = useState<String>('');
 
   const [startDate, setStartDate] = useState<Date>(new Date());
@@ -50,8 +50,10 @@ const HabitTracker: React.FC<stateType> = (props) => {
   const addHabitTracker = (habitTracker: any) => {
     axios.post(`${API_BASE_URL}/habit/${habitTracker.habitId}/habitTracker`, habitTracker, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
-        const updatedHabitTracker = [...habitTrackerList, response.data];
-        setHabitTrackerList(updatedHabitTracker);
+        // add this to temp update havitTracker list for useEffect
+        const updatedHabitTracker = [...addHabitTrackerList, response.data];
+        setAddHabitTrackerList(updatedHabitTracker);
+
         setErrorMessage('Successufully add a new Habit Record');
         onShowAlert();
       })
@@ -114,6 +116,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
           {selectedHabitId === -1 ? null :
           <div>
             <HabitList currentUser={props.currentUser}
+                        addHabitList={[]}  // for Habit Tracker page, no need for addHabitList
                         habitPage={false}
                         selectHabit={toSelectHabit}
                         habitId={selectedHabitId} />
@@ -121,6 +124,7 @@ const HabitTracker: React.FC<stateType> = (props) => {
           </div>}
           <h5 className="mb-2 text-center">Habit List</h5>
           <HabitList currentUser={props.currentUser}
+                      addHabitList={[]}  // for Habit Tracker page, no need for addHabitList
                       habitPage={false}
                       selectHabit={toSelectHabit}
                       habitId={-1}/>
@@ -156,7 +160,8 @@ const HabitTracker: React.FC<stateType> = (props) => {
         <div className="col-3">
           <h5 className="mb-2 text-center">{selectedHabitId === -1 ? "Habit Records" : `Records for Habit#${selectedHabitId}`}</h5>
           <HabitTrackerList currentUser={props.currentUser}
-                            habitId={selectedHabitId}/>
+                            habitId={selectedHabitId}
+                            addHabitTracker={addHabitTrackerList} />
         </div>
     </div>
   </div>
