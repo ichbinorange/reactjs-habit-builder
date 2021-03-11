@@ -30,7 +30,7 @@ const HabitList: React.FC<stateType> = (props) => {
       .catch((error) => {
         setErrorMessage(error.message);
       });
-  }, []); // [habitList] would cause infinity loop
+  }, []); 
 
   const friendHabitComponents = habitList.map((habit: any) => {
     return (

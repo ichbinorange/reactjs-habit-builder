@@ -26,13 +26,7 @@ type apiFriend = {
   name: string
   about: string;
   email: string;
-  emailVerified: boolean;
   imageUrl: string;
-  password: string;
-  provider: string;
-  providerId: number;
-  createdDate: string;
-  lastModifiedDate: string;
 }
 
 type friendship = {
@@ -41,7 +35,6 @@ type friendship = {
   receiver: apiFriend;
   activated: boolean;
   createdDate: string;
-  lastModifiedDate: string; 
 }
 
 type apiFriendship = {
@@ -55,8 +48,14 @@ type selectHabit = {
   friendImageUrl: string;
 }
 
+type returnUpdateInfo ={
+  friendshipId: number;
+  receiverId: number;
+}
+
 const Friendship: React.FC<stateType> = (props) => {
   const [friendList, setFriendList] = useState<apiFriendship>({requester: [], receiver: []});
+  const [tempFrindshipId, setTempFrindshipId] = useState<number>(-1)
   const [selectedHabit, setSelectedHabit] = useState<selectHabit>({habitId: -1, friendName: '', friendImageUrl: ''})
   const [searchEmail, setSearchEmail] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<String>('');
@@ -75,7 +74,7 @@ const Friendship: React.FC<stateType> = (props) => {
     .catch((error) => {
         setErrorMessage(error.message);
     });
-  }, []); // friendList will cause infinity loop
+  }, []); 
 
   const onShowAlert = () => {
     setErrorVisible(true) // true
@@ -103,7 +102,11 @@ const Friendship: React.FC<stateType> = (props) => {
 
   const addFriend = (receiver: friend) => {
     axios.post(`${API_BASE_URL}/friendship/requester/${props.currentUser.id}/receiver/${receiver.id}`, receiver, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
-      .then((response) => { 
+      .then((response) => {
+        // add this to temp update friend list for useEffect
+        setFriendList({requester: [...friendList.requester, {id: tempFrindshipId, requester: {id: props.currentUser.id, name: '', about: '', email: '', imageUrl: ''}, receiver: {id: receiver.id, name: receiver.name, about: '', email: receiver.email, imageUrl: receiver.imageUrl}, activated: false, createdDate: ''}],receiver: friendList.receiver})
+        setTempFrindshipId(tempFrindshipId-1)
+
         setErrorMessage('Successufully send the friend request');
         onShowAlert();
       })
@@ -111,7 +114,47 @@ const Friendship: React.FC<stateType> = (props) => {
         setErrorMessage(`Unable to add this friend`);
     });
   }
-  
+
+  const deleteFriendship = (friendshipId: number) => {
+    const updatedFriendListRequester = friendList.requester.filter((friendship: friendship) => {
+      return friendship.id !== friendshipId;
+    });
+
+    const updatedFriendListReceiver = friendList.receiver.filter((friendship: friendship) => {
+      return friendship.id !== friendshipId;
+    });
+
+    if (updatedFriendListRequester.length < friendList.requester.length || updatedFriendListReceiver.length < friendList.receiver.length  ) {
+      axios.delete(`${API_BASE_URL}/friendship/${friendshipId}`, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+        .then((response) => {
+          setErrorMessage(`Friendship ${ friendshipId } deleted`);
+        })
+        .catch((error) => {
+          setErrorMessage(`Unable to delete friendship ${ friendshipId }`);
+      })
+      // add this to temp update friend list for useEffect
+      updatedFriendListRequester.length < friendList.requester.length ? setFriendList({requester: updatedFriendListRequester, receiver: friendList.receiver}) : setFriendList({requester: friendList.requester, receiver: updatedFriendListReceiver});
+    }
+  }
+
+  const confirmFriendship = (update: returnUpdateInfo) => {
+    const updatedFriendListReceiver = friendList.receiver.filter((friendship: friendship) => {
+      return friendship.id === update.friendshipId;
+    });
+    if (updatedFriendListReceiver.length === 1) {
+      updatedFriendListReceiver[0].activated = true;
+      axios.put(`${API_BASE_URL}/friendship/${update.friendshipId}/receiver/${update.receiverId}`, update, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
+        .then((response) => {
+          // add this to temp update friend list for useEffect 
+          setFriendList({requester: friendList.requester, receiver: [...friendList.receiver]})
+          setErrorMessage(`Friendship ${ update.friendshipId } is confirmed`);
+        })
+        .catch((error) => {
+          setErrorMessage(`Unable to confirm friendship ${ update.friendshipId }`);
+      })
+    }
+  }
+
   const addMessage = (msg: any) => {
     axios.post(`${API_BASE_URL}/habit/${selectedHabit.habitId}/habitMsg/${props.currentUser.id}`, msg, { headers: { 'Authorization': `Bearer ${localStorage.accessToken}` } })
       .then((response) => {
@@ -133,7 +176,9 @@ const Friendship: React.FC<stateType> = (props) => {
             <h5 className="mb-2">Friend List</h5>
             <div>
               <FriendList currentUser={props.currentUser}
-                          friendList={friendList}/>
+                          friendList={friendList}
+                          deleteFriendshipCallback={deleteFriendship}
+                          confirmFriendshipCallback={confirmFriendship}/>
             </div>
           </div>
           <div className="col-5 text-center">
